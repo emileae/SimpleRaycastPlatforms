@@ -60,9 +60,11 @@
      <Compile Include="Assets\Scripts\PixelScripts\PixelPlayer.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Controller2D.cs" />
+     <Compile Include="Assets\Scripts\SLaguePlatformControls\Enemy.cs" />
+     <Compile Include="Assets\Scripts\SLaguePlatformControls\EnemyController.cs" />
+     <Compile Include="Assets\Scripts\SLaguePlatformControls\NPCController.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Player.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\PlayerInteractions.cs" />
-     <Compile Include="Assets\Scripts\Structures\Boat.cs" />
      <None Include="Assets\Standard Assets\Effects\ToonShading\Shaders\ToonBasic.shader" />
      <None Include="Assets\Shaders\TaleCrafterPixel.shader" />
      <None Include="Assets\Standard Assets\Effects\ToonShading\Shaders\ToonBasicOutline.shader" />

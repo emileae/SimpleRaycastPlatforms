@@ -11,6 +11,7 @@ TagManager:
   - Converter
   - Platform
   - Ladder
+  - Enemy
   layers:
   - Default
   - TransparentFX

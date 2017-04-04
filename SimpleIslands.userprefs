@@ -1,18 +1,16 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/NPC/NPC.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/SLaguePlatformControls/NPCController.cs">
     <Files>
-      <File FileName="Assets/Scripts/Player/PlayerController.cs" Line="200" Column="38" />
-      <File FileName="Assets/Scripts/NPC/NPCMove.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Payments/PayTarget.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/General/Blackboard.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Structures/Boat.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/PixelScripts/PixelPlayer.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/SLaguePlatformControls/Player.cs" Line="39" Column="42" />
+      <File FileName="Assets/Scripts/SLaguePlatformControls/NPCController.cs" Line="28" Column="4" />
+      <File FileName="Assets/Scripts/NPC/NPC.cs" Line="232" Column="3" />
+      <File FileName="Assets/Scripts/SLaguePlatformControls/PlayerInteractions.cs" Line="103" Column="41" />
+      <File FileName="Assets/Scripts/SLaguePlatformControls/Controller2D.cs" Line="7" Column="32" />
       <File FileName="Assets/Scripts/Items/Item.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/General/Platform.cs" Line="17" Column="2" />
-      <File FileName="Assets/Scripts/NPC/NPC.cs" Line="124" Column="41" />
-      <File FileName="Assets/Scripts/General/PickUp.cs" Line="10" Column="24" />
-      <File FileName="Assets/Scripts/Camera/CameraFollow.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/General/PickUp.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/SLaguePlatformControls/Enemy.cs" Line="84" Column="3" />
+      <File FileName="Assets/Scripts/SLaguePlatformControls/EnemyController.cs" Line="48" Column="4" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

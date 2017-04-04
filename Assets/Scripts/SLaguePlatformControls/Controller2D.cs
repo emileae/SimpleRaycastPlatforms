@@ -17,8 +17,12 @@ public class Controller2D : MonoBehaviour {
 	private RaycastOrigins raycastOrigins;
 	public CollisionInfo collisions;
 
+	// animations
+	private Animator anim;
+
 	void Start () {
 		collider = GetComponent<BoxCollider2D>();
+		anim = GetComponent<Animator>();
 		CalculateRaySpacing ();
 	}
 
@@ -26,7 +30,7 @@ public class Controller2D : MonoBehaviour {
 	public void Move (Vector3 velocity)
 	{
 		UpdateRaycastOrigins ();
-		collisions.Reset();
+		collisions.Reset ();
 
 		if (velocity.x != 0) {
 			HorizontalCollisions (ref velocity);
@@ -34,6 +38,15 @@ public class Controller2D : MonoBehaviour {
 		if (velocity.y != 0) {
 			VerticalCollisions (ref velocity);
 		}
+
+		if (anim != null) {
+			if (velocity.x != 0) {
+				anim.SetBool ("isMoving", true);
+			} else {
+				anim.SetBool ("isMoving", false);
+			}
+		}
+
 
 		transform.Translate(velocity);
 	}

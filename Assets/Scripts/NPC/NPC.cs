@@ -29,7 +29,7 @@ public class NPC : MonoBehaviour {
 	// NPC movement script
 	public float timeHovered = 0.0f;
 	public float npcHoverTime = 2.0f;
-	public NPCMove moveScript;
+	public NPCController npcController;// this was moveScript of type NPCMove
 
 	// different views depending on state
 	public GameObject activeModel;
@@ -45,15 +45,23 @@ public class NPC : MonoBehaviour {
 	public float workTimeElapsed = 0.0f;
 	public float workTime = 5.0f;
 
+	// Attacking
+	public bool attacking = false;
+	public Enemy enemyScript;
+	public float attackTime = 1.5f;
+
+	// trigger trackers
+	private bool changingDirection = false;
+
 	// Use this for initialization
 	void Start () {
-	
+		npcController = GetComponent<NPCController>();
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-		if (moveScript.stopForPlayer) {
+		if (npcController.stopForPlayer) {
 			timeHovered += Time.deltaTime;
 			if (amountPaid > 0) {
 				timeHovered = 0;
@@ -68,7 +76,7 @@ public class NPC : MonoBehaviour {
 	{
 
 		if (col.CompareTag ("Player")) {
-			Debug.Log("Collided with player!!!@");
+			Debug.Log ("Collided with player!!!@");
 //			playerScript = col.gameObject.GetComponent<PlayerController> ();
 			playerScript = col.gameObject.GetComponent<PlayerInteractions> ();
 			if (!purchased) {
@@ -82,7 +90,15 @@ public class NPC : MonoBehaviour {
 			// set npcScript to this script
 			playerScript.npcPayScript = GetComponent<NPC> ();
 		} else if (col.CompareTag ("Edge")) {
-			moveScript.direction *= -1;
+			if (!changingDirection) {
+				npcController.direction *= -1;
+				changingDirection = true;
+			}
+		}
+
+		if (col.CompareTag("Enemy")){
+			npcController.stopForEnemy = true;
+			enemyScript = col.gameObject.GetComponent<Enemy>();
 		}
 
 		// This is where NPCs are assigned a task
@@ -120,18 +136,28 @@ public class NPC : MonoBehaviour {
 			}
 			playerScript = null;
 			timeHovered = 0;
+		}else if (col.CompareTag ("Edge")) {
+			if (changingDirection) {
+				changingDirection = false;
+			}
 		}
+
+		if (col.CompareTag("Enemy")){
+			npcController.stopForEnemy = false;
+			enemyScript = null;
+		}
+
 	}
 
 
 	public void StopForPlayer ()
 	{
 		Debug.Log("Show unit cost when stopped");
-		moveScript.stopForPlayer = true;
+		npcController.stopForPlayer = true;
 	}
 	public void KeepMoving ()
 	{
-		moveScript.stopForPlayer = false;
+		npcController.stopForPlayer = false;
 	}
 	public bool Pay ()
 	{
@@ -178,5 +204,30 @@ public class NPC : MonoBehaviour {
 		Debug.Log("Produce a coin");
 		Instantiate(coin, transform.position, Quaternion.identity);
 		Work();
+	}
+
+	public IEnumerator Attack ()
+	{
+		attacking = true;
+		yield return new WaitForSeconds (attackTime);
+		Debug.Log ("Attack!!@!@ -----===========33333333>>>>>");
+		if (enemyScript != null) {
+			Debug.Log ("HIT Enemy!!!");
+			enemyScript.hp -= ap;
+		}
+		if (enemyScript.hp <= 0) {
+			Debug.Log ("Killed Enemy");
+			npcController.stopForEnemy = false;
+			enemyScript.Die();
+			enemyScript = null;
+			attacking = false;// stop attack and now, maybe pursue?
+		} else {
+			attacking = false;
+		}
+	}
+
+	public void Die(){
+		Debug.Log("play NPC death aniamtion");
+		Destroy(gameObject);
 	}
 }
