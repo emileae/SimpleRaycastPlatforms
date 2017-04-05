@@ -17,12 +17,17 @@ public class Controller2D : MonoBehaviour {
 	private RaycastOrigins raycastOrigins;
 	public CollisionInfo collisions;
 
+	// the animation sprites
+	private bool facingRight = true;
+	private SpriteRenderer sprite;
+
 	// animations
 	private Animator anim;
 
 	void Start () {
 		collider = GetComponent<BoxCollider2D>();
 		anim = GetComponent<Animator>();
+		sprite = GetComponent<SpriteRenderer>();
 		CalculateRaySpacing ();
 	}
 
@@ -47,8 +52,22 @@ public class Controller2D : MonoBehaviour {
 			}
 		}
 
+		if (velocity.x > 0 && !facingRight) {
+			Flip ();
+		} else if (velocity.x < 0 && facingRight) {
+			Flip ();
+		}
+
 
 		transform.Translate(velocity);
+	}
+
+	void Flip ()
+	{
+		if (sprite != null) {
+			facingRight = !facingRight;
+			sprite.flipX = !sprite.flipX;
+		}
 	}
 
 	void HorizontalCollisions (ref Vector3 velocity)

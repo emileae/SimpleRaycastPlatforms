@@ -10,8 +10,8 @@ public class Player : MonoBehaviour {
 	public bool mountedLadder = false;
 	public bool jumpedFromLadder = false;
 
-	private float moveSpeed = 1;
-	private float climbSpeed = 0.8f;
+	private float moveSpeed = 2;
+	private float climbSpeed = 1.8f;
 	private float gravity = -50;
 	private Vector3 velocity;
 	private float jumpVelocity = 8;

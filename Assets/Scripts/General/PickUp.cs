@@ -14,7 +14,8 @@ public class PickUp : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+		npcScript = GetComponent<NPC>();
+		itemScript = GetComponent<Item>();
 	}
 	
 	// Update is called once per frame
