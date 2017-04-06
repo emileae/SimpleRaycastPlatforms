@@ -10,11 +10,11 @@ public class Player : MonoBehaviour {
 	public bool mountedLadder = false;
 	public bool jumpedFromLadder = false;
 
-	private float moveSpeed = 2;
-	private float climbSpeed = 1.8f;
+	private float moveSpeed = 10;
+	private float climbSpeed = 9.8f;
 	private float gravity = -50;
 	private Vector3 velocity;
-	private float jumpVelocity = 8;
+	private float jumpVelocity = 20;
 
 	private Controller2D controller;
 
@@ -25,7 +25,10 @@ public class Player : MonoBehaviour {
 	void Update ()
 	{
 
-		if (controller.collisions.above || controller.collisions.below) {
+//		if (controller.collisions.above || controller.collisions.below) {
+//			velocity.y = 0;
+//		}
+		if (controller.collisions.below) {
 			velocity.y = 0;
 		}
 
@@ -42,6 +45,9 @@ public class Player : MonoBehaviour {
 		// if over a ladder, then climb/mount if vertical input
 		// if just walking over a ladder then don't fall through it (unless jump is pressed form a mounted ladder)
 		if (overLadder) {
+			if (!controller.ignoreVerticalCollisions) {
+				controller.ignoreVerticalCollisions = true;
+			}
 			if (input.y != 0) {
 				mountedLadder = true;
 				jumpedFromLadder = false;
@@ -52,6 +58,10 @@ public class Player : MonoBehaviour {
 					velocity.y = 0;
 				}
 			}
+		}
+
+		if (!overLadder && controller.ignoreVerticalCollisions) {
+			controller.ignoreVerticalCollisions = false;
 		}
 
 		// jumping from ladder

@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour {
 	public bool overLadder = false;
 
 	// Paying an NPC to employ them
-	public NPC npcPayScript;
+	public PayController payScript;
 
 	// Use this for initialization
 	void Start ()
@@ -135,9 +135,9 @@ public class PlayerController : MonoBehaviour {
 		float inputV = Input.GetAxisRaw ("Vertical");
 //		float inputH = Input.GetAxisRaw ("Horizontal");
 
-		if (npcPayScript != null && !overLadder) {
+		if (payScript != null && !overLadder) {
 			if (inputV < 0) {
-//				npcPayScript.StopForPlayer();
+				//				payScript.StopForPlayer();
 				Pay ();
 			}
 		}
@@ -182,7 +182,7 @@ public class PlayerController : MonoBehaviour {
 	{
 		Debug.Log ("passingCurrency? " + passingCurrency);
 		if (!passingCurrency) {
-			if (coinInventory.Count >= (npcPayScript.cost - npcPayScript.amountPaid)) {
+			if (coinInventory.Count >= (payScript.cost - payScript.amountPaid)) {
 				passingCurrency = true;
 				Debug.Log ("Pay.....");
 				StartCoroutine (PassCoin ());
@@ -201,9 +201,9 @@ public class PlayerController : MonoBehaviour {
 		uiImage.sprite = uiEmptySprite;
 		// remove last actual coin object
 		coinInventory.RemoveAt(coinInventory.Count-1);
-		bool purchased = npcPayScript.Pay ();
+		bool purchased = payScript.Pay ();
 		passingCurrency = false;
-		if (purchased) {
+		if (purchased && payScript.pickupable) {
 			PickUpItem ();
 		}
 	}

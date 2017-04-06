@@ -40,15 +40,19 @@ public class NPCController : MonoBehaviour {
 			if (stopForEnemy) {
 				velocity.x = 0;
 				if (!npcScript.attacking) {
-					Debug.Log("start attack...");
-					StartCoroutine(npcScript.Attack ());
+					Debug.Log ("start attack...");
+					StartCoroutine (npcScript.Attack ());
 				}
 			}
 
 		} else {
-			Debug.Log("npc - DIE - NPCController.cs");
+			Debug.Log ("npc - DIE - NPCController.cs");
 		}
 
-		controller.Move(velocity*Time.deltaTime);
+//		if (velocity.y != 0) {
+			controller.Move (velocity * Time.deltaTime);
+//		} else {
+//			transform.Translate (velocity * Time.deltaTime);	
+//		}
 	}
 }

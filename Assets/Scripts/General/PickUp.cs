@@ -12,23 +12,27 @@ public class PickUp : MonoBehaviour {
 	public NPC npcScript;
 	public Item itemScript;
 
-	// Use this for initialization
 	void Start () {
 		npcScript = GetComponent<NPC>();
 		itemScript = GetComponent<Item>();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
 	public void PickUpItem(){
+		switch (generalType) {
+			case 0:
+				npcScript.working = false;
+				break;
+			case 1:
+				Debug.Log("Deactivate item");
+				break;
+			default:
+				Debug.Log("fell through switch statement in pickup - Pickup.cs");
+				break;
+		}
 		gameObject.SetActive(false);
 	}
 	public void DroppOffItem ()
 	{
-		Debug.Log ("Dropped off");
 		switch (generalType) {
 			case 0:
 				npcScript.KeepMoving ();
@@ -37,7 +41,7 @@ public class PickUp : MonoBehaviour {
 				Debug.Log("Do Something with item... drop on ground");
 				break;
 			default:
-				Debug.Log("fell through switch statement - Pickup.cs");
+				Debug.Log("fell through switch statement in DropOffItem - Pickup.cs");
 				break;
 		}
 	}

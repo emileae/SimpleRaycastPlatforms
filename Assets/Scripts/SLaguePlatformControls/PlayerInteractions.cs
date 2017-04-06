@@ -42,7 +42,7 @@ public class PlayerInteractions : MonoBehaviour {
 //	public bool overLadder = false;
 
 	// Paying an NPC to employ them
-	public NPC npcPayScript;
+	public PayController payScript;
 
 	// Use this for initialization
 	void Start ()
@@ -67,7 +67,7 @@ public class PlayerInteractions : MonoBehaviour {
 
 		float inputV = Input.GetAxisRaw ("Vertical");
 
-		if (npcPayScript != null && controller.collisions.below) {
+		if (payScript != null && controller.collisions.below) {
 			if (inputV < 0) {
 //				npcPayScript.StopForPlayer();
 				Pay ();
@@ -106,10 +106,9 @@ public class PlayerInteractions : MonoBehaviour {
 
 	void Pay ()
 	{
-		Debug.Log ("passingCurrency? " + passingCurrency);
 		if (!passingCurrency) {
-			int amountToPay = npcPayScript.cost - npcPayScript.amountPaid;
-			if (coinInventory.Count >= npcPayScript.cost - npcPayScript.amountPaid && amountToPay > 0) {
+			int amountToPay = payScript.cost - payScript.amountPaid;
+			if (coinInventory.Count >= payScript.cost - payScript.amountPaid && amountToPay > 0) {
 				passingCurrency = true;
 				Debug.Log ("Pay.....");
 				StartCoroutine (PassCoin ());
@@ -128,9 +127,9 @@ public class PlayerInteractions : MonoBehaviour {
 		uiImage.sprite = uiEmptySprite;
 		// remove last actual coin object
 		coinInventory.RemoveAt(coinInventory.Count-1);
-		bool purchased = npcPayScript.Pay ();
+		bool purchased = payScript.Pay ();
 		passingCurrency = false;
-		if (purchased) {
+		if (purchased && payScript.pickupable) {
 			PickUpItem ();
 		}
 	}
@@ -144,7 +143,7 @@ public class PlayerInteractions : MonoBehaviour {
 		uiImage.sprite = uiCoinSprite;
 	}
 
-	void PickUpItem ()
+	public void PickUpItem ()
 	{
 		PickUp pickupScript = pickupableItem.GetComponent<PickUp> ();
 		 switch(pickupScript.generalType) {

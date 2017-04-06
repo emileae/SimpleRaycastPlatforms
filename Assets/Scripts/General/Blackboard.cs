@@ -28,31 +28,31 @@ public class Blackboard : MonoBehaviour {
 	}
 
 	// ocnvert this to direct trigger when using sprites
-	public void StopNearestNPC (GameObject player)
-	{
-
-		Debug.Log("HALT!!");
-
-		bool foundAvailableNPC = false;
-		float npcDistance = Mathf.Infinity;
-		int nearestNPCIndex = 0;
-
-		for (int i = 0; i < npcs.Count; i++) {
-			if (!npcScripts [i].purchased) {
-				Vector3 offset = player.transform.position - npcs [i].transform.position;
-				float sqrMagDistance = offset.sqrMagnitude;
-				if (sqrMagDistance < npcDistance) {
-					npcDistance = sqrMagDistance;
-					nearestNPCIndex = i;
-					foundAvailableNPC = true;
-				}
-			}
-		}
-
-		if (foundAvailableNPC) {
-			PlayerController playerScript = player.GetComponent<PlayerController>();
-			playerScript.npcPayScript = npcScripts [nearestNPCIndex];
-			npcScripts [nearestNPCIndex].StopForPlayer ();
-		}
-	}
+//	public void StopNearestNPC (GameObject player)
+//	{
+//
+//		Debug.Log("HALT!!");
+//
+//		bool foundAvailableNPC = false;
+//		float npcDistance = Mathf.Infinity;
+//		int nearestNPCIndex = 0;
+//
+//		for (int i = 0; i < npcs.Count; i++) {
+//			if (!npcScripts [i].purchased) {
+//				Vector3 offset = player.transform.position - npcs [i].transform.position;
+//				float sqrMagDistance = offset.sqrMagnitude;
+//				if (sqrMagDistance < npcDistance) {
+//					npcDistance = sqrMagDistance;
+//					nearestNPCIndex = i;
+//					foundAvailableNPC = true;
+//				}
+//			}
+//		}
+//
+//		if (foundAvailableNPC) {
+//			PlayerController playerScript = player.GetComponent<PlayerController>();
+//			playerScript.npcPayScript = npcScripts [nearestNPCIndex];
+//			npcScripts [nearestNPCIndex].StopForPlayer ();
+//		}
+//	}
 }

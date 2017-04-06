@@ -16,15 +16,16 @@ public class NPC : MonoBehaviour {
 	public int hp = 5;// health points
 	public int ap = 1;// attack points
 	public int production = 10;
-	public int cost = 3;// update cost once NPC is upgraded, by landing on a platform, then if NPC is lost by falling in the water, it will cost more to get them back... skilled
+//	public int cost = 3;// update cost once NPC is upgraded, by landing on a platform, then if NPC is lost by falling in the water, it will cost more to get them back... skilled
 
 	// handy to use for quick lookup
-	public bool purchased = false;
+//	public bool purchased = false;
 
 	public bool isPackage = false;
 
 	// payments from player
-	public int amountPaid = 0;
+	private PayController payScript;
+//	public int amountPaid = 0;
 
 	// NPC movement script
 	public float timeHovered = 0.0f;
@@ -56,6 +57,7 @@ public class NPC : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		npcController = GetComponent<NPCController>();
+		payScript = GetComponent<PayController> ();
 	}
 	
 	// Update is called once per frame
@@ -63,7 +65,7 @@ public class NPC : MonoBehaviour {
 	{
 		if (npcController.stopForPlayer) {
 			timeHovered += Time.deltaTime;
-			if (amountPaid > 0) {
+			if (payScript.amountPaid > 0) {
 				timeHovered = 0;
 			}
 			if (timeHovered >= npcHoverTime) {
@@ -79,16 +81,16 @@ public class NPC : MonoBehaviour {
 			Debug.Log ("Collided with player!!!@");
 //			playerScript = col.gameObject.GetComponent<PlayerController> ();
 			playerScript = col.gameObject.GetComponent<PlayerInteractions> ();
-			if (!purchased) {
+			if (!payScript.purchased) {
 				// if player isn't currently dealing with another NPC, then stop
-				if (playerScript.npcPayScript == null) {
+				if (playerScript.payScript == null) {
 					StopForPlayer ();
 				}
 			} else {
 				SetPickupable ();
 			}
 			// set npcScript to this script
-			playerScript.npcPayScript = GetComponent<NPC> ();
+			playerScript.payScript = payScript;
 		} else if (col.CompareTag ("Edge")) {
 			if (!changingDirection) {
 				npcController.direction *= -1;
@@ -103,11 +105,11 @@ public class NPC : MonoBehaviour {
 
 		// This is where NPCs are assigned a task
 		if (col.CompareTag ("Platform")) {
-			if (purchased && npcType == 0 && !working) {
+			if (payScript.purchased && npcType == 0 && !working) {
 				npcType = col.gameObject.GetComponent<Platform> ().platformType;
 				Debug.Log ("Start working");
 				Work();
-			}else if (purchased && npcType != 0 && !working){
+			}else if (payScript.purchased && npcType != 0 && !working){
 				Debug.Log("Continue working as type: " + npcType);
 				Work();
 			}
@@ -120,18 +122,18 @@ public class NPC : MonoBehaviour {
 		if (col.CompareTag ("Player")) {
 //			playerScript = col.gameObject.GetComponent<PlayerController> ();
 			playerScript = col.gameObject.GetComponent<PlayerInteractions> ();
-			NPC npcScript = gameObject.GetComponent<NPC> ();
-			if (npcScript == playerScript.npcPayScript) {
-				if (amountPaid < cost) {
-					ReturnFunds (playerScript);
+//			NPC npcScript = gameObject.GetComponent<NPC> ();
+			if (payScript == playerScript.payScript) {
+				if (payScript.amountPaid < payScript.cost) {
+					payScript.ReturnFunds (playerScript);
 					KeepMoving ();
 				}
-				playerScript.npcPayScript = null;
+				playerScript.payScript = null;
 			};
 			if (gameObject == playerScript.pickupableItem) {
 				playerScript.pickupableItem = null;
 			};
-			if (!purchased) {
+			if (!payScript.purchased) {
 				KeepMoving ();
 			}
 			playerScript = null;
@@ -159,27 +161,28 @@ public class NPC : MonoBehaviour {
 	{
 		npcController.stopForPlayer = false;
 	}
-	public bool Pay ()
-	{
-		Debug.Log ("Paid NPC");
-		if (!purchased) {
-			amountPaid += 1;
-		}if (amountPaid >= cost) {
-			SetPickupable ();
-			purchased = true;
-		}
 
-		return purchased;
-	}
+//	public bool Pay ()
+//	{
+//		Debug.Log ("Paid NPC");
+//		if (!purchased) {
+//			amountPaid += 1;
+//		}if (amountPaid >= cost) {
+//			SetPickupable ();
+//			purchased = true;
+//		}
+//
+//		return purchased;
+//	}
 
-	void ReturnFunds(PlayerInteractions playerScript)
-	{
-		Debug.Log("Return funds.....");
-		playerScript.currency += amountPaid;
-		amountPaid = 0;
-	}
+//	void ReturnFunds(PlayerInteractions playerScript)
+//	{
+//		Debug.Log("Return funds.....");
+//		playerScript.currency += amountPaid;
+//		amountPaid = 0;
+//	}
 
-	void SetPickupable ()
+	public void SetPickupable ()
 	{
 		// set pickupableItem on playerScript
 		if (playerScript != null) {

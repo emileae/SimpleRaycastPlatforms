@@ -5,15 +5,10 @@ public class Item : MonoBehaviour {
 
 	// Keep track of the playerScript
 	private PlayerInteractions playerScript;
+	private PickUp pickUpScript;
 
-	// Use this for initialization
 	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+		pickUpScript = GetComponent<PickUp>();
 	}
 
 	void OnTriggerEnter2D (Collider2D col)
@@ -21,6 +16,11 @@ public class Item : MonoBehaviour {
 		if (col.CompareTag ("Player")) {
 			playerScript = col.gameObject.GetComponent<PlayerInteractions> ();
 			SetPickupable ();
+
+			// if its a coin
+			if (pickUpScript.generalType == 1) {
+				playerScript.PickUpItem();
+			}
 		}
 
 	}
