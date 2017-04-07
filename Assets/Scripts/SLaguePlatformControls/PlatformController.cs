@@ -33,7 +33,7 @@ public class PlatformController : RaycastController {
 	{
 		globalWaypoints = new Vector3[localWaypoints.Length];
 		for (int i = 0; i < localWaypoints.Length; i++) {
-			// Sebastian's old code for manually setting the waypoints
+			// Sebastian's old code for manually setting the waypoints.. takes
 //			globalWaypoints[i] = localWaypoints[i] + transform.position;
 			globalWaypoints[i] = localWaypoints[i];
 		}
