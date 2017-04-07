@@ -61,8 +61,10 @@
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Altar.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Controller2D.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\CostIndicator.cs" />
+     <Compile Include="Assets\Scripts\SLaguePlatformControls\Edge.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Enemy.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\EnemyController.cs" />
+     <Compile Include="Assets\Scripts\SLaguePlatformControls\MovingPlatform.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\NPCController.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\PayController.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Platform.cs" />

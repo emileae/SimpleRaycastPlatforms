@@ -26,12 +26,17 @@ public class PlatformController : RaycastController {
 	public override void Start ()
 	{
 		base.Start ();
+		SetGlobalWaypoints();
+	}
 
+	public void SetGlobalWaypoints()
+	{
 		globalWaypoints = new Vector3[localWaypoints.Length];
 		for (int i = 0; i < localWaypoints.Length; i++) {
-			globalWaypoints[i] = localWaypoints[i] + transform.position;
+			// Sebastian's old code for manually setting the waypoints
+//			globalWaypoints[i] = localWaypoints[i] + transform.position;
+			globalWaypoints[i] = localWaypoints[i];
 		}
-	
 	}
 	
 	// Update is called once per frame
