@@ -47,16 +47,16 @@ public class PayController : MonoBehaviour {
 	}
 	
 	void OnTriggerEnter2D(Collider2D col){
-		Debug.Log("Approached the payable item, it costs: " + cost);
+//		Debug.Log("Approached the payable item, it costs: " + cost);
 		if (col.CompareTag ("Player") && !purchased) {
-			Debug.Log ("Collided with player!!!@");
+//			Debug.Log ("Collided with player!!!@");
 			playerScript = col.gameObject.GetComponent<PlayerInteractions> ();
 			playerScript.payScript = payScript;
 			DisplayCost ();
 		}
 	}
 	void OnTriggerExit2D(Collider2D col){
-		Debug.Log("Approached the altar, it costs: " + payScript.cost);
+//		Debug.Log("Approached the altar, it costs: " + payScript.cost);
 		if (col.CompareTag ("Player") && playerScript != null) {
 			if (payScript == playerScript.payScript) {
 				if (payScript.amountPaid < payScript.cost) {
@@ -65,8 +65,8 @@ public class PayController : MonoBehaviour {
 				playerScript.payScript = null;
 			};
 			playerScript = null;
+			HideCost ();// only hide cost if player exits trigger
 		}
-		HideCost ();
 	}
 
 	void DisplayCost ()
@@ -89,21 +89,32 @@ public class PayController : MonoBehaviour {
 
 	public bool Pay ()
 	{
-		Debug.Log ("Paid Pay.cs");
+//		Debug.Log ("Paid Pay.cs");
 		if (!purchased) {
 			amountPaid += 1;
 			PayCoin(amountPaid-1);
+
+			// maybe set specific states while player is busy paying
+			if (npcScript != null) {
+				npcScript.beingPaid = true;
+			}else if (altarScript != null){
+			}
+			else if (edgeScript != null){
+			}
+
 		}
 		if (amountPaid >= cost) {
 //			SetPickupable ();
 			if (npcScript != null) {
+				npcScript.beingPaid = false;
 				npcScript.SetPickupable();
+				npcScript.attackable = true;
 			}else if (altarScript != null){
-				Debug.Log("-.-.-.--.-. Activate Altar");
+//				Debug.Log("-.-.-.--.-. Activate Altar");
 				altarScript.ActivateAltar();
 			}
 			else if (edgeScript != null){
-				Debug.Log("--------|   Activate Edge item");
+//				Debug.Log("--------|   Activate Edge item");
 				edgeScript.ActivatePayment();
 			}
 			purchased = true;
@@ -113,10 +124,22 @@ public class PayController : MonoBehaviour {
 		return purchased;
 	}
 
-	public void ReturnFunds(PlayerInteractions playerScript)
+	public void ReturnFunds (PlayerInteractions playerScript)
 	{
-		Debug.Log("Return funds.....");
-		playerScript.currency += amountPaid;
+//		Debug.Log ("Return funds.....");
+
+		// return coins to player inventory
+		for (int i = 0; i < amountPaid; i++) {
+//			Debug.Log("Return a coin....");
+			playerScript.ReturnCoin();
+		}
+
+		// reset coin indicators
+		for (int i = 0; i < costIndicatorScripts.Count; i++) {
+			costIndicatorScripts[i].Refund();
+		}
+
+		// reset amountPaid last
 		amountPaid = 0;
 	}
 }

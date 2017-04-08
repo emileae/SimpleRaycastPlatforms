@@ -6,7 +6,7 @@ public class MovingPlatform : MonoBehaviour {
 	public Transform edgeTransform;
 	public LayerMask collisionMask;
 
-	public float maxMoveDistance = 50;
+	public float maxMoveDistance = 100;
 
 	public int edgeFacingDirection = 1;
 	private Bounds platformBounds;
@@ -26,7 +26,7 @@ public class MovingPlatform : MonoBehaviour {
 		platformController.localWaypoints[0] = startLocation;
 		platformController.localWaypoints[1] = endLocation;
 		platformController.SetGlobalWaypoints();
-		platformController.speed = 2.0f;// randomly set speed
+		platformController.speed = 5.0f;// guess speed
 	}
 
 	// Try to set the moving platform's destination beforehand

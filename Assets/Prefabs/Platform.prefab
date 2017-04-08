@@ -21,7 +21,6 @@ GameObject:
   - 4: {fileID: 4000011769185722}
   - 251: {fileID: 251000012246849288}
   - 68: {fileID: 68000011396884460}
-  - 114: {fileID: 114000011182149168}
   m_Layer: 11
   m_Name: Platform
   m_TagString: Platform
@@ -92,9 +91,10 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000011660940946}
   - 61: {fileID: 61000012955092770}
+  - 114: {fileID: 114000012029680162}
   m_Layer: 0
   m_Name: Trigger
-  m_TagString: Untagged
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -366,7 +366,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickupable: 0
-  cost: 3
+  cost: 2
   amountPaid: 0
   purchased: 0
   npcScript: {fileID: 0}
@@ -374,19 +374,6 @@ MonoBehaviour:
   edgeScript: {fileID: 114000012052838032}
   costIndicatorPrefab: {fileID: 1000010365387982, guid: ae0f43be690474aed9ab810a5ca034f6,
     type: 2}
---- !u!114 &114000011182149168
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010947589600}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28e41995a49944941b4c311791ab49d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  active: 0
-  platformType: 1
 --- !u!114 &114000011344922132
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -399,6 +386,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   active: 0
+--- !u!114 &114000012029680162
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013646393582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28e41995a49944941b4c311791ab49d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  active: 0
+  platformType: 1
 --- !u!114 &114000012052838032
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -425,7 +425,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickupable: 0
-  cost: 3
+  cost: 2
   amountPaid: 0
   purchased: 0
   npcScript: {fileID: 0}

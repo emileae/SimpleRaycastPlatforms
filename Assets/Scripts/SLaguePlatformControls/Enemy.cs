@@ -32,8 +32,10 @@ public class Enemy : MonoBehaviour {
 		}
 
 		if (col.CompareTag ("NPC")) {
-			enemyController.stopForNPC = true;
-			npcScript = col.gameObject.GetComponent<NPC>();
+			npcScript = col.gameObject.GetComponent<NPC> ();
+			if (npcScript.attackable) {
+				enemyController.stopForNPC = true;
+			}
 		}
 
 	}

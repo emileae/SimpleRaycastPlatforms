@@ -48,7 +48,6 @@
      <Compile Include="Assets\Scripts\Camera\CameraFollow.cs" />
      <Compile Include="Assets\Scripts\General\Blackboard.cs" />
      <Compile Include="Assets\Scripts\General\Ladder.cs" />
-     <Compile Include="Assets\Scripts\General\PickUp.cs" />
      <Compile Include="Assets\Scripts\Items\Item.cs" />
      <Compile Include="Assets\Scripts\NPC\Builder.cs" />
      <Compile Include="Assets\Scripts\NPC\Defender.cs" />
@@ -69,6 +68,7 @@
      <Compile Include="Assets\Scripts\SLaguePlatformControls\PayableScripts\CostIndicator.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\PayableScripts\Edge.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\PayableScripts\PayController.cs" />
+     <Compile Include="Assets\Scripts\SLaguePlatformControls\PickUp.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Platform.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\PlatformController.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Player.cs" />

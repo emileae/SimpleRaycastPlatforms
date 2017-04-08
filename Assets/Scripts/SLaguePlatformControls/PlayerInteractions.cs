@@ -13,6 +13,9 @@ public class PlayerInteractions : MonoBehaviour {
 	private Player playerMovement;
 	private Controller2D controller;
 
+	// Player bounds
+	private Bounds playerBounds;
+
 	// Inventory
 		// inventory ui
 	public List<GameObject> coinInventoryUI = new List<GameObject>();
@@ -55,6 +58,8 @@ public class PlayerInteractions : MonoBehaviour {
 		playerMovement = GetComponent<Player>();
 		controller = GetComponent<Controller2D>();
 
+		playerBounds = GetComponent<BoxCollider2D>().bounds;
+
 		InitializeCoinInventory();
 
 
@@ -78,10 +83,10 @@ public class PlayerInteractions : MonoBehaviour {
 		bool action = Input.GetButton ("Fire3");
 		bool actionButtonDown = Input.GetButtonDown ("Fire3");
 
-		if (pickupableItem != null && actionButtonDown) {
+		if (pickupableItem != null && inputV > 0 && !playerMovement.overLadder) {
 			Debug.Log("PICK UP");
 			PickUpItem ();
-		}else if (pickupableItem == null && actionButtonDown) {
+		}else if (inventory.Count > 0 && actionButtonDown) {
 			Debug.Log("DROP OFF");
 			DropOffItem();
 		}
@@ -108,12 +113,16 @@ public class PlayerInteractions : MonoBehaviour {
 	{
 		if (!passingCurrency) {
 			int amountToPay = payScript.cost - payScript.amountPaid;
-			if (coinInventory.Count >= payScript.cost - payScript.amountPaid && amountToPay > 0) {
+			if (coinInventory.Count >= amountToPay && amountToPay > 0) {
 				passingCurrency = true;
 				Debug.Log ("Pay.....");
 				StartCoroutine (PassCoin ());
 			} else {
 				Debug.Log("Not Enough money!!!!!!!!");
+				Debug.Log("????: " + (coinInventory.Count >= amountToPay && amountToPay > 0));
+				Debug.Log("coinInventory.Count: " + coinInventory.Count);
+				Debug.Log("cost: " + payScript.cost);
+				Debug.Log("amount paid: " + payScript.amountPaid);
 			}
 		}
 	}
@@ -134,8 +143,9 @@ public class PlayerInteractions : MonoBehaviour {
 		}
 	}
 
-	public void ReturnPayment(int returnedCurrency){
-		currency += returnedCurrency;
+	public void ReturnCoin(){
+		Debug.Log("Return a coin....");
+		currency++ ;
 		GameObject coin = Instantiate(coinPrefab, transform.position, Quaternion.identity) as GameObject;
 		coinInventory.Add (coin);
 		coin.SetActive(false);
@@ -180,7 +190,9 @@ public class PlayerInteractions : MonoBehaviour {
 		if (inventory.Count > 0) {
 			GameObject item = inventory[inventory.Count-1];// last item in list
 			item.SetActive(true);
-			item.transform.position = transform.position;
+			Bounds itemBounds = item.GetComponent<BoxCollider2D>().bounds;
+			float itemYPos = transform.position.y - (playerBounds.extents.y - itemBounds.extents.y);// add the difference in size to the current transform
+			item.transform.position = new Vector3(transform.position.x, itemYPos, transform.position.z);
 			PickUp pickupScript = item.GetComponent<PickUp>();
 			inventory.Remove(item);
 			Image uiImage = inventoryUI[inventory.Count].GetComponent<Image>();

@@ -24,6 +24,7 @@ public class NPC : MonoBehaviour {
 	public bool isPackage = false;
 
 	// payments from player
+	public bool beingPaid = false;
 	private PayController payScript;
 //	public int amountPaid = 0;
 
@@ -47,6 +48,7 @@ public class NPC : MonoBehaviour {
 	public float workTime = 5.0f;
 
 	// Attacking
+	public bool attackable = false;
 	public bool attacking = false;
 	public Enemy enemyScript;
 	public float attackTime = 1.5f;
@@ -54,8 +56,8 @@ public class NPC : MonoBehaviour {
 	// trigger trackers
 	private bool changingDirection = false;
 
-	// Use this for initialization
-	void Start () {
+	// TODO: moved this initialisation to Awake because errors were being thrown during island generation, where triggers were fired before NPC scripts were loaded
+	void Awake () {
 		npcController = GetComponent<NPCController>();
 		payScript = GetComponent<PayController> ();
 	}
@@ -98,9 +100,11 @@ public class NPC : MonoBehaviour {
 			}
 		}
 
-		if (col.CompareTag("Enemy")){
-			npcController.stopForEnemy = true;
-			enemyScript = col.gameObject.GetComponent<Enemy>();
+		if (col.CompareTag ("Enemy")) {
+			if (npcController != null && payScript.purchased) {
+				npcController.stopForEnemy = true;
+				enemyScript = col.gameObject.GetComponent<Enemy> ();
+			}
 		}
 
 		// This is where NPCs are assigned a task
@@ -138,6 +142,7 @@ public class NPC : MonoBehaviour {
 			}
 			playerScript = null;
 			timeHovered = 0;
+			beingPaid = false;
 		}else if (col.CompareTag ("Edge")) {
 			if (changingDirection) {
 				changingDirection = false;
@@ -213,17 +218,21 @@ public class NPC : MonoBehaviour {
 	{
 		attacking = true;
 		yield return new WaitForSeconds (attackTime);
-		Debug.Log ("Attack!!@!@ -----===========33333333>>>>>");
-		if (enemyScript != null) {
-			Debug.Log ("HIT Enemy!!!");
-			enemyScript.hp -= ap;
-		}
-		if (enemyScript.hp <= 0) {
-			Debug.Log ("Killed Enemy");
-			npcController.stopForEnemy = false;
-			enemyScript.Die();
-			enemyScript = null;
-			attacking = false;// stop attack and now, maybe pursue?
+		if (enemyScript) {
+			Debug.Log ("Attack!!@!@ -----===========33333333>>>>>");
+			if (enemyScript != null) {
+				Debug.Log ("HIT Enemy!!!");
+				enemyScript.hp -= ap;
+			}
+			if (enemyScript.hp <= 0) {
+				Debug.Log ("Killed Enemy");
+				npcController.stopForEnemy = false;
+				enemyScript.Die ();
+				enemyScript = null;
+				attacking = false;// stop attack and now, maybe pursue?
+			} else {
+				attacking = false;
+			}
 		} else {
 			attacking = false;
 		}

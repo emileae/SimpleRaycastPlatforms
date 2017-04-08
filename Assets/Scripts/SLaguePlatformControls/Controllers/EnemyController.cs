@@ -24,12 +24,12 @@ public class EnemyController : MonoBehaviour {
 	void Update ()
 	{
 
-		if (controller.collisions.above || controller.collisions.below) {
-			velocity.y = 0;
-		}
+//		if (controller.collisions.above || controller.collisions.below) {
+		velocity.y = 0;
+//		}
 
 		velocity.x = direction * moveSpeed;
-		velocity.y += gravity * Time.deltaTime;
+//		velocity.y += gravity * Time.deltaTime;
 
 
 		// Make sure enemy is still alive to attack
@@ -38,8 +38,10 @@ public class EnemyController : MonoBehaviour {
 			if (stopForPlayer || stopForNPC) {
 				velocity.x = 0;
 				if (!enemyScript.attacking) {
-					Debug.Log("start attack...");
-					StartCoroutine(enemyScript.Attack ());
+					Debug.Log ("start attack...");
+					if (stopForNPC && enemyScript.npcScript.attackable) {
+						StartCoroutine (enemyScript.Attack ());
+					}
 				}
 			}
 
@@ -47,8 +49,8 @@ public class EnemyController : MonoBehaviour {
 			Debug.Log("enemy - DIE - EnemyController.cs");
 		}
 
-
-		controller.Move (velocity * Time.deltaTime);
+		transform.Translate(velocity * Time.deltaTime);
+//		controller.Move (velocity * Time.deltaTime);
 
 	}
 

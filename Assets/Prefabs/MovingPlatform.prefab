@@ -72,7 +72,7 @@ MonoBehaviour:
   collisionMask:
     serializedVersion: 2
     m_Bits: 0
-  maxMoveDistance: 50
+  maxMoveDistance: 150
   edgeFacingDirection: 1
 --- !u!114 &114000011722943488
 MonoBehaviour:

@@ -23,12 +23,12 @@ public class NPCController : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-		if (controller.collisions.above || controller.collisions.below) {
+//		if (controller.collisions.above || controller.collisions.below) {
 			velocity.y = 0;
-		}
+//		}
 
 		velocity.x = direction * moveSpeed;
-		velocity.y += gravity * Time.deltaTime;
+//		velocity.y += gravity * Time.deltaTime;
 
 		if (stopForPlayer) {
 			velocity.x = 0;	
@@ -39,7 +39,7 @@ public class NPCController : MonoBehaviour {
 
 			if (stopForEnemy) {
 				velocity.x = 0;
-				if (!npcScript.attacking) {
+				if (!npcScript.attacking && npcScript.attackable) {
 					Debug.Log ("start attack...");
 					StartCoroutine (npcScript.Attack ());
 				}
@@ -50,9 +50,9 @@ public class NPCController : MonoBehaviour {
 		}
 
 //		if (velocity.y != 0) {
-			controller.Move (velocity * Time.deltaTime);
+//			controller.Move (velocity * Time.deltaTime);
 //		} else {
-//			transform.Translate (velocity * Time.deltaTime);	
+			transform.Translate (velocity * Time.deltaTime);	
 //		}
 	}
 }
