@@ -133,10 +133,14 @@ public class NPC : MonoBehaviour {
 					KeepMoving ();
 				}
 				playerScript.payScript = null;
-			};
-			if (gameObject == playerScript.pickupableItem) {
-				playerScript.pickupableItem = null;
-			};
+			}
+			;
+//			if (gameObject == playerScript.pickupableItem) {
+//				playerScript.pickupableItem = null;
+//			};
+			if (playerScript.pickupableItems.Contains (gameObject)) {
+				playerScript.pickupableItems.Remove(gameObject);
+			}
 			if (!payScript.purchased) {
 				KeepMoving ();
 			}
@@ -191,15 +195,18 @@ public class NPC : MonoBehaviour {
 	{
 		// set pickupableItem on playerScript
 		if (playerScript != null) {
-			playerScript.pickupableItem = gameObject;
+//			playerScript.pickupableItem = gameObject;
+			if (!playerScript.pickupableItems.Contains(gameObject)){
+				playerScript.pickupableItems.Add(gameObject);
+			}
 		}
 	}
-	void Reactivate (PlayerInteractions player)
-	{
-		playerScript = player;
-		playerScript.pickupableItem = gameObject;
-
-	}
+//	void Reactivate (PlayerInteractions player)
+//	{
+//		playerScript = player;
+//		playerScript.pickupableItem = gameObject;
+//
+//	}
 
 	void Work(){
 		working = true;

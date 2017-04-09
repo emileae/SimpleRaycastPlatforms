@@ -784,6 +784,7 @@ MonoBehaviour:
   - {fileID: 662304045}
   - {fileID: 319346231}
   pickupableItem: {fileID: 0}
+  pickupableItems: []
   coinInventorySize: 5
   inventorySize: 3
   inventoryCoin: {fileID: 1000012975582034, guid: cbeb6e292391f4029806095f9c729024,
@@ -2126,7 +2127,7 @@ MonoBehaviour:
   - 120
   maxPlatformsPerIsland: 5
   numberOfIslands: 11
-  distanceBetweenIslands: 100
+  distanceBetweenIslands: 2
   platformBoundsList: []
 --- !u!4 &2061169449
 Transform:

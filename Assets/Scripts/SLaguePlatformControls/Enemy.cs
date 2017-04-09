@@ -68,15 +68,15 @@ public class Enemy : MonoBehaviour {
 		if (npcScript != null) {
 			Debug.Log ("HIT NPC!!!");
 			npcScript.hp -= ap;
-		}
-		if (npcScript.hp <= 0) {
-			Debug.Log ("Killed NPC");
-			enemyController.stopForNPC = false;
-			npcScript.Die();
-			npcScript = null;
-			attacking = false;// stop attack and now, maybe pursue?
-		} else {
-			attacking = false;
+			if (npcScript.hp <= 0) {
+				Debug.Log ("Killed NPC");
+				enemyController.stopForNPC = false;
+				npcScript.Die ();
+				npcScript = null;
+				attacking = false;// stop attack and now, maybe pursue?
+			} else {
+				attacking = false;
+			}
 		}
 	}
 

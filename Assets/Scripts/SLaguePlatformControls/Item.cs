@@ -19,7 +19,7 @@ public class Item : MonoBehaviour {
 
 			// if its a coin
 			if (pickUpScript.generalType == 1) {
-				playerScript.PickUpItem();
+				playerScript.PickUpItem(gameObject);
 			}
 		}
 
@@ -39,7 +39,7 @@ public class Item : MonoBehaviour {
 	void SetPickupable ()
 	{
 		if (playerScript != null) {
-			playerScript.pickupableItem = gameObject;
+			playerScript.pickupableItems.Add(gameObject);
 		}
 	}
 }

@@ -22,6 +22,7 @@ public class PlayerInteractions : MonoBehaviour {
 	public List<GameObject> inventoryUI = new List<GameObject>();
 
 	public GameObject pickupableItem;
+	public List<GameObject> pickupableItems = new List<GameObject>();
 	public int coinInventorySize = 5;
 	public int inventorySize = 3;
 
@@ -74,6 +75,7 @@ public class PlayerInteractions : MonoBehaviour {
 
 		if (payScript != null && controller.collisions.below) {
 			if (inputV < 0) {
+//			if (Input.GetKeyDown(KeyCode.DownArrow)){
 //				npcPayScript.StopForPlayer();
 				Pay ();
 			}
@@ -83,7 +85,8 @@ public class PlayerInteractions : MonoBehaviour {
 		bool action = Input.GetButton ("Fire3");
 		bool actionButtonDown = Input.GetButtonDown ("Fire3");
 
-		if (pickupableItem != null && inputV > 0 && !playerMovement.overLadder) {
+//		if (pickupableItem != null && inputV > 0 && !playerMovement.overLadder) {
+		if (pickupableItems.Count > 0 && actionButtonDown) {
 			Debug.Log("PICK UP");
 			PickUpItem ();
 		}else if (inventory.Count > 0 && actionButtonDown) {
@@ -130,18 +133,22 @@ public class PlayerInteractions : MonoBehaviour {
 	IEnumerator PassCoin ()
 	{
 		yield return new WaitForSeconds (0.2f);
-		currency -= 1;
-		// first remove ui in last position
-		Image uiImage = coinInventoryUI[coinInventory.Count-1].GetComponent<Image>();
-		uiImage.sprite = uiEmptySprite;
-		// remove last actual coin object
-		coinInventory.RemoveAt(coinInventory.Count-1);
-		bool purchased = payScript.Pay ();
 		passingCurrency = false;
-		if (purchased && payScript.pickupable) {
-			PickUpItem ();
+		if (payScript != null) {
+			currency -= 1;
+			// first remove ui in last position
+			Image uiImage = coinInventoryUI [coinInventory.Count - 1].GetComponent<Image> ();
+			uiImage.sprite = uiEmptySprite;
+			// remove last actual coin object
+			coinInventory.RemoveAt (coinInventory.Count - 1);
+			bool purchased = payScript.Pay ();
+			if (purchased && payScript.pickupable) {
+				PickUpItem (payScript.gameObject);
+			}
 		}
+
 	}
+
 
 	public void ReturnCoin(){
 		Debug.Log("Return a coin....");
@@ -153,17 +160,29 @@ public class PlayerInteractions : MonoBehaviour {
 		uiImage.sprite = uiCoinSprite;
 	}
 
-	public void PickUpItem ()
+	public void PickUpItem (GameObject itemToBePickedUp = null)
 	{
-		PickUp pickupScript = pickupableItem.GetComponent<PickUp> ();
+//		PickUp pickupScript = pickupableItem.GetComponent<PickUp> ();
+		PickUp pickupScript;
+		if (itemToBePickedUp != null) {
+			pickupScript = itemToBePickedUp.GetComponent<PickUp> ();
+		} else { 
+			pickupScript = pickupableItems [0].GetComponent<PickUp> ();
+		}
 		 switch(pickupScript.generalType) {
 		 	case 0:
 				if (inventory.Count < inventorySize) {
 					pickupScript.PickUpItem ();
-					inventory.Add (pickupableItem);
+//					inventory.Add (pickupableItem);
+					inventory.Add (pickupableItems[0]);
 					Image uiImage = inventoryUI [inventory.Count - 1].GetComponent<Image> ();
 					uiImage.sprite = uiCoinSprite;
-					pickupableItem = null;
+//					pickupableItem = null;
+					if (itemToBePickedUp != null){
+						pickupableItems.Remove(itemToBePickedUp);
+					}else{
+						pickupableItems.Remove(pickupableItems[0]);
+					}
 				} else {
 					Debug.Log ("Inventory Full!!!!");
 				}
@@ -171,12 +190,24 @@ public class PlayerInteractions : MonoBehaviour {
 			case 1:
 				if (coinInventory.Count < coinInventorySize) {
 					pickupScript.PickUpItem ();
-					coinInventory.Add (pickupableItem);
+//					coinInventory.Add (pickupableItem);
+					coinInventory.Add (pickupableItems[0]);
 					Image uiImage = coinInventoryUI [coinInventory.Count - 1].GetComponent<Image> ();
 					uiImage.sprite = uiCoinSprite;
-					pickupableItem = null;
+//					pickupableItem = null;
+//					pickupableItems.Remove(pickupableItems[0]);
+					if (itemToBePickedUp != null){
+						pickupableItems.Remove(itemToBePickedUp);
+					}else{
+						pickupableItems.Remove(pickupableItems[0]);
+					}
 				} else {
 					Debug.Log ("Inventory - money Full!!!!");
+					if (itemToBePickedUp != null){
+						pickupableItems.Remove(itemToBePickedUp);
+					}else{
+						pickupableItems.Remove(pickupableItems[0]);
+					}
 				}
 				break;
 			default:
