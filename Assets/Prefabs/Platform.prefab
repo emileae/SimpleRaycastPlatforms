@@ -349,6 +349,7 @@ MonoBehaviour:
   cost: 5
   amountPaid: 0
   purchased: 0
+  platformScript: {fileID: 114000012029680162}
   npcScript: {fileID: 0}
   altarScript: {fileID: 0}
   edgeScript: {fileID: 0}
@@ -369,6 +370,7 @@ MonoBehaviour:
   cost: 2
   amountPaid: 0
   purchased: 0
+  platformScript: {fileID: 114000012029680162}
   npcScript: {fileID: 0}
   altarScript: {fileID: 0}
   edgeScript: {fileID: 114000012052838032}
@@ -399,6 +401,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   active: 0
   platformType: 1
+  maxCoins: 10
+  coinPrefab: {fileID: 1000014107584456, guid: e060c3e888e98476fb260058eae32323, type: 2}
+  coins: []
+  builders: []
+  fighters: []
+  averageJoes: []
 --- !u!114 &114000012052838032
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -428,6 +436,7 @@ MonoBehaviour:
   cost: 2
   amountPaid: 0
   purchased: 0
+  platformScript: {fileID: 114000012029680162}
   npcScript: {fileID: 0}
   altarScript: {fileID: 0}
   edgeScript: {fileID: 114000012052838032}

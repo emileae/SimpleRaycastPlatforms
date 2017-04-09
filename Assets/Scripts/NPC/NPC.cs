@@ -21,6 +21,9 @@ public class NPC : MonoBehaviour {
 	// handy to use for quick lookup
 //	public bool purchased = false;
 
+	// PLATFORM
+	private Platform platformScript;
+
 	public bool isPackage = false;
 
 	// payments from player
@@ -110,7 +113,8 @@ public class NPC : MonoBehaviour {
 		// This is where NPCs are assigned a task
 		if (col.CompareTag ("Platform")) {
 			if (payScript.purchased && npcType == 0 && !working) {
-				npcType = col.gameObject.GetComponent<Platform> ().platformType;
+				platformScript = col.gameObject.GetComponent<Platform> ();
+				npcType = platformScript.platformType;
 				Debug.Log ("Start working");
 				Work();
 			}else if (payScript.purchased && npcType != 0 && !working){
@@ -214,11 +218,24 @@ public class NPC : MonoBehaviour {
 	}
 	IEnumerator PerformWork ()
 	{
-		yield return new WaitForSeconds(workTime);
-		Debug.Log("Do the work animation... include some movement across platform...");
-		Debug.Log("Produce a coin");
-		Instantiate(coin, transform.position, Quaternion.identity);
-		Work();
+		yield return new WaitForSeconds (workTime);
+//		Debug.Log("Do the work animation... include some movement across platform...");
+//		Debug.Log("Produce a coin");
+//		Instantiate(coin, transform.position, Quaternion.identity);
+
+		// Use the Platform script's built-in coins, so less instantiating
+		if (platformScript.coins.Count > 0) {
+			// TODO: be careful here, if 2 NPCs both try to activate the same coin at the same time then probably an error/bug here
+			GameObject foundCoin = platformScript.coins [0];
+			foundCoin.SetActive (true);
+			foundCoin.transform.position = transform.position;
+			platformScript.coins.Remove (foundCoin);
+			Work ();
+		} else {
+			Debug.Log("NO MORE COINS TO FIND!!!!!!!!!!");
+		}
+
+		//Work();
 	}
 
 	public IEnumerator Attack ()

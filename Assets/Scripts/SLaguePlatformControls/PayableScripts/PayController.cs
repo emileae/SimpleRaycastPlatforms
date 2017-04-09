@@ -9,6 +9,10 @@ public class PayController : MonoBehaviour {
 	public int amountPaid = 0;
 	public bool purchased;
 
+	// keep track of resident platform in the case of altar and edgescripts... since they dont move and stay on 1 platform
+	// -- added manually in prefab
+	public Platform platformScript;
+
 	public NPC npcScript;
 	public Altar altarScript;
 	public Edge edgeScript;
@@ -92,14 +96,13 @@ public class PayController : MonoBehaviour {
 //		Debug.Log ("Paid Pay.cs");
 		if (!purchased) {
 			amountPaid += 1;
-			PayCoin(amountPaid-1);
+			PayCoin (amountPaid - 1);
 
 			// maybe set specific states while player is busy paying
 			if (npcScript != null) {
 				npcScript.beingPaid = true;
-			}else if (altarScript != null){
-			}
-			else if (edgeScript != null){
+			} else if (altarScript != null) {
+			} else if (edgeScript != null) {
 			}
 
 		}
@@ -107,16 +110,19 @@ public class PayController : MonoBehaviour {
 //			SetPickupable ();
 			if (npcScript != null) {
 				npcScript.beingPaid = false;
-				npcScript.SetPickupable();
+				npcScript.SetPickupable ();
 				npcScript.attackable = true;
-			}else if (altarScript != null){
-//				Debug.Log("-.-.-.--.-. Activate Altar");
-				altarScript.ActivateAltar();
+			} else {
+				Build();
 			}
-			else if (edgeScript != null){
-//				Debug.Log("--------|   Activate Edge item");
-				edgeScript.ActivatePayment();
-			}
+//			else if (altarScript != null){
+//				Debug.Log("Need a builder for Altar.................");
+//				altarScript.ActivateAltar();
+//			}
+//			else if (edgeScript != null){
+//				Debug.Log("Need a builder for Edge.................");
+//				edgeScript.ActivatePayment();
+//			}
 			purchased = true;
 			HideCost ();
 		}
@@ -142,4 +148,18 @@ public class PayController : MonoBehaviour {
 		// reset amountPaid last
 		amountPaid = 0;
 	}
+
+	void Build(){
+		Debug.Log("# Builders on platform: " + platformScript.builders.Count);
+		Debug.Log("# crew on platform: " + platformScript.averageJoes.Count);
+		if (altarScript != null){
+			Debug.Log("Need a builder for Altar.................");
+			altarScript.ActivateAltar();
+		}
+		else if (edgeScript != null){
+			Debug.Log("Need a builder for Edge.................");
+			edgeScript.ActivatePayment();
+		}
+	}
+
 }
