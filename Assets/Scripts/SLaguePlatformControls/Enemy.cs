@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour {
 	public bool attacking = false;
 	public NPC npcScript;
 	public float attackTime = 1.0f;
+	public float attackRadius = 4.0f;
 
 	// trigger trackers
 	private bool changingDirection = false;
@@ -32,10 +33,10 @@ public class Enemy : MonoBehaviour {
 		}
 
 		if (col.CompareTag ("NPC")) {
-			npcScript = col.gameObject.GetComponent<NPC> ();
-			if (npcScript.attackable) {
-				enemyController.stopForNPC = true;
-			}
+//			npcScript = col.gameObject.GetComponent<NPC> ();
+//			if (npcScript.attackable) {
+//				enemyController.stopForNPC = true;
+//			}
 		}
 
 	}
@@ -64,7 +65,6 @@ public class Enemy : MonoBehaviour {
 	{
 		attacking = true;
 		yield return new WaitForSeconds (attackTime);
-		Debug.Log ("Attack!!@!@ -----===========33333333>>>>>");
 		if (npcScript != null) {
 			Debug.Log ("HIT NPC!!!");
 			npcScript.hp -= ap;
@@ -73,11 +73,9 @@ public class Enemy : MonoBehaviour {
 				enemyController.stopForNPC = false;
 				npcScript.Die ();
 				npcScript = null;
-				attacking = false;// stop attack and now, maybe pursue?
-			} else {
-				attacking = false;
 			}
 		}
+		attacking = false;
 	}
 
 	public void Die(){

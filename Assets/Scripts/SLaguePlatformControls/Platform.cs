@@ -17,7 +17,7 @@ public class Platform : MonoBehaviour {
 	public List<GameObject> fighters = new List<GameObject>();
 	public List<GameObject> averageJoes = new List<GameObject>();
 
-	void Start ()
+	public void ListCoins()
 	{
 		for (int i = 0; i < maxCoins; i++) {
 			GameObject coinObj = Instantiate(coinPrefab, transform.position, Quaternion.identity) as GameObject;

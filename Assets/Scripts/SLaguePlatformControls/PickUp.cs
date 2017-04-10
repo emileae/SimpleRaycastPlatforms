@@ -17,10 +17,19 @@ public class PickUp : MonoBehaviour {
 		itemScript = GetComponent<Item>();
 	}
 
-	public void PickUpItem(){
+	public void PickUpItem (Platform platformScript = null)
+	{
 		switch (generalType) {
-			case 0:
+		case 0:
+				// remove NPC from platform list
 				npcScript.working = false;
+				if (npcScript.npcType == 1) {
+					platformScript.averageJoes.Remove(gameObject);
+				}else if (npcScript.npcType == 2){
+					platformScript.builders.Remove(gameObject);
+				}else if (npcScript.npcType == 3){
+					platformScript.fighters.Remove(gameObject);
+				}
 				break;
 			case 1:
 				Debug.Log("Deactivate item");
@@ -31,10 +40,18 @@ public class PickUp : MonoBehaviour {
 		}
 		gameObject.SetActive(false);
 	}
-	public void DroppOffItem ()
+	public void DroppOffItem (Platform platformScript = null)
 	{
 		switch (generalType) {
 			case 0:
+				npcScript.platformScript = platformScript;
+				if (npcScript.npcType == 1) {
+					platformScript.averageJoes.Add(gameObject);
+				}else if (npcScript.npcType == 2){
+					platformScript.builders.Add(gameObject);
+				}else if (npcScript.npcType == 3){
+					platformScript.fighters.Add(gameObject);
+				}
 				npcScript.KeepMoving ();
 				break;
 			case 1:

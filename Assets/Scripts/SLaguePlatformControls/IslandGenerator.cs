@@ -19,6 +19,11 @@ public class IslandGenerator : MonoBehaviour {
 	public int numberOfIslands;
 	public float distanceBetweenIslands;
 
+	// generate types of npcs
+	public int numAverageJoes = 10;
+	public int numBuilders = 3;
+	public int numFighters = 5;
+
 	// keep track of all the platforms
 	private List<GameObject> platforms = new List<GameObject>();
 	public List<Bounds> platformBoundsList = new List<Bounds>();
@@ -40,6 +45,9 @@ public class IslandGenerator : MonoBehaviour {
 				// instantiate platform
 				GameObject platform = (GameObject)Instantiate (platformPrefabs [0], new Vector3 (currentXPos, islandHeights [islandHeightIndex], 0.1f * j), Quaternion.identity);
 				platforms.Add (platform);
+				Platform platformScript = platform.transform.GetChild(0).GetComponent<Platform>();// platform script is in the trigger component
+				platformScript.maxCoins = Random.Range(1, 12);
+				platformScript.ListCoins();
 				Bounds platformBounds = platform.GetComponent<EdgeCollider2D> ().bounds;
 				// save some getComponent calls
 				platformBoundsList.Add (platformBounds);
@@ -81,21 +89,36 @@ public class IslandGenerator : MonoBehaviour {
 				if (Random.Range (0f, 1f) > 0.5f) {
 					GameObject enemyObj = Instantiate (enemy, new Vector3 (platformBoundsList [currentPlatformIndex].center.x, platformBoundsList [currentPlatformIndex].max.y + 20.0f, platform.transform.position.z), Quaternion.identity) as GameObject;
 					if (enemyBounds == null) {
-						enemyBounds = enemyObj.GetComponent<BoxCollider2D>().bounds;
+						enemyBounds = enemyObj.GetComponent<BoxCollider2D> ().bounds;
 					}
-					enemyObj.transform.position = new Vector3(platformBoundsList [currentPlatformIndex].center.x, platformBoundsList [currentPlatformIndex].max.y +enemyBounds.extents.y, platform.transform.position.z);
+					enemyObj.transform.position = new Vector3 (platformBoundsList [currentPlatformIndex].center.x, platformBoundsList [currentPlatformIndex].max.y + enemyBounds.extents.y, platform.transform.position.z);
 					// TODO: maybe add enemy to a public list somewhere
 				}
 
-				// randomly assign an NPC to a platform -- offset slightly or make sure NPC don't spawn overlapping an enemy?
-				if (Random.Range (0f, 1f) > 0.6f) {
-					GameObject npcObj = Instantiate (npc, new Vector3 (platformBoundsList [currentPlatformIndex].center.x, platformBoundsList [currentPlatformIndex].max.y + 20.0f, platform.transform.position.z), Quaternion.identity) as GameObject;
-					if (npcBounds == null) {
-						npcBounds = npcObj.GetComponent<BoxCollider2D>().bounds;
-					}
-					npcObj.transform.position = new Vector3(platformBoundsList [currentPlatformIndex].center.x, platformBoundsList [currentPlatformIndex].max.y +npcBounds.extents.y, platform.transform.position.z);
-					// TODO: maybe add npc to a public list somewhere
+				// Assign NPCs to a platform -- offset slightly or make sure NPCs don't spawn overlapping an enemy?
+
+				GameObject npcObj = Instantiate (npc, new Vector3 (platformBoundsList [currentPlatformIndex].center.x, platformBoundsList [currentPlatformIndex].max.y + 20.0f, platform.transform.position.z), Quaternion.identity) as GameObject;
+				if (npcBounds == null) {
+					npcBounds = npcObj.GetComponent<BoxCollider2D> ().bounds;
 				}
+				npcObj.transform.position = new Vector3 (platformBoundsList [currentPlatformIndex].center.x, platformBoundsList [currentPlatformIndex].max.y + npcBounds.extents.y, platform.transform.position.z);
+				NPC npcScript = npcObj.GetComponent<NPC> ();
+				if (numBuilders > 0) {
+					npcScript.npcType = 2;
+//					platformScript.builders.Add(npcObj);
+					numBuilders -= 1;
+				}else if (numFighters > 0){
+					npcScript.npcType = 3;
+//					platformScript.fighters.Add(npcObj);
+					numFighters -= 1;
+				}else if (numAverageJoes > 0){
+					npcScript.npcType = 1;
+//					platformScript.averageJoes.Add(npcObj);
+					numAverageJoes -= 1;
+				}
+				npcScript.SetType();
+				// TODO: maybe add npc to a public list somewhere
+
 
 
 				currentPlatformIndex++;// update to keep track of where we are in the list

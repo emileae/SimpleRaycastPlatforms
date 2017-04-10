@@ -9,6 +9,9 @@ public class PlayerInteractions : MonoBehaviour {
 
 	public Blackboard blackboard;
 
+	// Platform
+	public Platform platformScript;
+
 	// Other player scripts
 	private Player playerMovement;
 	private Controller2D controller;
@@ -102,6 +105,9 @@ public class PlayerInteractions : MonoBehaviour {
 			playerMovement.overLadder = true;
 			playerMovement.ladderTransform = col.transform;
 		}
+		if (col.CompareTag ("Platform")) {
+			platformScript = col.gameObject.GetComponent<Platform>();
+		}
 	}
 	void OnTriggerExit2D (Collider2D col)
 	{
@@ -171,8 +177,9 @@ public class PlayerInteractions : MonoBehaviour {
 		}
 		 switch(pickupScript.generalType) {
 		 	case 0:
+		 		// picking up NPCs
 				if (inventory.Count < inventorySize) {
-					pickupScript.PickUpItem ();
+					pickupScript.PickUpItem (platformScript);
 //					inventory.Add (pickupableItem);
 					inventory.Add (pickupableItems[0]);
 					Image uiImage = inventoryUI [inventory.Count - 1].GetComponent<Image> ();
@@ -228,7 +235,7 @@ public class PlayerInteractions : MonoBehaviour {
 			inventory.Remove(item);
 			Image uiImage = inventoryUI[inventory.Count].GetComponent<Image>();
 			uiImage.sprite = uiEmptySprite;
-			pickupScript.DroppOffItem();
+			pickupScript.DroppOffItem(platformScript);
 		} else {
 			Debug.Log("Nothing in INVENTORY!!!!");
 		}

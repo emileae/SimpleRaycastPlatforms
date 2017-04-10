@@ -10,6 +10,8 @@ public class NPCController : MonoBehaviour {
 	private float gravity = -50;
 	private Vector3 velocity;
 
+	public LayerMask enemyLayer;
+
 	public bool stopForPlayer = false;
 	public bool stopForEnemy = false;
 	public int direction = -1;
@@ -24,7 +26,7 @@ public class NPCController : MonoBehaviour {
 	void Update ()
 	{
 //		if (controller.collisions.above || controller.collisions.below) {
-			velocity.y = 0;
+		velocity.y = 0;
 //		}
 
 		velocity.x = direction * moveSpeed;
@@ -34,6 +36,20 @@ public class NPCController : MonoBehaviour {
 			velocity.x = 0;	
 		}
 
+		if (npcScript.attackable) {
+			Collider2D overlapEnemy = Physics2D.OverlapCircle (transform.position, npcScript.attackRadius, enemyLayer);
+			if (overlapEnemy != null) {
+				if (npcScript.enemyScript == null) {
+					npcScript.enemyScript = overlapEnemy.gameObject.GetComponent<Enemy> ();
+				}
+				Debug.Log ("Within attack radius (npc)..........");
+				stopForEnemy = true;
+			} else {
+				stopForEnemy = false;
+				npcScript.enemyScript = null;
+				npcScript.attacking = false;// stop attacking if there is no enemy
+			}
+		}
 
 		if (npcScript.hp > 0) {
 

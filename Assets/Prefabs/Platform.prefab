@@ -144,7 +144,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000011769185722}
-  m_RootOrder: 3
+  m_RootOrder: 0
 --- !u!4 &4000011769185722
 Transform:
   m_ObjectHideFlags: 1
@@ -156,10 +156,10 @@ Transform:
   m_LocalScale: {x: 20, y: 100, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
+  - {fileID: 4000011660940946}
   - {fileID: 4000014175154712}
   - {fileID: 4000013561008728}
   - {fileID: 4000012358685182}
-  - {fileID: 4000011660940946}
   - {fileID: 4000010488310978}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -175,7 +175,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
   m_Children: []
   m_Father: {fileID: 4000011769185722}
-  m_RootOrder: 2
+  m_RootOrder: 3
 --- !u!4 &4000013561008728
 Transform:
   m_ObjectHideFlags: 1
@@ -188,7 +188,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
   m_Children: []
   m_Father: {fileID: 4000011769185722}
-  m_RootOrder: 1
+  m_RootOrder: 2
 --- !u!4 &4000014175154712
 Transform:
   m_ObjectHideFlags: 1
@@ -201,7 +201,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000011769185722}
-  m_RootOrder: 0
+  m_RootOrder: 1
 --- !u!61 &61000010638510512
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -334,6 +334,8 @@ MonoBehaviour:
   facingDirection: 1
   movingPlatform: {fileID: 1000010524963992, guid: cb032737e06b840278659733a9a0b290,
     type: 2}
+  platformScript: {fileID: 114000012029680162}
+  callWaitTime: 5
 --- !u!114 &114000010822916474
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -388,6 +390,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   active: 0
+  platformScript: {fileID: 114000012029680162}
+  callWaitTime: 5
 --- !u!114 &114000012029680162
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -421,6 +425,8 @@ MonoBehaviour:
   facingDirection: -1
   movingPlatform: {fileID: 1000010524963992, guid: cb032737e06b840278659733a9a0b290,
     type: 2}
+  platformScript: {fileID: 114000012029680162}
+  callWaitTime: 5
 --- !u!114 &114000013886633688
 MonoBehaviour:
   m_ObjectHideFlags: 1

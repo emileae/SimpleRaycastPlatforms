@@ -8,9 +8,9 @@ public class NPC : MonoBehaviour {
 
 	// Type integer specifies the type of NPC
 	// 0 -> not purchased
-	// 1 -> grass farmer
-	// 2 -> tree farmer
-	// 3 -> miner
+	// 1 -> average Joe
+	// 2 -> builder
+	// 3 -> fighter
 	// etc... expand if there's interest (boat upgrader... platform expander...)
 	public int npcType = 0;
 	public int hp = 5;// health points
@@ -22,7 +22,7 @@ public class NPC : MonoBehaviour {
 //	public bool purchased = false;
 
 	// PLATFORM
-	private Platform platformScript;
+	public Platform platformScript;
 
 	public bool isPackage = false;
 
@@ -36,9 +36,10 @@ public class NPC : MonoBehaviour {
 	public float npcHoverTime = 2.0f;
 	public NPCController npcController;// this was moveScript of type NPCMove
 
-	// different views depending on state
-	public GameObject activeModel;
-	public GameObject packageModel;
+	// different skins
+	public GameObject averageJoeSkin;
+	public GameObject builderSkin;
+	public GameObject fighterSkin;
 
 	// Keep track of the playerScript
 //	private PlayerController playerScript;
@@ -55,6 +56,7 @@ public class NPC : MonoBehaviour {
 	public bool attacking = false;
 	public Enemy enemyScript;
 	public float attackTime = 1.5f;
+	public float attackRadius = 3.0f;
 
 	// trigger trackers
 	private bool changingDirection = false;
@@ -64,19 +66,25 @@ public class NPC : MonoBehaviour {
 		npcController = GetComponent<NPCController>();
 		payScript = GetComponent<PayController> ();
 	}
+
+	void Start ()
+	{
+		SetType();
+	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-		if (npcController.stopForPlayer) {
-			timeHovered += Time.deltaTime;
-			if (payScript.amountPaid > 0) {
-				timeHovered = 0;
-			}
-			if (timeHovered >= npcHoverTime) {
-				KeepMoving();
-			}
-		}
+		// no need to hover if player doesnt have to pay for NPC
+//		if (npcController.stopForPlayer) {
+//			timeHovered += Time.deltaTime;
+//			if (payScript.amountPaid > 0) {
+//				timeHovered = 0;
+//			}
+//			if (timeHovered >= npcHoverTime) {
+//				KeepMoving();
+//			}
+//		}
 	}
 
 	void OnTriggerEnter2D (Collider2D col)
@@ -87,38 +95,31 @@ public class NPC : MonoBehaviour {
 //			playerScript = col.gameObject.GetComponent<PlayerController> ();
 			playerScript = col.gameObject.GetComponent<PlayerInteractions> ();
 			if (!payScript.purchased) {
+				payScript.purchased = true;
+				attackable = true;// this must be removed if reverting to paying for NPCs
+				SetPickupable ();
 				// if player isn't currently dealing with another NPC, then stop
-				if (playerScript.payScript == null) {
-					StopForPlayer ();
-				}
+//				if (playerScript.payScript == null) {
+//					StopForPlayer ();
+//				}
 			} else {
 				SetPickupable ();
 			}
 			// set npcScript to this script
-			playerScript.payScript = payScript;
-		} else if (col.CompareTag ("Edge")) {
-			if (!changingDirection) {
-				npcController.direction *= -1;
-				changingDirection = true;
-			}
-		}
+			// Add this if player is going to pay for NPCs
+//			playerScript.payScript = payScript;
+		} 
 
-		if (col.CompareTag ("Enemy")) {
-			if (npcController != null && payScript.purchased) {
-				npcController.stopForEnemy = true;
-				enemyScript = col.gameObject.GetComponent<Enemy> ();
-			}
-		}
+//		if (col.CompareTag ("Enemy")) {
+//			if (npcController != null && payScript.purchased) {
+//				npcController.stopForEnemy = true;
+//				enemyScript = col.gameObject.GetComponent<Enemy> ();
+//			}
+//		}
 
 		// This is where NPCs are assigned a task
 		if (col.CompareTag ("Platform")) {
-			if (payScript.purchased && npcType == 0 && !working) {
-				platformScript = col.gameObject.GetComponent<Platform> ();
-				npcType = platformScript.platformType;
-				Debug.Log ("Start working");
-				Work();
-			}else if (payScript.purchased && npcType != 0 && !working){
-				Debug.Log("Continue working as type: " + npcType);
+			if (payScript.purchased && !working) {
 				Work();
 			}
 		}
@@ -128,20 +129,14 @@ public class NPC : MonoBehaviour {
 	void OnTriggerExit2D (Collider2D col)
 	{
 		if (col.CompareTag ("Player")) {
-//			playerScript = col.gameObject.GetComponent<PlayerController> ();
 			playerScript = col.gameObject.GetComponent<PlayerInteractions> ();
-//			NPC npcScript = gameObject.GetComponent<NPC> ();
 			if (payScript == playerScript.payScript) {
 				if (payScript.amountPaid < payScript.cost) {
 					payScript.ReturnFunds (playerScript);
 					KeepMoving ();
 				}
 				playerScript.payScript = null;
-			}
-			;
-//			if (gameObject == playerScript.pickupableItem) {
-//				playerScript.pickupableItem = null;
-//			};
+			};
 			if (playerScript.pickupableItems.Contains (gameObject)) {
 				playerScript.pickupableItems.Remove(gameObject);
 			}
@@ -151,17 +146,51 @@ public class NPC : MonoBehaviour {
 			playerScript = null;
 			timeHovered = 0;
 			beingPaid = false;
-		}else if (col.CompareTag ("Edge")) {
-			if (changingDirection) {
-				changingDirection = false;
-			}
 		}
+//		else if (col.CompareTag ("Edge")) {
+//			if (changingDirection) {
+//				changingDirection = false;
+//			}
+//		}
 
 		if (col.CompareTag("Enemy")){
 			npcController.stopForEnemy = false;
 			enemyScript = null;
 		}
 
+	}
+
+	public void ChangeDirection ()
+	{
+		npcController.direction *= -1;
+	}
+
+	public void SetType(){
+		if (npcType == 1) {
+			averageJoeSkin.SetActive(true);
+			builderSkin.SetActive(false);
+			fighterSkin.SetActive(false);
+			hp = 3;
+			ap = 1;
+			payScript.cost = 3;
+			workTime = 10;
+		}else if (npcType == 2){
+			averageJoeSkin.SetActive(false);
+			builderSkin.SetActive(true);
+			fighterSkin.SetActive(false);
+			hp = 2;
+			ap = 2;
+			payScript.cost = 5;
+			workTime = 30;
+		}else if (npcType == 3){
+			averageJoeSkin.SetActive(false);
+			builderSkin.SetActive(false);
+			fighterSkin.SetActive(true);
+			hp = 7;
+			ap = 3;
+			payScript.cost = 4;
+			workTime = 60;
+		}
 	}
 
 
@@ -172,45 +201,25 @@ public class NPC : MonoBehaviour {
 	}
 	public void KeepMoving ()
 	{
+		if (npcController.direction == 0) {
+			if (Random.Range (0.0f, 1.0f) >= 0.5f) {
+				npcController.direction = 1;
+			} else {
+				npcController.direction = -1;
+			}
+		}
 		npcController.stopForPlayer = false;
 	}
-
-//	public bool Pay ()
-//	{
-//		Debug.Log ("Paid NPC");
-//		if (!purchased) {
-//			amountPaid += 1;
-//		}if (amountPaid >= cost) {
-//			SetPickupable ();
-//			purchased = true;
-//		}
-//
-//		return purchased;
-//	}
-
-//	void ReturnFunds(PlayerInteractions playerScript)
-//	{
-//		Debug.Log("Return funds.....");
-//		playerScript.currency += amountPaid;
-//		amountPaid = 0;
-//	}
 
 	public void SetPickupable ()
 	{
 		// set pickupableItem on playerScript
 		if (playerScript != null) {
-//			playerScript.pickupableItem = gameObject;
 			if (!playerScript.pickupableItems.Contains(gameObject)){
 				playerScript.pickupableItems.Add(gameObject);
 			}
 		}
 	}
-//	void Reactivate (PlayerInteractions player)
-//	{
-//		playerScript = player;
-//		playerScript.pickupableItem = gameObject;
-//
-//	}
 
 	void Work(){
 		working = true;
@@ -219,9 +228,6 @@ public class NPC : MonoBehaviour {
 	IEnumerator PerformWork ()
 	{
 		yield return new WaitForSeconds (workTime);
-//		Debug.Log("Do the work animation... include some movement across platform...");
-//		Debug.Log("Produce a coin");
-//		Instantiate(coin, transform.position, Quaternion.identity);
 
 		// Use the Platform script's built-in coins, so less instantiating
 		if (platformScript.coins.Count > 0) {
@@ -242,28 +248,54 @@ public class NPC : MonoBehaviour {
 	{
 		attacking = true;
 		yield return new WaitForSeconds (attackTime);
-		if (enemyScript) {
-			Debug.Log ("Attack!!@!@ -----===========33333333>>>>>");
-			if (enemyScript != null) {
-				Debug.Log ("HIT Enemy!!!");
-				enemyScript.hp -= ap;
-			}
+		if (enemyScript != null) {
+			Debug.Log ("HIT Enemy!!!");
+			enemyScript.hp -= ap;
 			if (enemyScript.hp <= 0) {
 				Debug.Log ("Killed Enemy");
 				npcController.stopForEnemy = false;
 				enemyScript.Die ();
 				enemyScript = null;
-				attacking = false;// stop attack and now, maybe pursue?
-			} else {
-				attacking = false;
+				KeepMoving();// NPC carries on idling/working on the platform
 			}
-		} else {
-			attacking = false;
 		}
+		attacking = false;// set attacking to false so that the Attack coroutine is called again in NPC update loop
 	}
 
-	public void Die(){
-		Debug.Log("play NPC death aniamtion");
-		Destroy(gameObject);
+	public void Die ()
+	{
+		Debug.Log ("play NPC death aniamtion");
+		if (npcType == 1) {
+			platformScript.averageJoes.Remove(gameObject);
+		}else if (npcType == 2){
+			platformScript.builders.Remove(gameObject);
+		}else if (npcType == 3){
+			platformScript.fighters.Remove(gameObject);
+		}
+		// TODO: instead of destroying make the ghost take NPC away to the jail platform...
+		Destroy (gameObject);
+	}
+
+	// Building
+	// called from building sites, like edges (Edge.cs) and altars/ build points (Altar.cs)
+	public void GoToBuildSite (Transform buildingSite)
+	{
+		if (buildingSite.position.x > transform.position.x) {
+			npcController.direction = 1;
+		}else if (buildingSite.position.x < transform.position.x){
+			npcController.direction = -1;
+		}
+	}
+	public void StopToBuild(){
+		npcController.direction = 0;
+		Debug.Log("Play build animation......");
+	}
+	public void FinishBuild (int postBuildDirection = 1)
+	{
+
+		npcController.direction = postBuildDirection;
+
+		KeepMoving();
+		Debug.Log("Play finish build animation......");
 	}
 }
