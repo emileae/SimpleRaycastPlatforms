@@ -88,7 +88,6 @@
 -define:UNITY_EDITOR_OSX
 -define:UNITY_TEAM_LICENSE
 'Assets/Scripts/Camera/CameraFollow.cs'
-'Assets/Scripts/General/Blackboard.cs'
 'Assets/Scripts/General/Ladder.cs'
 'Assets/Scripts/NPC/Builder.cs'
 'Assets/Scripts/NPC/Defender.cs'
@@ -98,6 +97,7 @@
 'Assets/Scripts/Payments/PayTarget.cs'
 'Assets/Scripts/PixelScripts/PixelPlayer.cs'
 'Assets/Scripts/Player/PlayerController.cs'
+'Assets/Scripts/SLaguePlatformControls/Blackboard.cs'
 'Assets/Scripts/SLaguePlatformControls/Controllers/Controller2D.cs'
 'Assets/Scripts/SLaguePlatformControls/Controllers/EnemyController.cs'
 'Assets/Scripts/SLaguePlatformControls/Controllers/MovingPlatform.cs'

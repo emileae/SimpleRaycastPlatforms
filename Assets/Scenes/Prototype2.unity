@@ -583,7 +583,7 @@ RectTransform:
   - {fileID: 1372834433}
   - {fileID: 922637095}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -727,6 +727,8 @@ MonoBehaviour:
   horizontalRaySpacing: 0
   verticalRaySpacing: 0
   collider: {fileID: 0}
+  seaLevel: 0
+  fallDepth: 100
   ignoreVerticalCollisions: 0
 --- !u!61 &621573752
 BoxCollider2D:
@@ -1417,7 +1419,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
 --- !u!114 &1168043778
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1599,7 +1601,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
 --- !u!1 &1583818172
 GameObject:
   m_ObjectHideFlags: 0
@@ -1859,12 +1861,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcbdd1d14a9524f299e0dc60b18786c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  workerCallTime: 1
-  workList: []
-  npcs:
-  - {fileID: 0}
-  npcScripts:
-  - {fileID: 0}
+  ghostTower: {fileID: 0}
+  ghostTowerBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
 --- !u!4 &1756472223
 Transform:
   m_ObjectHideFlags: 0
@@ -1877,7 +1877,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 1
 --- !u!1 &1846541451
 GameObject:
   m_ObjectHideFlags: 0
@@ -2067,10 +2067,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c560d8145b0584c3495e8b3bc931bb83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blackboard: {fileID: 1756472222}
   platformPrefabs:
   - {fileID: 1000010947589600, guid: 168cad1ee400242b688a8ddb9ff55f35, type: 2}
   ladderPrefab: {fileID: 1000011365136420, guid: b79bc064e08bc46cfb06dd5e299c63a6,
     type: 2}
+  ghostTower: {fileID: 1000012848626516, guid: cc700095edcee4d4e99b4ed38241109f, type: 2}
   player: {fileID: 621573748}
   npc: {fileID: 1000014264817654, guid: 3b5e02745f9514d2ab0656864dadf6ff, type: 2}
   enemy: {fileID: 1000013032717360, guid: 7ba0b7d451a814d5195145e16b83b2e8, type: 2}
@@ -2083,10 +2085,14 @@ MonoBehaviour:
   maxPlatformsPerIsland: 5
   numberOfIslands: 11
   distanceBetweenIslands: 2
+  numEnemies: 10
   numAverageJoes: 10
   numBuilders: 3
   numFighters: 5
+  platforms: []
   platformBoundsList: []
+  temporaryPlatformIndices: 
+  enemyPlatforms: 
 --- !u!4 &2061169449
 Transform:
   m_ObjectHideFlags: 0

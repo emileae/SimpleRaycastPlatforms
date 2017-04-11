@@ -11,6 +11,7 @@ public class EnemyController : MonoBehaviour {
 	private Vector3 velocity;
 
 	public LayerMask npcLayer;
+	public LayerMask playerLayer;
 
 	public bool stopForPlayer = false;
 	public bool stopForNPC = false;
@@ -42,6 +43,13 @@ public class EnemyController : MonoBehaviour {
 		} else {
 			stopForNPC = false;
 			enemyScript.npcScript = null;
+		}
+
+		// Attacking player
+		Collider2D overlapPlayer = Physics2D.OverlapCircle (transform.position, enemyScript.attackRadius, playerLayer);
+		if (overlapPlayer != null) {
+			Debug.Log("YOU'RE DEAD!!!");
+			Destroy(overlapPlayer.gameObject);
 		}
 
 

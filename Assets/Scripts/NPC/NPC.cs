@@ -6,6 +6,8 @@ using System.Collections;
 
 public class NPC : MonoBehaviour {
 
+	public Blackboard blackboard;
+
 	// Type integer specifies the type of NPC
 	// 0 -> not purchased
 	// 1 -> average Joe
@@ -69,6 +71,9 @@ public class NPC : MonoBehaviour {
 
 	void Start ()
 	{
+		if (blackboard == null) {
+			blackboard = GameObject.Find("Blackboard").GetComponent<Blackboard>();
+		}
 		SetType();
 	}
 	
@@ -97,12 +102,14 @@ public class NPC : MonoBehaviour {
 			if (!payScript.purchased) {
 				payScript.purchased = true;
 				attackable = true;// this must be removed if reverting to paying for NPCs
+				Work();// this must be removed if reverting to paying for NPCs
 				SetPickupable ();
 				// if player isn't currently dealing with another NPC, then stop
 //				if (playerScript.payScript == null) {
 //					StopForPlayer ();
 //				}
 			} else {
+				// allow NPC to be picked up by player
 				SetPickupable ();
 			}
 			// set npcScript to this script
@@ -117,12 +124,14 @@ public class NPC : MonoBehaviour {
 //			}
 //		}
 
+		
+		// now NPCs start working as soon as they come in contact with the player
 		// This is where NPCs are assigned a task
-		if (col.CompareTag ("Platform")) {
-			if (payScript.purchased && !working) {
-				Work();
-			}
-		}
+//		if (col.CompareTag ("Platform")) {
+//			if (payScript.purchased && !working) {
+//				Work();
+//			}
+//		}
 
 	}
 
@@ -137,6 +146,7 @@ public class NPC : MonoBehaviour {
 				}
 				playerScript.payScript = null;
 			};
+			// remove NPC from being able to be picked up by player
 			if (playerScript.pickupableItems.Contains (gameObject)) {
 				playerScript.pickupableItems.Remove(gameObject);
 			}
@@ -208,6 +218,9 @@ public class NPC : MonoBehaviour {
 				npcController.direction = -1;
 			}
 		}
+		if (payScript.purchased && !working) {
+			Work();
+		}
 		npcController.stopForPlayer = false;
 	}
 
@@ -221,7 +234,8 @@ public class NPC : MonoBehaviour {
 		}
 	}
 
-	void Work(){
+	void Work()
+	{
 		working = true;
 		StartCoroutine(PerformWork());
 	}
@@ -273,7 +287,9 @@ public class NPC : MonoBehaviour {
 			platformScript.fighters.Remove(gameObject);
 		}
 		// TODO: instead of destroying make the ghost take NPC away to the jail platform...
-		Destroy (gameObject);
+		//Destroy (gameObject);
+		Bounds npcBounds = GetComponent<BoxCollider2D>().bounds;
+		gameObject.transform.position =  new Vector3 (blackboard.ghostTowerBounds.center.x,blackboard.ghostTowerBounds.max.y + npcBounds.extents.y, blackboard.ghostTower.transform.position.z);
 	}
 
 	// Building

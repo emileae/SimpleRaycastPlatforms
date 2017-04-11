@@ -95,7 +95,7 @@ MonoBehaviour:
   collider: {fileID: 0}
   passengerMask:
     serializedVersion: 2
-    m_Bits: 768
+    m_Bits: 256
   localWaypoints: []
   speed: 5
   cyclic: 0

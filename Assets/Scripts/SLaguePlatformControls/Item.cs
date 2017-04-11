@@ -17,7 +17,7 @@ public class Item : MonoBehaviour {
 			playerScript = col.gameObject.GetComponent<PlayerInteractions> ();
 			SetPickupable ();
 
-			// if its a coin
+			// if its a coin... pick it up
 			if (pickUpScript.generalType == 1) {
 				playerScript.PickUpItem(gameObject);
 			}

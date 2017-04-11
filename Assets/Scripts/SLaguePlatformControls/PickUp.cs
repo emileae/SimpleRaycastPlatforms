@@ -20,7 +20,7 @@ public class PickUp : MonoBehaviour {
 	public void PickUpItem (Platform platformScript = null)
 	{
 		switch (generalType) {
-		case 0:
+			case 0:
 				// remove NPC from platform list
 				npcScript.working = false;
 				if (npcScript.npcType == 1) {
@@ -44,6 +44,7 @@ public class PickUp : MonoBehaviour {
 	{
 		switch (generalType) {
 			case 0:
+			Debug.Log("__________'Dropped NPC on GROUND'________ " + npcScript.npcType);
 				npcScript.platformScript = platformScript;
 				if (npcScript.npcType == 1) {
 					platformScript.averageJoes.Add(gameObject);

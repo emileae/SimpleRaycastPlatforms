@@ -219,6 +219,9 @@ MonoBehaviour:
   npcLayer:
     serializedVersion: 2
     m_Bits: 512
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 256
   stopForPlayer: 0
   stopForNPC: 0
   direction: 1
@@ -241,6 +244,8 @@ MonoBehaviour:
   horizontalRaySpacing: 0
   verticalRaySpacing: 0
   collider: {fileID: 0}
+  seaLevel: 0
+  fallDepth: 2
   ignoreVerticalCollisions: 0
 --- !u!114 &114000014197817070
 MonoBehaviour:

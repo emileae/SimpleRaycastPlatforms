@@ -23,6 +23,7 @@ public class PayController : MonoBehaviour {
 	public GameObject costIndicatorPrefab;
 	private List<GameObject> costIndicators = new List<GameObject>();
 	private List<CostIndicator> costIndicatorScripts = new List<CostIndicator>();
+	private List<GameObject> heldCoinObjects = new List<GameObject>();
 	private Bounds bounds;
 
 	// Use this for initialization
@@ -91,11 +92,14 @@ public class PayController : MonoBehaviour {
 		costIndicatorScripts[coinIndex].Pay();
 	}
 
-	public bool Pay ()
+	public bool Pay (GameObject coinObject = null)
 	{
 //		Debug.Log ("Paid Pay.cs");
 		if (!purchased) {
 			amountPaid += 1;
+			if (coinObject != null) {
+				heldCoinObjects.Add (coinObject);
+			}
 			PayCoin (amountPaid - 1);
 
 			// maybe set specific states while player is busy paying
@@ -106,14 +110,16 @@ public class PayController : MonoBehaviour {
 			}
 
 		}
+		// TODO: maybe destroy coin objects once something has been fully paid for, otherwise might get coin object accumulation
 		if (amountPaid >= cost) {
 //			SetPickupable ();
+			// paying for an NPC... (11-04-2017 this isn't being used, NPCs are employed on trigger enter from player)
 			if (npcScript != null) {
 				npcScript.beingPaid = false;
 				npcScript.SetPickupable ();
 				npcScript.attackable = true;
 			} else {
-				Build();
+				Build ();
 			}
 //			else if (altarScript != null){
 //				Debug.Log("Need a builder for Altar.................");
@@ -125,6 +131,14 @@ public class PayController : MonoBehaviour {
 //			}
 			purchased = true;
 			HideCost ();
+
+			// fully paid for so can delete the coin objects
+			for (int i = 0; i < heldCoinObjects.Count; i++) {
+				GameObject deletedCoinObject = heldCoinObjects[i];
+				heldCoinObjects.Remove(heldCoinObjects[i]);
+				Destroy(deletedCoinObject);
+			}
+
 		}
 
 		return purchased;

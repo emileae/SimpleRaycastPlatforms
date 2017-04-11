@@ -71,17 +71,22 @@ public class Edge : MonoBehaviour {
 			NPC npcScript = col.gameObject.GetComponent<NPC> ();
 
 			if (needToBuild && currentBuilder == null) {
-				// builders take priority
-				if (platformScript.builders.Count > 0) {
-					if (npcScript.npcType == 2) {
-						currentBuilder = npcScript;
-						Build ();
+				// if its an average Joe or a builder... fighters cant build
+				if (npcScript.npcType == 1 || npcScript.npcType == 2) {
+					// builders take priority
+					if (platformScript.builders.Count > 0) {
+						if (npcScript.npcType == 2) {
+							currentBuilder = npcScript;
+							Build ();
+						}
+					} else if (platformScript.averageJoes.Count > 0 && platformScript.builders.Count <= 0) {
+						if (npcScript.npcType == 1) {
+							currentBuilder = npcScript;
+							Build ();
+						}
 					}
-				} else if (platformScript.averageJoes.Count > 0 && platformScript.builders.Count <= 0) {
-					if (npcScript.npcType == 1) {
-						currentBuilder = npcScript;
-						Build ();
-					}
+				} else {
+					npcScript.ChangeDirection();
 				}
 			} else {
 				Debug.Log("tell NPC to change direction");

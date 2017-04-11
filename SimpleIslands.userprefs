@@ -1,20 +1,17 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/NPC/NPC.cs">
     <Files>
-      <File FileName="Assets/Scripts/SLaguePlatformControls/IslandGenerator.cs" Line="71" Column="9" />
-      <File FileName="Assets/Scripts/SLaguePlatformControls/PayableScripts/PayController.cs" Line="150" Column="3" />
-      <File FileName="Assets/Scripts/SLaguePlatformControls/PlayerInteractions.cs" Line="231" Column="32" />
-      <File FileName="Assets/Scripts/SLaguePlatformControls/Controllers/MovingPlatform.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/SLaguePlatformControls/PlatformController.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/SLaguePlatformControls/Player.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/SLaguePlatformControls/Platform.cs" Line="18" Column="37" />
-      <File FileName="Assets/Scripts/NPC/NPC.cs" Line="232" Column="18" />
+      <File FileName="Assets/Scripts/NPC/NPC.cs" Line="269" Column="1" />
+      <File FileName="Assets/Scripts/SLaguePlatformControls/Platform.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/SLaguePlatformControls/Controllers/NPCController.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/SLaguePlatformControls/IslandGenerator.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/SLaguePlatformControls/PlayerInteractions.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/SLaguePlatformControls/PickUp.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/SLaguePlatformControls/Controllers/Controller2D.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/SLaguePlatformControls/Item.cs" Line="20" Column="20" />
-      <File FileName="Assets/Scripts/SLaguePlatformControls/Enemy.cs" Line="80" Column="4" />
+      <File FileName="Assets/Scripts/SLaguePlatformControls/Enemy.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/SLaguePlatformControls/Controllers/EnemyController.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/SLaguePlatformControls/PayableScripts/Edge.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/SLaguePlatformControls/PayableScripts/Altar.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

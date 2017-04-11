@@ -88,11 +88,11 @@ public class PlayerInteractions : MonoBehaviour {
 		bool action = Input.GetButton ("Fire3");
 		bool actionButtonDown = Input.GetButtonDown ("Fire3");
 
-//		if (pickupableItem != null && inputV > 0 && !playerMovement.overLadder) {
-		if (pickupableItems.Count > 0 && actionButtonDown) {
+		// can only pick up and drop off if grounded
+		if (pickupableItems.Count > 0 && actionButtonDown && controller.collisions.below) {
 			Debug.Log("PICK UP");
 			PickUpItem ();
-		}else if (inventory.Count > 0 && actionButtonDown) {
+		}else if (inventory.Count > 0 && actionButtonDown && controller.collisions.below) {
 			Debug.Log("DROP OFF");
 			DropOffItem();
 		}
@@ -146,8 +146,9 @@ public class PlayerInteractions : MonoBehaviour {
 			Image uiImage = coinInventoryUI [coinInventory.Count - 1].GetComponent<Image> ();
 			uiImage.sprite = uiEmptySprite;
 			// remove last actual coin object
+			GameObject coinObject = coinInventory[coinInventory.Count-1];
 			coinInventory.RemoveAt (coinInventory.Count - 1);
-			bool purchased = payScript.Pay ();
+			bool purchased = payScript.Pay (coinObject);
 			if (purchased && payScript.pickupable) {
 				PickUpItem (payScript.gameObject);
 			}
@@ -197,12 +198,9 @@ public class PlayerInteractions : MonoBehaviour {
 			case 1:
 				if (coinInventory.Count < coinInventorySize) {
 					pickupScript.PickUpItem ();
-//					coinInventory.Add (pickupableItem);
 					coinInventory.Add (pickupableItems[0]);
 					Image uiImage = coinInventoryUI [coinInventory.Count - 1].GetComponent<Image> ();
 					uiImage.sprite = uiCoinSprite;
-//					pickupableItem = null;
-//					pickupableItems.Remove(pickupableItems[0]);
 					if (itemToBePickedUp != null){
 						pickupableItems.Remove(itemToBePickedUp);
 					}else{

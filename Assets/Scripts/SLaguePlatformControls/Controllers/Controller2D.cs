@@ -4,6 +4,11 @@ using System.Collections;
 //[RequireComponent (typeof(BoxCollider2D))]
 public class Controller2D : RaycastController {
 
+	// specific to the sea game
+	public float seaLevel = 0;// y position that indicates sea level
+	public float fallDepth = 200.0f;
+	private bool swimming = false;
+
 //	public LayerMask collisionMask;
 //
 //	const float skinWidth = 0.15f;
@@ -65,6 +70,28 @@ public class Controller2D : RaycastController {
 
 		if (standingOnPlatform) {
 			collisions.below = true;
+		}
+
+		// falling into the sea
+		if (transform.position.y <= seaLevel) {
+
+//			float fracFallen = Mathf.Abs (transform.position.y - seaLevel) / fallDepth;
+//			velocity.y = Mathf.Lerp (velocity.y, 0.0f, fracFallen);
+//			Debug.Log ("dist below sea: " + ( Mathf.Abs (transform.position.y) ));
+//			Debug.Log ("dist below sea cutoff: " + ( Mathf.Abs (seaLevel - (fallDepth - 0.1f)) ));
+
+			// add some tolerance to the fall depth because Lerp takes ages to get there
+			if (Mathf.Abs (transform.position.y) >= Mathf.Abs (seaLevel - (fallDepth - 0.1f))) {
+				swimming = true;
+				collisions.below = true;
+				velocity.y = 2.0f;
+			}
+			if (!swimming) {
+				float fracFallen = Mathf.Abs (transform.position.y - seaLevel) / fallDepth;
+				velocity.y = Mathf.Lerp (velocity.y, 0.0f, fracFallen);
+				Debug.Log ("velocity.y going down: " + velocity.y);
+			}
+
 		}
 
 
