@@ -121,8 +121,10 @@ public class PlayerInteractions : MonoBehaviour {
 	void Pay ()
 	{
 		if (!passingCurrency) {
-			int amountToPay = payScript.cost - payScript.amountPaid;
-			if (coinInventory.Count >= amountToPay && amountToPay > 0) {
+			int amountToPay = (payScript.costBlock * (payScript.numPaidTiers + 1)) - payScript.amountPaid;
+			Debug.Log("coinInventory.Count: " + coinInventory.Count);
+			Debug.Log("amountToPay: " + amountToPay);
+			if (coinInventory.Count + (payScript.costBlock * payScript.numPaidTiers) >= amountToPay && amountToPay > 0) {
 				passingCurrency = true;
 				Debug.Log ("Pay.....");
 				StartCoroutine (PassCoin ());

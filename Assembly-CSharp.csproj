@@ -50,12 +50,12 @@
      <Compile Include="Assets\Scripts\NPC\Builder.cs" />
      <Compile Include="Assets\Scripts\NPC\Defender.cs" />
      <Compile Include="Assets\Scripts\NPC\Farmer.cs" />
-     <Compile Include="Assets\Scripts\NPC\NPC.cs" />
      <Compile Include="Assets\Scripts\NPC\NPCMove.cs" />
      <Compile Include="Assets\Scripts\Payments\PayTarget.cs" />
      <Compile Include="Assets\Scripts\PixelScripts\PixelPlayer.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Blackboard.cs" />
+     <Compile Include="Assets\Scripts\SLaguePlatformControls\Controllers\CoinEaterController.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Controllers\Controller2D.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Controllers\EnemyController.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Controllers\MovingPlatform.cs" />
@@ -64,6 +64,7 @@
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Enemy.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\IslandGenerator.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Item.cs" />
+     <Compile Include="Assets\Scripts\SLaguePlatformControls\NPC.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\PayableScripts\Altar.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\PayableScripts\CostIndicator.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\PayableScripts\Edge.cs" />

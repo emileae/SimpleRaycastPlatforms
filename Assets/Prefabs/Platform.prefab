@@ -118,7 +118,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4000010488310978
 Transform:
   m_ObjectHideFlags: 1
@@ -349,6 +349,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pickupable: 0
   cost: 5
+  costBlock: 5
+  numPaidTiers: 0
+  payTiers: 0
   amountPaid: 0
   purchased: 0
   platformScript: {fileID: 114000012029680162}
@@ -370,6 +373,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pickupable: 0
   cost: 2
+  costBlock: 5
+  numPaidTiers: 0
+  payTiers: 0
   amountPaid: 0
   purchased: 0
   platformScript: {fileID: 114000012029680162}
@@ -389,6 +395,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23ab52b38479244fb8bef59f1396dc46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  structureType: 0
+  blankModel: {fileID: 0}
+  activeModel: {fileID: 0}
+  healTime: 2
   active: 0
   platformScript: {fileID: 114000012029680162}
   callWaitTime: 5
@@ -411,6 +421,8 @@ MonoBehaviour:
   builders: []
   fighters: []
   averageJoes: []
+  edgeLeft: {fileID: 1000012072069338}
+  edgeRight: {fileID: 1000011456771534}
 --- !u!114 &114000012052838032
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -440,6 +452,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pickupable: 0
   cost: 2
+  costBlock: 5
+  numPaidTiers: 0
+  payTiers: 0
   amountPaid: 0
   purchased: 0
   platformScript: {fileID: 114000012029680162}

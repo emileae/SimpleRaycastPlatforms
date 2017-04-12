@@ -17,6 +17,9 @@ public class Platform : MonoBehaviour {
 	public List<GameObject> fighters = new List<GameObject>();
 	public List<GameObject> averageJoes = new List<GameObject>();
 
+	public GameObject edgeLeft;
+	public GameObject edgeRight;
+
 	public void ListCoins()
 	{
 		for (int i = 0; i < maxCoins; i++) {

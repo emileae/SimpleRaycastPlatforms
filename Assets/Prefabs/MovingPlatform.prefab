@@ -97,10 +97,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   localWaypoints: []
-  speed: 5
-  cyclic: 0
-  waitTime: 1
-  easeFactor: 0.97
+  speed: 8
+  cyclic: 1
+  waitTime: 2
+  easeFactor: 0
 --- !u!212 &212000013116974798
 SpriteRenderer:
   m_ObjectHideFlags: 1

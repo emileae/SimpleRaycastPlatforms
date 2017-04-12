@@ -6,6 +6,9 @@ public class PayController : MonoBehaviour {
 
 	public bool pickupable = false;
 	public int cost = 3;
+	public int costBlock = 5;
+	public int numPaidTiers = 0;// accessed in PlayerInteractions
+	public int payTiers;// number of separate payments to
 	public int amountPaid = 0;
 	public bool purchased;
 
@@ -29,10 +32,10 @@ public class PayController : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
 	{
-		bounds = GetComponent<BoxCollider2D>().bounds;
+		bounds = GetComponent<BoxCollider2D> ().bounds;
 		npcScript = GetComponent<NPC> ();
 		altarScript = GetComponent<Altar> ();
-		edgeScript = GetComponent<Edge>();
+		edgeScript = GetComponent<Edge> ();
 
 		pickUpScript = GetComponent<PickUp> ();
 		payScript = GetComponent<PayController> ();
@@ -42,33 +45,58 @@ public class PayController : MonoBehaviour {
 			pickupable = true;
 		}
 
-		for (int i = 0; i < cost; i++) {
-			GameObject costIndicator = Instantiate(costIndicatorPrefab, new Vector3(transform.position.x, transform.position.y + bounds.extents.y + i*2, transform.position.z), Quaternion.identity) as GameObject;
-			costIndicator.transform.parent = transform;
-			costIndicators.Add(costIndicator);
-			costIndicatorScripts.Add(costIndicator.GetComponent<CostIndicator>());
-			costIndicator.SetActive(false);
+		if (cost <= costBlock) {
+			for (int i = 0; i < cost; i++) {
+				GameObject costIndicator = Instantiate (costIndicatorPrefab, new Vector3 (transform.position.x, transform.position.y + bounds.extents.y + i * 2, transform.position.z), Quaternion.identity) as GameObject;
+				costIndicator.transform.parent = transform;
+				costIndicators.Add (costIndicator);
+				costIndicatorScripts.Add (costIndicator.GetComponent<CostIndicator> ());
+				costIndicator.SetActive (false);
+			}
+		} else {
+			for (int i = 0; i < costBlock; i++) {
+				GameObject costIndicator = Instantiate (costIndicatorPrefab, new Vector3 (transform.position.x, transform.position.y + bounds.extents.y + i * 2, transform.position.z), Quaternion.identity) as GameObject;
+				costIndicator.transform.parent = transform;
+				costIndicators.Add (costIndicator);
+				costIndicatorScripts.Add (costIndicator.GetComponent<CostIndicator> ());
+				costIndicator.SetActive (false);
+			}
 		}
+
+		// Set the number of pay tiers and reset cost block if necessary
+		if (cost < costBlock) {
+			costBlock = cost;// this makes the costBlock more usable when palyer is paying, so check if player has the correct amount of coins
+		}
+		payTiers = Mathf.CeilToInt(cost/costBlock);
 	}
 	
-	void OnTriggerEnter2D(Collider2D col){
+	void OnTriggerEnter2D (Collider2D col)
+	{
 //		Debug.Log("Approached the payable item, it costs: " + cost);
 		if (col.CompareTag ("Player") && !purchased) {
 //			Debug.Log ("Collided with player!!!@");
-			playerScript = col.gameObject.GetComponent<PlayerInteractions> ();
-			playerScript.payScript = payScript;
-			DisplayCost ();
+			if (payScript != null) {
+				playerScript = col.gameObject.GetComponent<PlayerInteractions> ();
+				playerScript.payScript = payScript;
+				DisplayCost ();
+			}
 		}
 	}
-	void OnTriggerExit2D(Collider2D col){
+	void OnTriggerExit2D (Collider2D col)
+	{
 //		Debug.Log("Approached the altar, it costs: " + payScript.cost);
 		if (col.CompareTag ("Player") && playerScript != null) {
-			if (payScript == playerScript.payScript) {
-				if (payScript.amountPaid < payScript.cost) {
-					payScript.ReturnFunds (playerScript);
+
+			if (payScript != null) {
+				if (payScript == playerScript.payScript) {
+					if (payScript.amountPaid < payScript.costBlock) {
+						payScript.ReturnFunds (playerScript);
+					}
+					playerScript.payScript = null;
 				}
-				playerScript.payScript = null;
-			};
+				;
+			}
+
 			playerScript = null;
 			HideCost ();// only hide cost if player exits trigger
 		}
@@ -89,7 +117,7 @@ public class PayController : MonoBehaviour {
 
 	public void PayCoin (int coinIndex)
 	{
-		costIndicatorScripts[coinIndex].Pay();
+		costIndicatorScripts[coinIndex % costBlock].Pay();
 	}
 
 	public bool Pay (GameObject coinObject = null)
@@ -110,7 +138,7 @@ public class PayController : MonoBehaviour {
 			}
 
 		}
-		// TODO: maybe destroy coin objects once something has been fully paid for, otherwise might get coin object accumulation
+
 		if (amountPaid >= cost) {
 //			SetPickupable ();
 			// paying for an NPC... (11-04-2017 this isn't being used, NPCs are employed on trigger enter from player)
@@ -121,14 +149,7 @@ public class PayController : MonoBehaviour {
 			} else {
 				Build ();
 			}
-//			else if (altarScript != null){
-//				Debug.Log("Need a builder for Altar.................");
-//				altarScript.ActivateAltar();
-//			}
-//			else if (edgeScript != null){
-//				Debug.Log("Need a builder for Edge.................");
-//				edgeScript.ActivatePayment();
-//			}
+
 			purchased = true;
 			HideCost ();
 
@@ -139,6 +160,20 @@ public class PayController : MonoBehaviour {
 				Destroy(deletedCoinObject);
 			}
 
+		}else if (amountPaid >= (costBlock * numPaidTiers)){
+			Debug.Log("Paid for a tier.......");
+			numPaidTiers++;
+			// fully paid for so can delete the coin objects
+			for (int i = 0; i < heldCoinObjects.Count; i++) {
+				GameObject deletedCoinObject = heldCoinObjects[i];
+				heldCoinObjects.Remove(heldCoinObjects[i]);
+				Destroy(deletedCoinObject);
+			}
+			// reset coin indicators
+			for (int i = 0; i < costIndicatorScripts.Count; i++) {
+				costIndicatorScripts[i].Refund();
+			}
+//			DisplayCost ();
 		}
 
 		return purchased;

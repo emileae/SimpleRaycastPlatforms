@@ -4,10 +4,13 @@ using System.Collections;
 //[RequireComponent (typeof(BoxCollider2D))]
 public class Controller2D : RaycastController {
 
+	public Blackboard blackboard;
+
 	// specific to the sea game
-	public float seaLevel = 0;// y position that indicates sea level
+	public bool inSea = false;
 	public float fallDepth = 200.0f;
-	private bool swimming = false;
+	private float fallDepthincrease = 0.0f;
+	public bool swimming = false;
 
 //	public LayerMask collisionMask;
 //
@@ -37,6 +40,10 @@ public class Controller2D : RaycastController {
 		anim = GetComponent<Animator>();
 		sprite = GetComponent<SpriteRenderer>();
 //		CalculateRaySpacing ();
+
+		if (blackboard == null) {
+			blackboard = GameObject.Find("Blackboard").GetComponent<Blackboard>();
+		}
 	}
 
 	// detect collisions then move character
@@ -73,25 +80,31 @@ public class Controller2D : RaycastController {
 		}
 
 		// falling into the sea
-		if (transform.position.y <= seaLevel) {
-
-//			float fracFallen = Mathf.Abs (transform.position.y - seaLevel) / fallDepth;
-//			velocity.y = Mathf.Lerp (velocity.y, 0.0f, fracFallen);
-//			Debug.Log ("dist below sea: " + ( Mathf.Abs (transform.position.y) ));
-//			Debug.Log ("dist below sea cutoff: " + ( Mathf.Abs (seaLevel - (fallDepth - 0.1f)) ));
-
-			// add some tolerance to the fall depth because Lerp takes ages to get there
-			if (Mathf.Abs (transform.position.y) >= Mathf.Abs (seaLevel - (fallDepth - 0.1f))) {
-				swimming = true;
-				collisions.below = true;
-				velocity.y = 2.0f;
-			}
+		if (!collisions.below && !inSea) {
+			fallDepthincrease += 0.1f;
+		}
+		if (collisions.below) {
+			fallDepthincrease = 0.0f;
+		}
+		if (inSea) {
+			Debug.Log ("fallDepthincrease: " + fallDepthincrease);
 			if (!swimming) {
-				float fracFallen = Mathf.Abs (transform.position.y - seaLevel) / fallDepth;
-				velocity.y = Mathf.Lerp (velocity.y, 0.0f, fracFallen);
-				Debug.Log ("velocity.y going down: " + velocity.y);
+				float fracFallen = Mathf.Abs (transform.position.y - blackboard.seaLevel) / fallDepthincrease;
+				if (fracFallen >= 0.99f) {
+					swimming = true;
+					fallDepthincrease = 0.0f;
+				} else {
+					velocity.y = Mathf.Lerp (velocity.y, 0.0f, fracFallen);
+				}
+//				Debug.Log ("velocity.y going down: " + velocity.y);
+			} else {
+				Debug.Log ("Move uppppp");
+				if (transform.position.y < blackboard.seaLevel) {
+					velocity.y = 0.3f;
+				} else {
+					velocity.y = 0;
+				}
 			}
-
 		}
 
 

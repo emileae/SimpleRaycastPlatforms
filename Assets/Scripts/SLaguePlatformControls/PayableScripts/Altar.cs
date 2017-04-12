@@ -4,6 +4,19 @@ using System.Collections;
 
 public class Altar : MonoBehaviour {
 
+	// Different structures do different things
+	// type 0 -> defense against ghosts... prevents the item eating ghosts from spawning there
+	// type 1 -> medical area ... units restore their hp there
+	// type 2 -> 
+	public int structureType = 0;
+
+	// models for each structure
+	public GameObject blankModel;
+	public GameObject activeModel;
+
+	// Specific paramaters for each structure
+	public float healTime = 2.0f;// for medical struture
+
 	public bool active;
 	public Platform platformScript;
 	private Animator anim;
@@ -43,7 +56,6 @@ public class Altar : MonoBehaviour {
 	public void ActivateAltar(){
 		needToBuild = true;
 		CallBuilder();
-
 	}
 
 	void CallBuilder ()
@@ -73,7 +85,7 @@ public class Altar : MonoBehaviour {
 			NPC npcScript = col.gameObject.GetComponent<NPC> ();
 
 			if (needToBuild && currentBuilder == null) {
-				// only builders can build the Altars... or special builds...
+				// only builders can build the Altars... or special structures...
 				if (platformScript.builders.Count > 0) {
 					if (npcScript.npcType == 2) {
 						currentBuilder = npcScript;
@@ -105,11 +117,26 @@ public class Altar : MonoBehaviour {
 	{
 		needToBuild = false;
 		currentBuildProgress = 0;
-		currentBuilder.FinishBuild();// tell NPC to move in opposite direction to the build direction
+		currentBuilder.FinishBuild ();// tell NPC to move in opposite direction to the build direction
 
 		// here is the custom build logic.....
 		active = true;
-		anim.SetBool("active", active);
+//		anim.SetBool("active", active);
+		blankModel.SetActive(false);
+		activeModel.SetActive(true);
+		switch (structureType) {
+			case 0:
+				Debug.Log("Ghosts wont spawn here");
+				break;
+			case 1:
+				Debug.Log("This is now a medical structure");
+				break;
+			default:
+				Debug.Log("Fall through switch statement altar.cs");
+				activeModel.SetActive(false);
+				blankModel.SetActive(true);
+				break;
+		}
 
 		currentBuilder = null;
 	}

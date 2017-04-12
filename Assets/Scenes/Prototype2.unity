@@ -703,11 +703,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb28b15fc0ef143d08f707faa749348d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blackboard: {fileID: 0}
   dismountSpeed: 1
   overLadder: 0
   ladderTransform: {fileID: 0}
   mountedLadder: 0
   jumpedFromLadder: 0
+  moveSpeed: 20
+  climbSpeed: 20
+  inSea: 0
 --- !u!114 &621573751
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -727,8 +731,10 @@ MonoBehaviour:
   horizontalRaySpacing: 0
   verticalRaySpacing: 0
   collider: {fileID: 0}
-  seaLevel: 0
+  blackboard: {fileID: 0}
+  inSea: 0
   fallDepth: 100
+  swimming: 0
   ignoreVerticalCollisions: 0
 --- !u!61 &621573752
 BoxCollider2D:
@@ -1189,11 +1195,13 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1066045072}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.1449163, y: 0.3579852, z: -4.6171875}
-  m_LocalScale: {x: 1.2125001, y: 1, z: 1}
+  m_LocalPosition: {x: -3.1449163, y: -60, z: 155}
+  m_LocalScale: {x: 50, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1846541452}
+  - {fileID: 1358996122}
+  - {fileID: 1663765945}
   m_Father: {fileID: 0}
   m_RootOrder: 8
 --- !u!1 &1073220486
@@ -1414,7 +1422,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1168043772}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.7, y: 27.9, z: -10}
+  m_LocalPosition: {x: 136, y: 27.9, z: -476}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -1501,6 +1509,49 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1307491604}
+--- !u!1 &1358996121
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1358996122}
+  - 61: {fileID: 1358996123}
+  m_Layer: 0
+  m_Name: EdgeLeft
+  m_TagString: Edge
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1358996122
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1358996121}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 1066045073}
+  m_RootOrder: 1
+--- !u!61 &1358996123
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1358996121}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: -6.8, y: 0}
+  serializedVersion: 2
+  m_Size: {x: 1, y: 129.17}
 --- !u!1 &1372834432
 GameObject:
   m_ObjectHideFlags: 0
@@ -1675,6 +1726,49 @@ Transform:
   m_PrefabParentObject: {fileID: 4000011769185722, guid: 168cad1ee400242b688a8ddb9ff55f35,
     type: 2}
   m_PrefabInternal: {fileID: 673929780}
+--- !u!1 &1663765944
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1663765945}
+  - 61: {fileID: 1663765946}
+  m_Layer: 0
+  m_Name: EdgeRight
+  m_TagString: Edge
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1663765945
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1663765944}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 1066045073}
+  m_RootOrder: 2
+--- !u!61 &1663765946
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1663765944}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 26.36, y: 0}
+  serializedVersion: 2
+  m_Size: {x: 1, y: 129.17}
 --- !u!1 &1681003016
 GameObject:
   m_ObjectHideFlags: 0
@@ -1861,6 +1955,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcbdd1d14a9524f299e0dc60b18786c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seaLevel: 0
   ghostTower: {fileID: 0}
   ghostTowerBounds:
     m_Center: {x: 0, y: 0, z: 0}
@@ -1904,8 +1999,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1846541451}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -65.3, z: 27.8}
-  m_LocalScale: {x: 128.25876, y: 119.67735, z: 50.186047}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 120, y: 120, z: 50.186047}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 1066045073}
@@ -2068,6 +2163,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blackboard: {fileID: 1756472222}
+  seaLevel: 0
+  numMedicalStructures: 2
+  medicalStructure: {fileID: 1000012457725094, guid: e6537a81b551a409fab6387b21831ee4,
+    type: 2}
+  numDefenseStructures: 4
+  defenseStructure: {fileID: 1000011184328518, guid: 1c35559ed224940658555e94003f921c,
+    type: 2}
   platformPrefabs:
   - {fileID: 1000010947589600, guid: 168cad1ee400242b688a8ddb9ff55f35, type: 2}
   ladderPrefab: {fileID: 1000011365136420, guid: b79bc064e08bc46cfb06dd5e299c63a6,

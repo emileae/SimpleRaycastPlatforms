@@ -65,6 +65,10 @@ public class NPCController : MonoBehaviour {
 			Debug.Log ("npc - DIE - NPCController.cs");
 		}
 
+		if (!npcScript.attacking && npcScript.attackable && npcScript.hp < npcScript.maxHP && npcScript.stopToHeal) {
+			velocity.x = 0;
+		}
+
 //		if (velocity.y != 0) {
 //			controller.Move (velocity * Time.deltaTime);
 //		} else {

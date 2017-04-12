@@ -4,22 +4,32 @@ using System.Collections;
 [RequireComponent (typeof(Controller2D))]
 public class Player : MonoBehaviour {
 
+	public Blackboard blackboard;
+
 	public float dismountSpeed = 1.0f;
 	public bool overLadder = false;
 	public Transform ladderTransform;
 	public bool mountedLadder = false;
 	public bool jumpedFromLadder = false;
 
-	private float moveSpeed = 10;
-	private float climbSpeed = 9.8f;
+	public float moveSpeed = 10;
+	public float climbSpeed = 9.8f;
 	private float gravity = -50;
 	private Vector3 velocity;
 	private float jumpVelocity = 20;
 
+	// Water movement
+	public bool inSea = false;
+
 	private Controller2D controller;
 
-	void Start () {
-		controller = GetComponent<Controller2D>();
+	void Start ()
+	{
+		controller = GetComponent<Controller2D> ();
+
+		if (blackboard == null) {
+			blackboard = GameObject.Find("Blackboard").GetComponent<Blackboard>();
+		}
 	}
 
 	void Update ()
@@ -58,6 +68,15 @@ public class Player : MonoBehaviour {
 					velocity.y = 0;
 				}
 			}
+
+			// clear a few sea parameters
+			if (controller.inSea) {
+				controller.inSea = false;
+			}
+			if (controller.swimming) {
+				controller.swimming = false;
+			}
+
 		}
 
 		if (!overLadder && controller.ignoreVerticalCollisions) {
@@ -82,7 +101,12 @@ public class Player : MonoBehaviour {
 			velocity.y += gravity * Time.deltaTime;
 		}
 
-		controller.Move(velocity*Time.deltaTime);
+		if (transform.position.y <= blackboard.seaLevel && !controller.inSea) {
+			controller.inSea = true;
+		}
+
+		controller.Move (velocity * Time.deltaTime);
+
 	}
 
 }

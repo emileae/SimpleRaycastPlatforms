@@ -12,6 +12,7 @@ TagManager:
   - Platform
   - Ladder
   - Enemy
+  - Structure
   layers:
   - Default
   - TransparentFX

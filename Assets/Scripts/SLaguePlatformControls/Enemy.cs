@@ -5,6 +5,9 @@ public class Enemy : MonoBehaviour {
 
 	private EnemyController enemyController;
 
+	// type 0 -> standard ghost
+	// type 1 -> fast ghost that eats items/coins
+	// type 2 -> seamonster that circles the length of
 	public int enemyType = 0;
 	public int hp = 3;// health points
 	public int ap = 2;// attack points
@@ -32,13 +35,6 @@ public class Enemy : MonoBehaviour {
 			}
 		}
 
-		if (col.CompareTag ("NPC")) {
-//			npcScript = col.gameObject.GetComponent<NPC> ();
-//			if (npcScript.attackable) {
-//				enemyController.stopForNPC = true;
-//			}
-		}
-
 	}
 
 	void OnTriggerExit2D (Collider2D col)
@@ -49,16 +45,16 @@ public class Enemy : MonoBehaviour {
 			}
 		}
 
-		if (col.CompareTag ("NPC")) {
-			if (col.transform.position.x < transform.position.x) {
-				enemyController.direction = -1;
-			} else {
-				enemyController.direction = 1;
-			}
-			enemyController.stopForNPC = false;
-			npcScript = null;
-			attacking = false;// stop attack and now, maybe pursue?
-		}
+//		if (col.CompareTag ("NPC")) {
+//			if (col.transform.position.x < transform.position.x) {
+//				enemyController.direction = -1;
+//			} else {
+//				enemyController.direction = 1;
+//			}
+//			enemyController.stopForNPC = false;
+//			npcScript = null;
+//			attacking = false;// stop attack and now, maybe pursue?
+//		}
 	}
 
 	public IEnumerator Attack ()
