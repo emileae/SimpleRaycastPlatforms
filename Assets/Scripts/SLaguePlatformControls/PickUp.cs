@@ -6,7 +6,7 @@ public class PickUp : MonoBehaviour {
 	// general type
 	// 0 -> NPC
 	// 1 -> coin
-	// 2 -> special item?
+	// 2 -> gem
 	public int generalType = 0;
 
 	public NPC npcScript;

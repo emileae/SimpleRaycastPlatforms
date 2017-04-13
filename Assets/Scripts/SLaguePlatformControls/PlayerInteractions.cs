@@ -217,6 +217,21 @@ public class PlayerInteractions : MonoBehaviour {
 					}
 				}
 				break;
+			case 2:
+				if (inventory.Count < inventorySize) {
+					pickupScript.PickUpItem (platformScript);
+					inventory.Add (pickupableItems[0]);
+					Image uiImage = inventoryUI [inventory.Count - 1].GetComponent<Image> ();
+					uiImage.sprite = uiCoinSprite;
+					if (itemToBePickedUp != null){
+						pickupableItems.Remove(itemToBePickedUp);
+					}else{
+						pickupableItems.Remove(pickupableItems[0]);
+					}
+				} else {
+					Debug.Log ("Inventory Full!!!!");
+				}
+				break;
 			default:
 				Debug.Log("Switch fall through PickUpItem PlayerController.cs");
 				break;

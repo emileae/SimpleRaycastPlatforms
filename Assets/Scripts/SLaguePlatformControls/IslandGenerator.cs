@@ -38,12 +38,12 @@ public class IslandGenerator : MonoBehaviour {
 	public float distanceBetweenIslands;
 
 	// Enemies
-	public int numEnemies = 10;
+	public int numEnemies = 15;
 
 	// NPCs
-	public int numAverageJoes = 10;
-	public int numBuilders = 3;
-	public int numFighters = 5;
+	public int numAverageJoes = 3;
+	public int numBuilders = 1;
+	public int numFighters = 1;
 
 	// keep track of all the platforms
 	public List<GameObject> platforms = new List<GameObject>();
@@ -139,30 +139,30 @@ public class IslandGenerator : MonoBehaviour {
 //				}
 
 				// Assign NPCs to a platform -- offset slightly or make sure NPCs don't spawn overlapping an enemy?
-				if (numBuilders > 0 || numFighters > 0 || numAverageJoes > 0){
-					GameObject npcObj = Instantiate (npc, new Vector3 (platformBoundsList [currentPlatformIndex].center.x, platformBoundsList [currentPlatformIndex].max.y + 20.0f, platform.transform.position.z), Quaternion.identity) as GameObject;
-					if (npcBounds == null) {
-						npcBounds = npcObj.GetComponent<BoxCollider2D> ().bounds;
-					}
-					npcObj.transform.position = new Vector3 (platformBoundsList [currentPlatformIndex].center.x, platformBoundsList [currentPlatformIndex].max.y + npcBounds.extents.y, platform.transform.position.z);
-					NPC npcScript = npcObj.GetComponent<NPC> ();
-					npcScript.platformScript = platformScript;
-					if (numBuilders > 0) {
-						npcScript.npcType = 2;
-						platformScript.builders.Add(npcObj);
-						numBuilders -= 1;
-					}else if (numFighters > 0){
-						npcScript.npcType = 3;
-						platformScript.fighters.Add(npcObj);
-						numFighters -= 1;
-					}else if (numAverageJoes > 0){
-						npcScript.npcType = 1;
-						platformScript.averageJoes.Add(npcObj);
-						numAverageJoes -= 1;
-					}
-					npcScript.SetType();
-					// TODO: maybe add npc to a public list somewhere
-				}
+//				if (numBuilders > 0 || numFighters > 0 || numAverageJoes > 0){
+//					GameObject npcObj = Instantiate (npc, new Vector3 (platformBoundsList [currentPlatformIndex].center.x, platformBoundsList [currentPlatformIndex].max.y + 20.0f, platform.transform.position.z), Quaternion.identity) as GameObject;
+//					if (npcBounds == null) {
+//						npcBounds = npcObj.GetComponent<BoxCollider2D> ().bounds;
+//					}
+//					npcObj.transform.position = new Vector3 (platformBoundsList [currentPlatformIndex].center.x, platformBoundsList [currentPlatformIndex].max.y + npcBounds.extents.y, platform.transform.position.z);
+//					NPC npcScript = npcObj.GetComponent<NPC> ();
+//					npcScript.platformScript = platformScript;
+//					if (numBuilders > 0) {
+//						npcScript.npcType = 2;
+//						platformScript.builders.Add(npcObj);
+//						numBuilders -= 1;
+//					}else if (numFighters > 0){
+//						npcScript.npcType = 3;
+//						platformScript.fighters.Add(npcObj);
+//						numFighters -= 1;
+//					}else if (numAverageJoes > 0){
+//						npcScript.npcType = 1;
+//						platformScript.averageJoes.Add(npcObj);
+//						numAverageJoes -= 1;
+//					}
+//					npcScript.SetType();
+//					// TODO: maybe add npc to a public list somewhere
+//				}
 
 
 
@@ -182,6 +182,7 @@ public class IslandGenerator : MonoBehaviour {
 		PlacePlayer();
 		PlaceGhostTower();
 		PlaceStructures();
+		PlaceNPCs ();
 	
 	}
 
@@ -255,6 +256,59 @@ public class IslandGenerator : MonoBehaviour {
 				numMedicalStructures--;
 			}
 		}
+	}
+
+	void PlaceNPCs ()
+	{
+		List<int> tempPlatformIndices = new List<int> ();
+		for (int i = 0; i < platforms.Count; i++) {
+			tempPlatformIndices.Add (i);
+		}
+
+		List<int> npcPlatforms = new List<int> ();
+
+		// choose random indices to place npcs, platforms = num of NPCs
+		for (int i = 0; i < (numBuilders + numFighters + numAverageJoes); i++) {
+			int randomIndex = Random.Range (0, tempPlatformIndices.Count);
+			npcPlatforms.Add (tempPlatformIndices [randomIndex]);
+			tempPlatformIndices.RemoveAt (randomIndex);
+		}
+
+
+		if (numBuilders > 0 || numFighters > 0 || numAverageJoes > 0) {
+			for (int i = 0; i < npcPlatforms.Count; i++) {
+				// select one of the random platforms
+				GameObject platform = platforms [npcPlatforms [i]];
+
+				// instantiate an NPC
+				GameObject npcObj = Instantiate (npc, new Vector3 (platformBoundsList [npcPlatforms [i]].center.x, platformBoundsList [npcPlatforms [i]].max.y + 20.0f, platform.transform.position.z), Quaternion.identity) as GameObject;
+				if (npcBounds == null) {
+					npcBounds = npcObj.GetComponent<BoxCollider2D> ().bounds;
+				}
+
+				// place the NPC at a location on the platform
+				npcObj.transform.position = new Vector3 (platformBoundsList [npcPlatforms [i]].center.x, platformBoundsList [npcPlatforms [i]].max.y + npcBounds.extents.y, platform.transform.position.z);
+				NPC npcScript = npcObj.GetComponent<NPC> ();
+				npcScript.platformScript = platformScripts [npcPlatforms [i]];
+				if (numBuilders > 0) {
+					npcScript.npcType = 2;
+					platformScripts [npcPlatforms [i]].builders.Add (npcObj);
+					numBuilders -= 1;
+				} else if (numFighters > 0) {
+					npcScript.npcType = 3;
+					platformScripts [npcPlatforms [i]].fighters.Add (npcObj);
+					numFighters -= 1;
+				} else if (numAverageJoes > 0) {
+					npcScript.npcType = 1;
+					platformScripts [npcPlatforms [i]].averageJoes.Add (npcObj);
+					numAverageJoes -= 1;
+				}
+				npcScript.SetType ();
+				// TODO: maybe add npc to a public list somewhere
+			}
+		}
+
+
 	}
 
 }

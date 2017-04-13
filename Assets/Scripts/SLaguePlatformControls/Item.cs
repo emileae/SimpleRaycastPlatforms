@@ -29,8 +29,8 @@ public class Item : MonoBehaviour {
 	{
 		if (col.CompareTag ("Player")) {
 			playerScript = col.gameObject.GetComponent<PlayerInteractions> ();
-			if (gameObject == playerScript.pickupableItem) {
-				playerScript.pickupableItem = null;
+			if (playerScript.pickupableItems.Contains(gameObject)) {
+				playerScript.pickupableItems.Remove(gameObject);
 			};
 			playerScript = null;
 		}

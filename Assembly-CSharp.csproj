@@ -74,6 +74,16 @@
      <Compile Include="Assets\Scripts\SLaguePlatformControls\PlatformController.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Player.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\PlayerInteractions.cs" />
+     <Compile Include="Assets\Steer2D\Examples\Assets\Target.cs" />
+     <Compile Include="Assets\Steer2D\Scripts\Arrive.cs" />
+     <Compile Include="Assets\Steer2D\Scripts\Evade.cs" />
+     <Compile Include="Assets\Steer2D\Scripts\Flee.cs" />
+     <Compile Include="Assets\Steer2D\Scripts\Flock.cs" />
+     <Compile Include="Assets\Steer2D\Scripts\FollowPath.cs" />
+     <Compile Include="Assets\Steer2D\Scripts\Pursue.cs" />
+     <Compile Include="Assets\Steer2D\Scripts\Seek.cs" />
+     <Compile Include="Assets\Steer2D\Scripts\SteeringAgent.cs" />
+     <Compile Include="Assets\Steer2D\Scripts\SteeringBehaviour.cs" />
      <None Include="Assets\Standard Assets\Effects\ToonShading\Shaders\ToonBasic.shader" />
      <None Include="Assets\Shaders\TaleCrafterPixel.shader" />
      <None Include="Assets\Standard Assets\Effects\ToonShading\Shaders\ToonBasicOutline.shader" />
