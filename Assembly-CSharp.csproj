@@ -57,11 +57,12 @@
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Blackboard.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Controllers\CoinEaterController.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Controllers\Controller2D.cs" />
-     <Compile Include="Assets\Scripts\SLaguePlatformControls\Controllers\EnemyController.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Controllers\MovingPlatform.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Controllers\NPCController.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Controllers\RaycastController.cs" />
-     <Compile Include="Assets\Scripts\SLaguePlatformControls\Enemy.cs" />
+     <Compile Include="Assets\Scripts\SLaguePlatformControls\Enemies\Enemy.cs" />
+     <Compile Include="Assets\Scripts\SLaguePlatformControls\Enemies\EnemyController.cs" />
+     <Compile Include="Assets\Scripts\SLaguePlatformControls\Enemies\FlyingEnemy.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\IslandGenerator.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Item.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\NPC.cs" />

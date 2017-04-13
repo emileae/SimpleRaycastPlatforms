@@ -197,13 +197,15 @@ GameObject:
   - 114: {fileID: 117889077}
   - 114: {fileID: 117889076}
   - 114: {fileID: 117889075}
-  m_Layer: 0
+  - 114: {fileID: 117889079}
+  - 58: {fileID: 117889078}
+  m_Layer: 13
   m_Name: FlyingMonster (5)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &117889074
 Transform:
   m_ObjectHideFlags: 0
@@ -237,12 +239,12 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 117889073}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e0b624d39b8b0a64ca6786961ed30dcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Weight: 1
+  Weight: 0.5
   NeighbourRadius: 1
   AlignmentWeight: 0.7
   CohesionWeigth: 0.5
@@ -254,16 +256,46 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 117889073}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 83056d1fbb9ef5748b13041f99078e47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxVelocity: 10
+  MaxVelocity: 25
   Mass: 10
   Friction: 0.05
   RotateSprite: 1
   CurrentVelocity: {x: 0, y: 0}
+--- !u!58 &117889078
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 117889073}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 5
+--- !u!114 &117889079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 117889073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d68a2867780f940a9a7f42a2c0832c68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 20
+  ghostTower: {fileID: 1049502624}
+  seekScript: {fileID: 117889075}
+  goToTarget: 0
+  target: {fileID: 621573749}
 --- !u!1 &134678155
 GameObject:
   m_ObjectHideFlags: 0
@@ -275,13 +307,15 @@ GameObject:
   - 114: {fileID: 134678159}
   - 114: {fileID: 134678158}
   - 114: {fileID: 134678157}
-  m_Layer: 0
+  - 114: {fileID: 134678161}
+  - 58: {fileID: 134678160}
+  m_Layer: 13
   m_Name: FlyingMonster (19)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &134678156
 Transform:
   m_ObjectHideFlags: 0
@@ -315,12 +349,12 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 134678155}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e0b624d39b8b0a64ca6786961ed30dcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Weight: 1
+  Weight: 0.5
   NeighbourRadius: 1
   AlignmentWeight: 0.7
   CohesionWeigth: 0.5
@@ -332,16 +366,46 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 134678155}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 83056d1fbb9ef5748b13041f99078e47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxVelocity: 10
+  MaxVelocity: 25
   Mass: 10
   Friction: 0.05
   RotateSprite: 1
   CurrentVelocity: {x: 0, y: 0}
+--- !u!58 &134678160
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 134678155}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 5
+--- !u!114 &134678161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 134678155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d68a2867780f940a9a7f42a2c0832c68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 20
+  ghostTower: {fileID: 1049502624}
+  seekScript: {fileID: 117889075}
+  goToTarget: 0
+  target: {fileID: 621573749}
 --- !u!1 &147168160
 GameObject:
   m_ObjectHideFlags: 0
@@ -353,13 +417,15 @@ GameObject:
   - 114: {fileID: 147168164}
   - 114: {fileID: 147168163}
   - 114: {fileID: 147168162}
-  m_Layer: 0
+  - 114: {fileID: 147168166}
+  - 58: {fileID: 147168165}
+  m_Layer: 13
   m_Name: FlyingMonster (18)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &147168161
 Transform:
   m_ObjectHideFlags: 0
@@ -393,12 +459,12 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 147168160}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e0b624d39b8b0a64ca6786961ed30dcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Weight: 1
+  Weight: 0.5
   NeighbourRadius: 1
   AlignmentWeight: 0.7
   CohesionWeigth: 0.5
@@ -410,16 +476,46 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 147168160}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 83056d1fbb9ef5748b13041f99078e47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxVelocity: 10
+  MaxVelocity: 25
   Mass: 10
   Friction: 0.05
   RotateSprite: 1
   CurrentVelocity: {x: 0, y: 0}
+--- !u!58 &147168165
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 147168160}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 5
+--- !u!114 &147168166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 147168160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d68a2867780f940a9a7f42a2c0832c68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 20
+  ghostTower: {fileID: 1049502624}
+  seekScript: {fileID: 117889075}
+  goToTarget: 0
+  target: {fileID: 621573749}
 --- !u!1 &159857603
 GameObject:
   m_ObjectHideFlags: 0
@@ -431,13 +527,15 @@ GameObject:
   - 114: {fileID: 159857607}
   - 114: {fileID: 159857606}
   - 114: {fileID: 159857605}
-  m_Layer: 0
+  - 114: {fileID: 159857609}
+  - 58: {fileID: 159857608}
+  m_Layer: 13
   m_Name: FlyingMonster (8)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &159857604
 Transform:
   m_ObjectHideFlags: 0
@@ -471,12 +569,12 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 159857603}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e0b624d39b8b0a64ca6786961ed30dcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Weight: 1
+  Weight: 0.5
   NeighbourRadius: 1
   AlignmentWeight: 0.7
   CohesionWeigth: 0.5
@@ -488,16 +586,46 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 159857603}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 83056d1fbb9ef5748b13041f99078e47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxVelocity: 10
+  MaxVelocity: 25
   Mass: 10
   Friction: 0.05
   RotateSprite: 1
   CurrentVelocity: {x: 0, y: 0}
+--- !u!58 &159857608
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 159857603}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 5
+--- !u!114 &159857609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 159857603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d68a2867780f940a9a7f42a2c0832c68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 20
+  ghostTower: {fileID: 1049502624}
+  seekScript: {fileID: 117889075}
+  goToTarget: 0
+  target: {fileID: 621573749}
 --- !u!1 &234039233
 GameObject:
   m_ObjectHideFlags: 0
@@ -509,13 +637,15 @@ GameObject:
   - 114: {fileID: 234039237}
   - 114: {fileID: 234039236}
   - 114: {fileID: 234039235}
-  m_Layer: 0
+  - 114: {fileID: 234039239}
+  - 58: {fileID: 234039238}
+  m_Layer: 13
   m_Name: FlyingMonster (6)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &234039234
 Transform:
   m_ObjectHideFlags: 0
@@ -549,12 +679,12 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 234039233}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e0b624d39b8b0a64ca6786961ed30dcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Weight: 1
+  Weight: 0.5
   NeighbourRadius: 1
   AlignmentWeight: 0.7
   CohesionWeigth: 0.5
@@ -566,16 +696,46 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 234039233}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 83056d1fbb9ef5748b13041f99078e47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxVelocity: 10
+  MaxVelocity: 25
   Mass: 10
   Friction: 0.05
   RotateSprite: 1
   CurrentVelocity: {x: 0, y: 0}
+--- !u!58 &234039238
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 234039233}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 5
+--- !u!114 &234039239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 234039233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d68a2867780f940a9a7f42a2c0832c68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 20
+  ghostTower: {fileID: 1049502624}
+  seekScript: {fileID: 117889075}
+  goToTarget: 0
+  target: {fileID: 621573749}
 --- !u!1 &246094915
 GameObject:
   m_ObjectHideFlags: 0
@@ -715,13 +875,15 @@ GameObject:
   - 114: {fileID: 302607821}
   - 114: {fileID: 302607820}
   - 114: {fileID: 302607819}
-  m_Layer: 0
+  - 114: {fileID: 302607823}
+  - 58: {fileID: 302607822}
+  m_Layer: 13
   m_Name: FlyingMonster (15)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &302607818
 Transform:
   m_ObjectHideFlags: 0
@@ -755,12 +917,12 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 302607817}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e0b624d39b8b0a64ca6786961ed30dcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Weight: 1
+  Weight: 0.5
   NeighbourRadius: 1
   AlignmentWeight: 0.7
   CohesionWeigth: 0.5
@@ -772,16 +934,46 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 302607817}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 83056d1fbb9ef5748b13041f99078e47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxVelocity: 10
+  MaxVelocity: 25
   Mass: 10
   Friction: 0.05
   RotateSprite: 1
   CurrentVelocity: {x: 0, y: 0}
+--- !u!58 &302607822
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 302607817}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 5
+--- !u!114 &302607823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 302607817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d68a2867780f940a9a7f42a2c0832c68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 20
+  ghostTower: {fileID: 1049502624}
+  seekScript: {fileID: 117889075}
+  goToTarget: 0
+  target: {fileID: 621573749}
 --- !u!1 &319346231
 GameObject:
   m_ObjectHideFlags: 0
@@ -861,13 +1053,15 @@ GameObject:
   - 114: {fileID: 327013684}
   - 114: {fileID: 327013683}
   - 114: {fileID: 327013682}
-  m_Layer: 0
+  - 114: {fileID: 327013686}
+  - 58: {fileID: 327013685}
+  m_Layer: 13
   m_Name: FlyingMonster (12)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &327013681
 Transform:
   m_ObjectHideFlags: 0
@@ -901,12 +1095,12 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 327013680}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e0b624d39b8b0a64ca6786961ed30dcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Weight: 1
+  Weight: 0.5
   NeighbourRadius: 1
   AlignmentWeight: 0.7
   CohesionWeigth: 0.5
@@ -918,16 +1112,46 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 327013680}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 83056d1fbb9ef5748b13041f99078e47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxVelocity: 10
+  MaxVelocity: 25
   Mass: 10
   Friction: 0.05
   RotateSprite: 1
   CurrentVelocity: {x: 0, y: 0}
+--- !u!58 &327013685
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 327013680}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 5
+--- !u!114 &327013686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 327013680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d68a2867780f940a9a7f42a2c0832c68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 20
+  ghostTower: {fileID: 1049502624}
+  seekScript: {fileID: 117889075}
+  goToTarget: 0
+  target: {fileID: 621573749}
 --- !u!4 &335354338 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: b82cc8ccdd8ee4173aa5f08011e72d2c, type: 3}
@@ -1434,9 +1658,11 @@ GameObject:
   - 114: {fileID: 562460731}
   - 114: {fileID: 562460730}
   - 114: {fileID: 562460729}
-  m_Layer: 0
+  - 114: {fileID: 562460733}
+  - 58: {fileID: 562460732}
+  m_Layer: 13
   m_Name: FlyingMonster
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1474,12 +1700,12 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 562460727}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e0b624d39b8b0a64ca6786961ed30dcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Weight: 1
+  Weight: 0.5
   NeighbourRadius: 1
   AlignmentWeight: 0.7
   CohesionWeigth: 0.5
@@ -1491,16 +1717,46 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 562460727}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 83056d1fbb9ef5748b13041f99078e47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxVelocity: 10
+  MaxVelocity: 25
   Mass: 10
   Friction: 0.05
   RotateSprite: 1
   CurrentVelocity: {x: 0, y: 0}
+--- !u!58 &562460732
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 562460727}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 5
+--- !u!114 &562460733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 562460727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d68a2867780f940a9a7f42a2c0832c68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0.5
+  ghostTower: {fileID: 1049502624}
+  seekScript: {fileID: 117889075}
+  goToTarget: 0
+  target: {fileID: 621573749}
 --- !u!1001 &572219819
 Prefab:
   m_ObjectHideFlags: 0
@@ -2006,7 +2262,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 679990137}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 132.30492, y: 34.72523, z: 0}
+  m_LocalPosition: {x: 132.30492, y: 34.72523, z: -15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -2097,13 +2353,15 @@ GameObject:
   - 114: {fileID: 778872345}
   - 114: {fileID: 778872344}
   - 114: {fileID: 778872343}
-  m_Layer: 0
+  - 114: {fileID: 778872347}
+  - 58: {fileID: 778872346}
+  m_Layer: 13
   m_Name: FlyingMonster (10)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &778872342
 Transform:
   m_ObjectHideFlags: 0
@@ -2137,12 +2395,12 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 778872341}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e0b624d39b8b0a64ca6786961ed30dcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Weight: 1
+  Weight: 0.5
   NeighbourRadius: 1
   AlignmentWeight: 0.7
   CohesionWeigth: 0.5
@@ -2154,16 +2412,46 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 778872341}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 83056d1fbb9ef5748b13041f99078e47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxVelocity: 10
+  MaxVelocity: 25
   Mass: 10
   Friction: 0.05
   RotateSprite: 1
   CurrentVelocity: {x: 0, y: 0}
+--- !u!58 &778872346
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 778872341}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 5
+--- !u!114 &778872347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 778872341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d68a2867780f940a9a7f42a2c0832c68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 20
+  ghostTower: {fileID: 1049502624}
+  seekScript: {fileID: 117889075}
+  goToTarget: 0
+  target: {fileID: 621573749}
 --- !u!1001 &795132436
 Prefab:
   m_ObjectHideFlags: 0
@@ -2221,13 +2509,15 @@ GameObject:
   - 114: {fileID: 813807921}
   - 114: {fileID: 813807920}
   - 114: {fileID: 813807919}
-  m_Layer: 0
+  - 114: {fileID: 813807923}
+  - 58: {fileID: 813807922}
+  m_Layer: 13
   m_Name: FlyingMonster (3)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &813807918
 Transform:
   m_ObjectHideFlags: 0
@@ -2261,12 +2551,12 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 813807917}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e0b624d39b8b0a64ca6786961ed30dcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Weight: 1
+  Weight: 0.5
   NeighbourRadius: 1
   AlignmentWeight: 0.7
   CohesionWeigth: 0.5
@@ -2278,16 +2568,46 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 813807917}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 83056d1fbb9ef5748b13041f99078e47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxVelocity: 10
+  MaxVelocity: 25
   Mass: 10
   Friction: 0.05
   RotateSprite: 1
   CurrentVelocity: {x: 0, y: 0}
+--- !u!58 &813807922
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 813807917}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 5
+--- !u!114 &813807923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 813807917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d68a2867780f940a9a7f42a2c0832c68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 20
+  ghostTower: {fileID: 1049502624}
+  seekScript: {fileID: 117889075}
+  goToTarget: 0
+  target: {fileID: 621573749}
 --- !u!1001 &830575451
 Prefab:
   m_ObjectHideFlags: 0
@@ -2588,13 +2908,15 @@ GameObject:
   - 114: {fileID: 952575739}
   - 114: {fileID: 952575738}
   - 114: {fileID: 952575737}
-  m_Layer: 0
+  - 114: {fileID: 952575741}
+  - 58: {fileID: 952575740}
+  m_Layer: 13
   m_Name: FlyingMonster (9)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &952575736
 Transform:
   m_ObjectHideFlags: 0
@@ -2628,12 +2950,12 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 952575735}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e0b624d39b8b0a64ca6786961ed30dcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Weight: 1
+  Weight: 0.5
   NeighbourRadius: 1
   AlignmentWeight: 0.7
   CohesionWeigth: 0.5
@@ -2645,16 +2967,46 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 952575735}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 83056d1fbb9ef5748b13041f99078e47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxVelocity: 10
+  MaxVelocity: 25
   Mass: 10
   Friction: 0.05
   RotateSprite: 1
   CurrentVelocity: {x: 0, y: 0}
+--- !u!58 &952575740
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 952575735}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 5
+--- !u!114 &952575741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 952575735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d68a2867780f940a9a7f42a2c0832c68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 20
+  ghostTower: {fileID: 1049502624}
+  seekScript: {fileID: 117889075}
+  goToTarget: 0
+  target: {fileID: 621573749}
 --- !u!1 &955000834
 GameObject:
   m_ObjectHideFlags: 0
@@ -2666,13 +3018,15 @@ GameObject:
   - 114: {fileID: 955000838}
   - 114: {fileID: 955000837}
   - 114: {fileID: 955000836}
-  m_Layer: 0
+  - 114: {fileID: 955000840}
+  - 58: {fileID: 955000839}
+  m_Layer: 13
   m_Name: FlyingMonster (11)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &955000835
 Transform:
   m_ObjectHideFlags: 0
@@ -2706,12 +3060,12 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 955000834}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e0b624d39b8b0a64ca6786961ed30dcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Weight: 1
+  Weight: 0.5
   NeighbourRadius: 1
   AlignmentWeight: 0.7
   CohesionWeigth: 0.5
@@ -2723,16 +3077,46 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 955000834}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 83056d1fbb9ef5748b13041f99078e47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxVelocity: 10
+  MaxVelocity: 25
   Mass: 10
   Friction: 0.05
   RotateSprite: 1
   CurrentVelocity: {x: 0, y: 0}
+--- !u!58 &955000839
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 955000834}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 5
+--- !u!114 &955000840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 955000834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d68a2867780f940a9a7f42a2c0832c68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 20
+  ghostTower: {fileID: 1049502624}
+  seekScript: {fileID: 117889075}
+  goToTarget: 0
+  target: {fileID: 621573749}
 --- !u!1 &964716760
 GameObject:
   m_ObjectHideFlags: 0
@@ -2744,13 +3128,15 @@ GameObject:
   - 114: {fileID: 964716764}
   - 114: {fileID: 964716763}
   - 114: {fileID: 964716762}
-  m_Layer: 0
+  - 114: {fileID: 964716766}
+  - 58: {fileID: 964716765}
+  m_Layer: 13
   m_Name: FlyingMonster (16)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &964716761
 Transform:
   m_ObjectHideFlags: 0
@@ -2784,12 +3170,12 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 964716760}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e0b624d39b8b0a64ca6786961ed30dcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Weight: 1
+  Weight: 0.5
   NeighbourRadius: 1
   AlignmentWeight: 0.7
   CohesionWeigth: 0.5
@@ -2801,16 +3187,46 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 964716760}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 83056d1fbb9ef5748b13041f99078e47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxVelocity: 10
+  MaxVelocity: 25
   Mass: 10
   Friction: 0.05
   RotateSprite: 1
   CurrentVelocity: {x: 0, y: 0}
+--- !u!58 &964716765
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 964716760}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 5
+--- !u!114 &964716766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 964716760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d68a2867780f940a9a7f42a2c0832c68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 20
+  ghostTower: {fileID: 1049502624}
+  seekScript: {fileID: 117889075}
+  goToTarget: 0
+  target: {fileID: 621573749}
 --- !u!1001 &1027225291
 Prefab:
   m_ObjectHideFlags: 0
@@ -2923,7 +3339,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1049502621}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 106.3777, y: 4.9, z: 0}
+  m_LocalPosition: {x: -40.6, y: 109.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -3323,13 +3739,15 @@ GameObject:
   - 114: {fileID: 1254316406}
   - 114: {fileID: 1254316405}
   - 114: {fileID: 1254316404}
-  m_Layer: 0
+  - 114: {fileID: 1254316408}
+  - 58: {fileID: 1254316407}
+  m_Layer: 13
   m_Name: FlyingMonster (13)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1254316403
 Transform:
   m_ObjectHideFlags: 0
@@ -3363,12 +3781,12 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1254316402}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e0b624d39b8b0a64ca6786961ed30dcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Weight: 1
+  Weight: 0.5
   NeighbourRadius: 1
   AlignmentWeight: 0.7
   CohesionWeigth: 0.5
@@ -3380,16 +3798,46 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1254316402}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 83056d1fbb9ef5748b13041f99078e47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxVelocity: 10
+  MaxVelocity: 25
   Mass: 10
   Friction: 0.05
   RotateSprite: 1
   CurrentVelocity: {x: 0, y: 0}
+--- !u!58 &1254316407
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1254316402}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 5
+--- !u!114 &1254316408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1254316402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d68a2867780f940a9a7f42a2c0832c68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 20
+  ghostTower: {fileID: 1049502624}
+  seekScript: {fileID: 117889075}
+  goToTarget: 0
+  target: {fileID: 621573749}
 --- !u!4 &1283778760 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: b82cc8ccdd8ee4173aa5f08011e72d2c, type: 3}
@@ -3650,13 +4098,15 @@ GameObject:
   - 114: {fileID: 1391569641}
   - 114: {fileID: 1391569640}
   - 114: {fileID: 1391569639}
-  m_Layer: 0
+  - 114: {fileID: 1391569643}
+  - 58: {fileID: 1391569642}
+  m_Layer: 13
   m_Name: FlyingMonster (14)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1391569638
 Transform:
   m_ObjectHideFlags: 0
@@ -3690,12 +4140,12 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1391569637}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e0b624d39b8b0a64ca6786961ed30dcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Weight: 1
+  Weight: 0.5
   NeighbourRadius: 1
   AlignmentWeight: 0.7
   CohesionWeigth: 0.5
@@ -3707,16 +4157,46 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1391569637}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 83056d1fbb9ef5748b13041f99078e47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxVelocity: 10
+  MaxVelocity: 25
   Mass: 10
   Friction: 0.05
   RotateSprite: 1
   CurrentVelocity: {x: 0, y: 0}
+--- !u!58 &1391569642
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1391569637}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 5
+--- !u!114 &1391569643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1391569637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d68a2867780f940a9a7f42a2c0832c68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 20
+  ghostTower: {fileID: 1049502624}
+  seekScript: {fileID: 117889075}
+  goToTarget: 0
+  target: {fileID: 621573749}
 --- !u!4 &1396739338 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: b82cc8ccdd8ee4173aa5f08011e72d2c, type: 3}
@@ -4281,13 +4761,15 @@ GameObject:
   - 114: {fileID: 1811687998}
   - 114: {fileID: 1811687997}
   - 114: {fileID: 1811687996}
-  m_Layer: 0
+  - 114: {fileID: 1811688000}
+  - 58: {fileID: 1811687999}
+  m_Layer: 13
   m_Name: FlyingMonster (2)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1811687995
 Transform:
   m_ObjectHideFlags: 0
@@ -4321,12 +4803,12 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1811687994}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e0b624d39b8b0a64ca6786961ed30dcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Weight: 1
+  Weight: 0.5
   NeighbourRadius: 1
   AlignmentWeight: 0.7
   CohesionWeigth: 0.5
@@ -4338,16 +4820,46 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1811687994}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 83056d1fbb9ef5748b13041f99078e47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxVelocity: 10
+  MaxVelocity: 25
   Mass: 10
   Friction: 0.05
   RotateSprite: 1
   CurrentVelocity: {x: 0, y: 0}
+--- !u!58 &1811687999
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1811687994}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 5
+--- !u!114 &1811688000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1811687994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d68a2867780f940a9a7f42a2c0832c68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 20
+  ghostTower: {fileID: 1049502624}
+  seekScript: {fileID: 117889075}
+  goToTarget: 0
+  target: {fileID: 621573749}
 --- !u!1001 &1835586070
 Prefab:
   m_ObjectHideFlags: 0
@@ -4505,13 +5017,15 @@ GameObject:
   - 114: {fileID: 1857363617}
   - 114: {fileID: 1857363616}
   - 114: {fileID: 1857363615}
-  m_Layer: 0
+  - 114: {fileID: 1857363619}
+  - 58: {fileID: 1857363618}
+  m_Layer: 13
   m_Name: FlyingMonster (1)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1857363614
 Transform:
   m_ObjectHideFlags: 0
@@ -4545,12 +5059,12 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1857363613}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e0b624d39b8b0a64ca6786961ed30dcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Weight: 1
+  Weight: 0.5
   NeighbourRadius: 1
   AlignmentWeight: 0.7
   CohesionWeigth: 0.5
@@ -4562,16 +5076,46 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1857363613}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 83056d1fbb9ef5748b13041f99078e47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxVelocity: 10
+  MaxVelocity: 25
   Mass: 10
   Friction: 0.05
   RotateSprite: 1
   CurrentVelocity: {x: 0, y: 0}
+--- !u!58 &1857363618
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1857363613}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 5
+--- !u!114 &1857363619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1857363613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d68a2867780f940a9a7f42a2c0832c68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 20
+  ghostTower: {fileID: 1049502624}
+  seekScript: {fileID: 117889075}
+  goToTarget: 0
+  target: {fileID: 621573749}
 --- !u!1 &2035410138
 GameObject:
   m_ObjectHideFlags: 0
@@ -4764,13 +5308,15 @@ GameObject:
   - 114: {fileID: 2085054501}
   - 114: {fileID: 2085054500}
   - 114: {fileID: 2085054499}
-  m_Layer: 0
+  - 114: {fileID: 2085054503}
+  - 58: {fileID: 2085054502}
+  m_Layer: 13
   m_Name: FlyingMonster (7)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2085054498
 Transform:
   m_ObjectHideFlags: 0
@@ -4804,12 +5350,12 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2085054497}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e0b624d39b8b0a64ca6786961ed30dcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Weight: 1
+  Weight: 0.5
   NeighbourRadius: 1
   AlignmentWeight: 0.7
   CohesionWeigth: 0.5
@@ -4821,16 +5367,46 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2085054497}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 83056d1fbb9ef5748b13041f99078e47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxVelocity: 10
+  MaxVelocity: 25
   Mass: 10
   Friction: 0.05
   RotateSprite: 1
   CurrentVelocity: {x: 0, y: 0}
+--- !u!58 &2085054502
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2085054497}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 5
+--- !u!114 &2085054503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2085054497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d68a2867780f940a9a7f42a2c0832c68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 20
+  ghostTower: {fileID: 1049502624}
+  seekScript: {fileID: 117889075}
+  goToTarget: 0
+  target: {fileID: 621573749}
 --- !u!1 &2088641379
 GameObject:
   m_ObjectHideFlags: 0
@@ -4842,13 +5418,15 @@ GameObject:
   - 114: {fileID: 2088641383}
   - 114: {fileID: 2088641382}
   - 114: {fileID: 2088641381}
-  m_Layer: 0
+  - 114: {fileID: 2088641385}
+  - 58: {fileID: 2088641384}
+  m_Layer: 13
   m_Name: FlyingMonster (4)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2088641380
 Transform:
   m_ObjectHideFlags: 0
@@ -4882,12 +5460,12 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2088641379}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e0b624d39b8b0a64ca6786961ed30dcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Weight: 1
+  Weight: 0.5
   NeighbourRadius: 1
   AlignmentWeight: 0.7
   CohesionWeigth: 0.5
@@ -4899,16 +5477,46 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2088641379}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 83056d1fbb9ef5748b13041f99078e47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxVelocity: 10
+  MaxVelocity: 25
   Mass: 10
   Friction: 0.05
   RotateSprite: 1
   CurrentVelocity: {x: 0, y: 0}
+--- !u!58 &2088641384
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2088641379}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 5
+--- !u!114 &2088641385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2088641379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d68a2867780f940a9a7f42a2c0832c68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 20
+  ghostTower: {fileID: 1049502624}
+  seekScript: {fileID: 117889075}
+  goToTarget: 0
+  target: {fileID: 621573749}
 --- !u!4 &2109086207 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: b82cc8ccdd8ee4173aa5f08011e72d2c, type: 3}
@@ -4924,13 +5532,15 @@ GameObject:
   - 114: {fileID: 2137593705}
   - 114: {fileID: 2137593704}
   - 114: {fileID: 2137593703}
-  m_Layer: 0
+  - 114: {fileID: 2137593707}
+  - 58: {fileID: 2137593706}
+  m_Layer: 13
   m_Name: FlyingMonster (17)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2137593702
 Transform:
   m_ObjectHideFlags: 0
@@ -4964,12 +5574,12 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2137593701}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e0b624d39b8b0a64ca6786961ed30dcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Weight: 1
+  Weight: 0.5
   NeighbourRadius: 1
   AlignmentWeight: 0.7
   CohesionWeigth: 0.5
@@ -4981,13 +5591,43 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2137593701}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 83056d1fbb9ef5748b13041f99078e47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxVelocity: 10
+  MaxVelocity: 25
   Mass: 10
   Friction: 0.05
   RotateSprite: 1
   CurrentVelocity: {x: 0, y: 0}
+--- !u!58 &2137593706
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2137593701}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 5
+--- !u!114 &2137593707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2137593701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d68a2867780f940a9a7f42a2c0832c68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 20
+  ghostTower: {fileID: 1049502624}
+  seekScript: {fileID: 117889075}
+  goToTarget: 0
+  target: {fileID: 621573749}
