@@ -63,6 +63,7 @@
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Enemies\Enemy.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Enemies\EnemyController.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Enemies\FlyingEnemy.cs" />
+     <Compile Include="Assets\Scripts\SLaguePlatformControls\Enemies\WaterEnemy.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\IslandGenerator.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Item.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\NPC.cs" />

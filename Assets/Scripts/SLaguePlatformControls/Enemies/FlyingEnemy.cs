@@ -4,7 +4,7 @@ using Steer2D;
 
 public class FlyingEnemy : MonoBehaviour {
 
-	public float speed = 0.5f;
+	public float speed = 10;
 	public Transform ghostTower;
 
 	public Seek seekScript;
@@ -13,6 +13,10 @@ public class FlyingEnemy : MonoBehaviour {
 	public Transform target;
 
 	private Vector3 direction;
+
+	public bool captured;
+
+
 
 	// Use this for initialization
 	void Start () {
@@ -28,17 +32,36 @@ public class FlyingEnemy : MonoBehaviour {
 			direction = target.position - transform.position;
 		} else {
 //			seekScript.enabled = false;
-			direction = ghostTower.position - transform.position;
+			if (!captured) {
+				if (target == null) {
+					direction = ghostTower.position - transform.position;
+				} else {
+					goToTarget = true;
+				}
+			}
 		}
 
-		transform.Translate(direction * Time.deltaTime * speed);
+		transform.Translate(direction.normalized * Time.deltaTime * speed);
 
 	}
 
 	void OnTriggerEnter2D (Collider2D col)
 	{
 		if (col.CompareTag ("NPC")) {
-			Debug.Log("Hit NPC.......");
+			Debug.Log ("Hit NPC.......");
+		} else if (col.CompareTag ("AirCapture")) {
+			captured = true;
+			goToTarget = false;
+			direction = Mathf.Sign(direction.x) * Vector3.right;
+			Debug.Log("Entered flying trappppp: " + direction);
+		}
+	}
+
+	void OnTriggerExit2D (Collider2D col)
+	{
+		if (col.CompareTag ("AirCapture")) {
+			captured = false;
+			direction *= -1;
 		}
 	}
 

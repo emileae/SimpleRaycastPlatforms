@@ -103,6 +103,11 @@ public class Player : MonoBehaviour {
 
 		if (transform.position.y <= blackboard.seaLevel && !controller.inSea) {
 			controller.inSea = true;
+			blackboard.playerInSea = true;
+		}
+
+		if (transform.position.y > blackboard.seaLevel) {
+			blackboard.playerInSea = false;
 		}
 
 		controller.Move (velocity * Time.deltaTime);
