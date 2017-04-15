@@ -10,6 +10,9 @@ public class WaterEnemy : MonoBehaviour {
 
 	public Transform player;
 
+	public float attackRadius = 2.0f;
+	public LayerMask playerLayer;
+
 	public float evadeDistance = 5;
 
 	void Start ()
@@ -32,6 +35,12 @@ public class WaterEnemy : MonoBehaviour {
 			seekScript.TargetPoint = new Vector2 ((transform.position.x + evadeDistance), blackboard.seaLevel - evadeDistance);
 		} else {
 			seekScript.TargetPoint = new Vector2 (target.position.x, target.position.y);
+		}
+
+		Collider2D overlapPlayer = Physics2D.OverlapCircle (transform.position, attackRadius, playerLayer);
+		if (overlapPlayer != null) {
+			Debug.Log ("YOU'RE DEAD!!!");
+			Destroy (overlapPlayer.gameObject);
 		}
 
 	}

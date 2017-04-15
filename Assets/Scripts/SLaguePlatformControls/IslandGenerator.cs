@@ -30,7 +30,7 @@ public class IslandGenerator : MonoBehaviour {
 	public GameObject enemy;
 	private Bounds enemyBounds;
 
-	// make sure to put lowest value first...
+	// make sure to put lowest value first and highest value last
 	public float[] islandHeights;
 	private int minHeightIndex;
 	public int maxPlatformsPerIsland = 5;
@@ -61,6 +61,11 @@ public class IslandGenerator : MonoBehaviour {
 		}
 		// Set sea LEvel
 		blackboard.seaLevel = seaLevel;
+
+		// Set sky Level
+//		blackboard.skyLevel = islandHeights[islandHeights.Length - 1];// all platforms should have the same hieght
+		// TODO: dynamically set the skyLEvel using platform bounds
+		blackboard.skyLevel = 170.0f;// hardcoded for now, but need to take the sprite renderer bounds
 
 		// BUILD PLATFORMS
 		float currentXPos = numberOfIslands * distanceBetweenIslands * 0.5f * -1;
@@ -96,6 +101,8 @@ public class IslandGenerator : MonoBehaviour {
 				// TODO: can make this more efficient by only calling the GetComponent for the ladder once.... only true if the ladder stays the same for all platforms, i.e. no rope with different bounds, or alternative ladders
 				Bounds ladderBounds = ladder.GetComponent<BoxCollider2D> ().bounds;
 
+				Debug.Log("ladderBounds.size.y: " + ladderBounds.size.y);
+
 
 				// modify ladder position
 				// TODO: scaling ladder deforms the sprite, might need to use a quad and set a repeating texture to keep sprite looking right
@@ -103,6 +110,7 @@ public class IslandGenerator : MonoBehaviour {
 					if (platformBoundsList [currentPlatformIndex - 1].max.y > platformBounds.max.y) {
 //						Debug.Log ("ladder needs to go up");
 						float heightDifference = platformBoundsList [currentPlatformIndex - 1].max.y - platformBounds.max.y;
+						Debug.Log("heightDifference: " + heightDifference);
 //						ladder.transform.position = new Vector3 (ladder.transform.position.x + ladderBounds.extents.x, platformBounds.max.y + ladderBounds.extents.y, ladder.transform.position.z);
 						ladder.transform.position = new Vector3 (ladder.transform.position.x + ladderBounds.extents.x, platformBounds.max.y + (heightDifference * 0.5f), ladder.transform.position.z);
 						float ladderScaleFactor = (heightDifference) / ladderBounds.size.y;
@@ -128,54 +136,11 @@ public class IslandGenerator : MonoBehaviour {
 
 				currentXPos += platformBounds.size.x;
 
-//				// randomly assign an enemy to a platform
-//				if (Random.Range (0f, 1f) > 0.5f) {
-//					GameObject enemyObj = Instantiate (enemy, new Vector3 (platformBoundsList [currentPlatformIndex].center.x, platformBoundsList [currentPlatformIndex].max.y + 20.0f, platform.transform.position.z), Quaternion.identity) as GameObject;
-//					if (enemyBounds == null) {
-//						enemyBounds = enemyObj.GetComponent<BoxCollider2D> ().bounds;
-//					}
-//					enemyObj.transform.position = new Vector3 (platformBoundsList [currentPlatformIndex].center.x, platformBoundsList [currentPlatformIndex].max.y + enemyBounds.extents.y, platform.transform.position.z);
-//					// TODO: maybe add enemy to a public list somewhere
-//				}
-
-				// Assign NPCs to a platform -- offset slightly or make sure NPCs don't spawn overlapping an enemy?
-//				if (numBuilders > 0 || numFighters > 0 || numAverageJoes > 0){
-//					GameObject npcObj = Instantiate (npc, new Vector3 (platformBoundsList [currentPlatformIndex].center.x, platformBoundsList [currentPlatformIndex].max.y + 20.0f, platform.transform.position.z), Quaternion.identity) as GameObject;
-//					if (npcBounds == null) {
-//						npcBounds = npcObj.GetComponent<BoxCollider2D> ().bounds;
-//					}
-//					npcObj.transform.position = new Vector3 (platformBoundsList [currentPlatformIndex].center.x, platformBoundsList [currentPlatformIndex].max.y + npcBounds.extents.y, platform.transform.position.z);
-//					NPC npcScript = npcObj.GetComponent<NPC> ();
-//					npcScript.platformScript = platformScript;
-//					if (numBuilders > 0) {
-//						npcScript.npcType = 2;
-//						platformScript.builders.Add(npcObj);
-//						numBuilders -= 1;
-//					}else if (numFighters > 0){
-//						npcScript.npcType = 3;
-//						platformScript.fighters.Add(npcObj);
-//						numFighters -= 1;
-//					}else if (numAverageJoes > 0){
-//						npcScript.npcType = 1;
-//						platformScript.averageJoes.Add(npcObj);
-//						numAverageJoes -= 1;
-//					}
-//					npcScript.SetType();
-//					// TODO: maybe add npc to a public list somewhere
-//				}
-
-
-
 				currentPlatformIndex++;// update to keep track of where we are in the list
 			}
 
 			currentXPos += distanceBetweenIslands;
 		}
-
-		// Place player on a random platform, near the middle of the islands
-//		int randomPlatformIndex = Random.Range(Mathf.FloorToInt(0.25f * currentPlatformIndex), Mathf.FloorToInt(0.75f * currentPlatformIndex));
-//		Vector3 platformPosition = platforms[randomPlatformIndex].transform.position;
-//		player.transform.position = new Vector3(platformBoundsList[randomPlatformIndex].center.x, platformBoundsList[randomPlatformIndex].max.y + 20.0f, player.transform.position.z);
 
 		// Place enemies first... they were there first, hehe
 		PlaceEnemies ();
@@ -204,7 +169,7 @@ public class IslandGenerator : MonoBehaviour {
 				if (enemyBounds == null) {
 					enemyBounds = enemyObj.GetComponent<BoxCollider2D> ().bounds;
 				}
-				enemyObj.transform.position = new Vector3 (platformBoundsList [enemyPlatforms[i]].center.x, platformBoundsList [enemyPlatforms[i]].max.y + enemyBounds.extents.y, platform.transform.position.z);
+				enemyObj.transform.position = new Vector3 (platformBoundsList [enemyPlatforms[i]].center.x, platformBoundsList [enemyPlatforms[i]].max.y, platform.transform.position.z);
 				numEnemies--;
 			}
 		}
@@ -215,10 +180,30 @@ public class IslandGenerator : MonoBehaviour {
 		int platformIndex = Random.Range (0, temporaryPlatformIndices.Count);
 		Vector3 platformPosition = platforms[temporaryPlatformIndices[platformIndex]].transform.position;
 		player.transform.position = new Vector3(platformBoundsList[temporaryPlatformIndices[platformIndex]].center.x, platformBoundsList[temporaryPlatformIndices[platformIndex]].max.y + 20.0f, player.transform.position.z);
+
+		// give player a single crew member on the same platform
+		// instantiate an NPC
+		GameObject npcObj = Instantiate (npc, new Vector3 (platformBoundsList [temporaryPlatformIndices[platformIndex]].center.x, platformBoundsList [temporaryPlatformIndices[platformIndex]].max.y + 20.0f,  platforms[temporaryPlatformIndices[platformIndex]].transform.position.z), Quaternion.identity) as GameObject;
+		if (npcBounds == null) {
+			npcBounds = npcObj.GetComponent<BoxCollider2D> ().bounds;
+		}
+
+		// place the NPC at a location on the platform
+		npcObj.transform.position = new Vector3 (platformBoundsList [temporaryPlatformIndices[platformIndex]].center.x, platformBoundsList [temporaryPlatformIndices[platformIndex]].max.y + npcBounds.extents.y, platforms[temporaryPlatformIndices[platformIndex]].transform.position.z);
+		NPC npcScript = npcObj.GetComponent<NPC> ();
+		npcScript.platformScript = platformScripts [temporaryPlatformIndices[platformIndex]];
+
+		// average Joe survives with Player
+		npcScript.npcType = 1;
+		platformScripts [temporaryPlatformIndices[platformIndex]].averageJoes.Add (npcObj);
+		numAverageJoes -= 1;// remove 1 from the list... maybe make this optional?
+
+		npcScript.SetType ();
+
 	}
 
 	void PlaceGhostTower(){
-		GameObject ghostTowerObject = Instantiate (ghostTower, new Vector3 (platforms [0].transform.position.x - 50.0f, 0, platforms [0].transform.position.z), Quaternion.identity) as GameObject;
+		GameObject ghostTowerObject = Instantiate (ghostTower, new Vector3 (platforms [0].transform.position.x - 250.0f, 0, platforms [0].transform.position.z), Quaternion.identity) as GameObject;
 		blackboard.ghostTower = ghostTowerObject;
 		Bounds ghostTowerBounds = ghostTowerObject.GetComponent<EdgeCollider2D> ().bounds;
 		blackboard.ghostTowerBounds = ghostTowerBounds;

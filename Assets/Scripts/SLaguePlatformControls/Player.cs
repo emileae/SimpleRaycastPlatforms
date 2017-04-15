@@ -110,6 +110,14 @@ public class Player : MonoBehaviour {
 			blackboard.playerInSea = false;
 		}
 
+		if (transform.position.y >= blackboard.skyLevel) {
+			blackboard.playeronTopPlatform = true;
+		}
+
+		if (transform.position.y < blackboard.skyLevel) {
+			blackboard.playeronTopPlatform = false;
+		}
+
 		controller.Move (velocity * Time.deltaTime);
 
 	}

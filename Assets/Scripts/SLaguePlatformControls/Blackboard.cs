@@ -9,17 +9,20 @@ public class Blackboard : MonoBehaviour {
 	public float seaLevel = 0.0f;
 	public bool playerInSea = false;
 	public Transform player;
+	public Transform fishSeekPoint;// random schooling for fish
+
+	// Sky parameters
+	public float skyLevel;// based on top platform's height in islandGenerator
+	public bool playeronTopPlatform = false;
+	public Transform skySeekPoint;// random flocking for birds
 
 	// Ghost tower parameters
 	public GameObject ghostTower;
 	public Bounds ghostTowerBounds;
 
-	// fish random schooling
-	public Transform fishSeekPoint;
-
 	void Start ()
 	{
-		InvokeRepeating("MoveFishSeekPoint", 1.0f, 3.0f);
+		InvokeRepeating("MoveSeekPoints", 1.0f, 3.0f);
 	}
 
 	public void AddToWorkList ()
@@ -27,8 +30,11 @@ public class Blackboard : MonoBehaviour {
 		Debug.Log("blank add to work list function");
 	}
 
-	void MoveFishSeekPoint(){
-		fishSeekPoint.position = new Vector3(Random.Range(player.position.x - 100, player.position.x + 100), Random.Range(0, -100f), fishSeekPoint.position.z);
+	// TODO call this from flyingEnemy or WaterEnemy when they reach the seek point, to avoid the weird glitch behaviour
+	public void MoveSeekPoints(){
+		Debug.Log("Move random target.....");
+		fishSeekPoint.position = new Vector3(Random.Range(player.position.x - 200, player.position.x + 200), Random.Range(seaLevel, -100f), fishSeekPoint.position.z);
+		skySeekPoint.position = new Vector3(Random.Range(player.position.x - 200, player.position.x + 200), Random.Range(skyLevel, 100f), skySeekPoint.position.z);
 	}
 
 }
