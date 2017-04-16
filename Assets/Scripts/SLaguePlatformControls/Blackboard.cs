@@ -32,7 +32,7 @@ public class Blackboard : MonoBehaviour {
 
 	// TODO call this from flyingEnemy or WaterEnemy when they reach the seek point, to avoid the weird glitch behaviour
 	public void MoveSeekPoints(){
-		Debug.Log("Move random target.....");
+//		Debug.Log("Move random target.....");
 		fishSeekPoint.position = new Vector3(Random.Range(player.position.x - 200, player.position.x + 200), Random.Range(seaLevel, -100f), fishSeekPoint.position.z);
 		skySeekPoint.position = new Vector3(Random.Range(player.position.x - 200, player.position.x + 200), Random.Range(skyLevel, 100f), skySeekPoint.position.z);
 	}

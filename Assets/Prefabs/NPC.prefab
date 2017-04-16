@@ -335,9 +335,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blackboard: {fileID: 0}
   npcType: 0
+  maxHP: 0
   hp: 5
+  maxAP: 0
   ap: 1
   production: 10
+  stopToHeal: 0
   platformScript: {fileID: 0}
   isPackage: 0
   beingPaid: 0
@@ -356,6 +359,8 @@ MonoBehaviour:
   enemyScript: {fileID: 0}
   attackTime: 1.5
   attackRadius: 3
+  reloadTime: 1
+  shootRange: 4
 --- !u!114 &114000012155970506
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -389,8 +394,10 @@ MonoBehaviour:
   horizontalRaySpacing: 0
   verticalRaySpacing: 0
   collider: {fileID: 0}
-  seaLevel: 0
+  blackboard: {fileID: 0}
+  inSea: 0
   fallDepth: 2
+  swimming: 0
   ignoreVerticalCollisions: 0
 --- !u!114 &114000012575458406
 MonoBehaviour:
@@ -405,6 +412,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pickupable: 0
   cost: 3
+  costBlock: 5
+  numPaidTiers: 0
+  payTiers: 0
   amountPaid: 0
   purchased: 0
   platformScript: {fileID: 0}
@@ -428,6 +438,9 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 8192
+  animalLayer:
+    serializedVersion: 2
+    m_Bits: 16384
   stopForPlayer: 0
   stopForEnemy: 0
   direction: -1

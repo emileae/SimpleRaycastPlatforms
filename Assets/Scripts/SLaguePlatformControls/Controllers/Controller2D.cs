@@ -87,7 +87,7 @@ public class Controller2D : RaycastController {
 			fallDepthincrease = 0.0f;
 		}
 		if (inSea) {
-			Debug.Log ("fallDepthincrease: " + fallDepthincrease);
+//			Debug.Log ("fallDepthincrease: " + fallDepthincrease);
 			if (!swimming) {
 				float fracFallen = Mathf.Abs (transform.position.y - blackboard.seaLevel) / fallDepthincrease;
 				if (fracFallen >= 0.99f) {
@@ -98,7 +98,7 @@ public class Controller2D : RaycastController {
 				}
 //				Debug.Log ("velocity.y going down: " + velocity.y);
 			} else {
-				Debug.Log ("Move uppppp");
+//				Debug.Log ("Move uppppp");
 				if (transform.position.y < blackboard.seaLevel) {
 					velocity.y = 0.3f;
 				} else {
@@ -168,11 +168,11 @@ public class Controller2D : RaycastController {
 				collisions.above = directionY == 1;
 
 				if (collisions.above) {
-					Debug.Log("ABOVE ------- HIT!!!!!");
+//					Debug.Log("ABOVE ------- HIT!!!!!");
 				}
 
 				if (collisions.below) {
-					Debug.Log("ABOVE ------- HIT!!!!!");
+//					Debug.Log("ABOVE ------- HIT!!!!!");
 				}
 
 			}

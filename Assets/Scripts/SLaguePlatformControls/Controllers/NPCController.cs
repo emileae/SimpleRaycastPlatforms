@@ -11,6 +11,7 @@ public class NPCController : MonoBehaviour {
 	private Vector3 velocity;
 
 	public LayerMask enemyLayer;
+	public LayerMask animalLayer;
 
 	public bool stopForPlayer = false;
 	public bool stopForEnemy = false;
@@ -51,6 +52,18 @@ public class NPCController : MonoBehaviour {
 			}
 		}
 
+		// hunt animals
+		Collider2D overlapAnimal = Physics2D.OverlapCircle (transform.position, npcScript.attackRadius, animalLayer);
+		if (overlapAnimal != null) {
+			Debug.Log("HuntAnimal");
+			npcScript.Hunt(overlapAnimal.transform);
+		} else {
+			stopForEnemy = false;
+			npcScript.enemyScript = null;
+			npcScript.attacking = false;// stop attacking if there is no enemy
+		}
+
+		// if still alive
 		if (npcScript.hp > 0) {
 
 			if (stopForEnemy) {

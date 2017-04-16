@@ -64,7 +64,9 @@ public class NPC : MonoBehaviour {
 	public bool attacking = false;
 	public Enemy enemyScript;
 	public float attackTime = 1.5f;
-	public float attackRadius = 3.0f;
+	public float attackRadius = 6.0f;
+	public float reloadTime = 1.0f;
+	public float shootRange = 10.0f;
 
 	// trigger trackers
 	private bool changingDirection = false;
@@ -86,23 +88,14 @@ public class NPC : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-		// no need to hover if player doesnt have to pay for NPC
-//		if (npcController.stopForPlayer) {
-//			timeHovered += Time.deltaTime;
-//			if (payScript.amountPaid > 0) {
-//				timeHovered = 0;
-//			}
-//			if (timeHovered >= npcHoverTime) {
-//				KeepMoving();
-//			}
-//		}
+
 	}
 
 	void OnTriggerEnter2D (Collider2D col)
 	{
 
 		if (col.CompareTag ("Player")) {
-			Debug.Log ("Collided with player!!!@");
+//			Debug.Log ("Collided with player!!!@");
 //			playerScript = col.gameObject.GetComponent<PlayerController> ();
 			playerScript = col.gameObject.GetComponent<PlayerInteractions> ();
 			if (!payScript.purchased) {
@@ -110,25 +103,11 @@ public class NPC : MonoBehaviour {
 				attackable = true;// this must be removed if reverting to paying for NPCs
 				Work ();// this must be removed if reverting to paying for NPCs
 				SetPickupable ();
-				// if player isn't currently dealing with another NPC, then stop
-//				if (playerScript.payScript == null) {
-//					StopForPlayer ();
-//				}
 			} else {
 				// allow NPC to be picked up by player
 				SetPickupable ();
 			}
-			// set npcScript to this script
-			// Add this if player is going to pay for NPCs
-//			playerScript.payScript = payScript;
 		} 
-
-//		if (col.CompareTag ("Enemy")) {
-//			if (npcController != null && payScript.purchased) {
-//				npcController.stopForEnemy = true;
-//				enemyScript = col.gameObject.GetComponent<Enemy> ();
-//			}
-//		}
 
 		// Structure interaction
 		if (col.CompareTag ("Structure")) {
@@ -152,15 +131,6 @@ public class NPC : MonoBehaviour {
 				}
 			}
 		}
-
-		
-		// now NPCs start working as soon as they come in contact with the player
-		// This is where NPCs are assigned a task
-//		if (col.CompareTag ("Platform")) {
-//			if (payScript.purchased && !working) {
-//				Work();
-//			}
-//		}
 
 	}
 
@@ -186,16 +156,6 @@ public class NPC : MonoBehaviour {
 			timeHovered = 0;
 			beingPaid = false;
 		}
-//		else if (col.CompareTag ("Edge")) {
-//			if (changingDirection) {
-//				changingDirection = false;
-//			}
-//		}
-
-//		if (col.CompareTag("Enemy")){
-//			npcController.stopForEnemy = false;
-//			enemyScript = null;
-//		}
 
 		// Structure interaction
 		if (col.CompareTag ("Structure")) {
@@ -381,5 +341,25 @@ public class NPC : MonoBehaviour {
 
 		KeepMoving();
 		Debug.Log("Play finish build animation......");
+	}
+
+	public void Hunt (Transform animal)
+	{
+		Debug.Log ("HUNT!!!");
+		npcController.direction = 0;
+		StartCoroutine(Shoot(animal));
+	}
+	IEnumerator Shoot (Transform shootTarget)
+	{
+		yield return new WaitForSeconds(reloadTime);
+		if (shootTarget.position.x < transform.position.x) {
+			npcController.direction = -1;
+		}else if (shootTarget.position.x > transform.position.x){
+			npcController.direction = 1;
+		}
+		if (Vector3.Distance (transform.position, shootTarget.position) <= shootRange) {
+			Debug.Log("Shot hit target.............");
+			shootTarget.GetComponent<Attack>().GetHit();
+		}
 	}
 }

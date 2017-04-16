@@ -26,9 +26,13 @@ public class IslandGenerator : MonoBehaviour {
 	// character prefabs
 	public GameObject player;
 	public GameObject npc;
-	private Bounds npcBounds;
+//	private Bounds npcBounds;
 	public GameObject enemy;
 	private Bounds enemyBounds;
+
+	// Animal Spawn Prefabs
+	public GameObject smallAnimalSpawnPoint;
+	public int numSmallAnimalSpawnPoints = 20;
 
 	// make sure to put lowest value first and highest value last
 	public float[] islandHeights;
@@ -101,7 +105,7 @@ public class IslandGenerator : MonoBehaviour {
 				// TODO: can make this more efficient by only calling the GetComponent for the ladder once.... only true if the ladder stays the same for all platforms, i.e. no rope with different bounds, or alternative ladders
 				Bounds ladderBounds = ladder.GetComponent<BoxCollider2D> ().bounds;
 
-				Debug.Log("ladderBounds.size.y: " + ladderBounds.size.y);
+//				Debug.Log("ladderBounds.size.y: " + ladderBounds.size.y);
 
 
 				// modify ladder position
@@ -110,7 +114,7 @@ public class IslandGenerator : MonoBehaviour {
 					if (platformBoundsList [currentPlatformIndex - 1].max.y > platformBounds.max.y) {
 //						Debug.Log ("ladder needs to go up");
 						float heightDifference = platformBoundsList [currentPlatformIndex - 1].max.y - platformBounds.max.y;
-						Debug.Log("heightDifference: " + heightDifference);
+//						Debug.Log("heightDifference: " + heightDifference);
 //						ladder.transform.position = new Vector3 (ladder.transform.position.x + ladderBounds.extents.x, platformBounds.max.y + ladderBounds.extents.y, ladder.transform.position.z);
 						ladder.transform.position = new Vector3 (ladder.transform.position.x + ladderBounds.extents.x, platformBounds.max.y + (heightDifference * 0.5f), ladder.transform.position.z);
 						float ladderScaleFactor = (heightDifference) / ladderBounds.size.y;
@@ -148,6 +152,7 @@ public class IslandGenerator : MonoBehaviour {
 		PlaceGhostTower();
 		PlaceStructures();
 		PlaceNPCs ();
+		PlaceAnimalSpawnPoints ();
 	
 	}
 
@@ -184,9 +189,12 @@ public class IslandGenerator : MonoBehaviour {
 		// give player a single crew member on the same platform
 		// instantiate an NPC
 		GameObject npcObj = Instantiate (npc, new Vector3 (platformBoundsList [temporaryPlatformIndices[platformIndex]].center.x, platformBoundsList [temporaryPlatformIndices[platformIndex]].max.y + 20.0f,  platforms[temporaryPlatformIndices[platformIndex]].transform.position.z), Quaternion.identity) as GameObject;
-		if (npcBounds == null) {
-			npcBounds = npcObj.GetComponent<BoxCollider2D> ().bounds;
-		}
+//		if (npcBounds == null) {
+			Bounds npcBounds = npcObj.GetComponent<BoxCollider2D> ().bounds;
+//		}
+
+//		Debug.Log("Player's npc bounds: " + npcBounds.size.y);
+//		Debug.Log("Player's npc bounds extents: " + npcBounds.extents.y);
 
 		// place the NPC at a location on the platform
 		npcObj.transform.position = new Vector3 (platformBoundsList [temporaryPlatformIndices[platformIndex]].center.x, platformBoundsList [temporaryPlatformIndices[platformIndex]].max.y + npcBounds.extents.y, platforms[temporaryPlatformIndices[platformIndex]].transform.position.z);
@@ -267,9 +275,9 @@ public class IslandGenerator : MonoBehaviour {
 
 				// instantiate an NPC
 				GameObject npcObj = Instantiate (npc, new Vector3 (platformBoundsList [npcPlatforms [i]].center.x, platformBoundsList [npcPlatforms [i]].max.y + 20.0f, platform.transform.position.z), Quaternion.identity) as GameObject;
-				if (npcBounds == null) {
-					npcBounds = npcObj.GetComponent<BoxCollider2D> ().bounds;
-				}
+//				if (npcBounds == null) {
+					Bounds npcBounds = npcObj.GetComponent<BoxCollider2D> ().bounds;
+//				}
 
 				// place the NPC at a location on the platform
 				npcObj.transform.position = new Vector3 (platformBoundsList [npcPlatforms [i]].center.x, platformBoundsList [npcPlatforms [i]].max.y + npcBounds.extents.y, platform.transform.position.z);
@@ -290,6 +298,51 @@ public class IslandGenerator : MonoBehaviour {
 				}
 				npcScript.SetType ();
 				// TODO: maybe add npc to a public list somewhere
+			}
+		}
+
+
+	}
+
+	void PlaceAnimalSpawnPoints ()
+	{
+		List<int> tempPlatformIndices = new List<int> ();
+		for (int i = 0; i < platforms.Count; i++) {
+			tempPlatformIndices.Add (i);
+		}
+
+		List<int> smallAnimalPlatforms = new List<int> ();
+
+		// choose random indices to place enemies
+		for (int i = 0; i < numSmallAnimalSpawnPoints; i++) {
+			int randomIndex = Random.Range (0, tempPlatformIndices.Count);
+			smallAnimalPlatforms.Add (tempPlatformIndices [randomIndex]);
+			tempPlatformIndices.RemoveAt (randomIndex);
+		}
+
+
+		if (numSmallAnimalSpawnPoints > 0) {
+			for (int i = 0; i < smallAnimalPlatforms.Count; i++) {
+				GameObject platform = platforms [smallAnimalPlatforms [i]];
+
+				// add between 1 and 4 spawn points per platform
+
+				int numSpawnPoints = Random.Range (1, 4);
+				for (int j = 0; j < numSpawnPoints; j++) {
+					GameObject structureObj = Instantiate (smallAnimalSpawnPoint, new Vector3 (platformBoundsList [i].center.x, platformBoundsList [smallAnimalPlatforms [i]].max.y + 20.0f, platform.transform.position.z), Quaternion.identity) as GameObject;
+					PayController structurePayScript = structureObj.GetComponent<PayController> ();
+					structurePayScript.platformScript = platformScripts [smallAnimalPlatforms [i]];
+					Bounds spawnPointBounds = structureObj.GetComponent<BoxCollider2D> ().bounds;
+					// spawn points are positioned according to their j value and a random direction form the center
+					int spawnPointOffset = 0;
+					if (Random.Range (0, 1) > 0.5) {
+						spawnPointOffset = -1;
+					} else {
+						spawnPointOffset = 1;
+					}
+					structureObj.transform.position = new Vector3 (platformBoundsList [smallAnimalPlatforms [i]].center.x + (j * spawnPointOffset *spawnPointBounds.size.x), platformBoundsList [smallAnimalPlatforms [i]].max.y, platform.transform.position.z);
+					numSmallAnimalSpawnPoints--;
+				}
 			}
 		}
 

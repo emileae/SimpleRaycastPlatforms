@@ -12,3 +12,7 @@
 /Users/emile/Desktop/unity_projects/SeaFever/SimpleIslands/Temp/bin/Debug/Unity.CecilTools.dll
 /Users/emile/Desktop/unity_projects/SeaFever/SimpleIslands/Temp/bin/Debug/Mono.Cecil.Pdb.dll
 /Users/emile/Desktop/unity_projects/SeaFever/SimpleIslands/Temp/bin/Debug/Mono.Cecil.Mdb.dll
+/Users/emile/Desktop/unity_projects/SeaFever/SimpleIslands/Temp/bin/Debug/Assembly-CSharp.dll.mdb
+/Users/emile/Desktop/unity_projects/SeaFever/SimpleIslands/Temp/bin/Debug/Assembly-CSharp.dll
+/Users/emile/Desktop/unity_projects/SeaFever/SimpleIslands/obj/Debug/Assembly-CSharp.dll
+/Users/emile/Desktop/unity_projects/SeaFever/SimpleIslands/obj/Debug/Assembly-CSharp.dll.mdb
