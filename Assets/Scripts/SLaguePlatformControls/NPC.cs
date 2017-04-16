@@ -249,7 +249,7 @@ public class NPC : MonoBehaviour {
 	void Work()
 	{
 		working = true;
-		StartCoroutine(PerformWork());
+//		StartCoroutine(PerformWork());
 	}
 	IEnumerator PerformWork ()
 	{
@@ -257,11 +257,7 @@ public class NPC : MonoBehaviour {
 
 		// Use the Platform script's built-in coins, so less instantiating
 		if (platformScript.coins.Count > 0) {
-			// TODO: be careful here, if 2 NPCs both try to activate the same coin at the same time then probably an error/bug here
-			GameObject foundCoin = platformScript.coins [0];
-			foundCoin.SetActive (true);
-			foundCoin.transform.position = transform.position;
-			platformScript.coins.Remove (foundCoin);
+			platformScript.FindCoin(transform.position);
 			Work ();
 		} else {
 			Debug.Log("NO MORE COINS TO FIND!!!!!!!!!!");

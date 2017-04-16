@@ -359,7 +359,7 @@ MonoBehaviour:
   enemyScript: {fileID: 0}
   attackTime: 1.5
   attackRadius: 3
-  reloadTime: 1
+  reloadTime: 0.1
   shootRange: 4
 --- !u!114 &114000012155970506
 MonoBehaviour:

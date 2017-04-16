@@ -3,7 +3,22 @@ using System.Collections;
 
 public class AnimalMovement : MonoBehaviour {
 
+	public Sprite aliveSprite;
+	public Sprite deadSprite;
+
 	private SpriteRenderer sprite;
+	private Bounds spriteBounds;
+
+	// collider
+	private BoxCollider2D collider;
+
+	// Platform aware, knows where home is
+	[HideInInspector]
+	public Platform platformScript;
+
+	// pickup item scripts
+	private Item itemScript;
+	private PickUp pickupScript;
 
 	public float idleSpeed = 3;
 	public float stopSpeed = 0;
@@ -42,6 +57,16 @@ public class AnimalMovement : MonoBehaviour {
 
 	void Start () {
 		sprite = GetComponent<SpriteRenderer>();
+		spriteBounds = sprite.bounds;
+
+		sprite.sprite = aliveSprite;
+
+		collider = GetComponent<BoxCollider2D>();
+
+		// get item/pickup scripts
+		itemScript = GetComponent<Item>();
+		pickupScript = GetComponent<PickUp>();
+
 		StartCoroutine(Hesitate());
 		wandering = true;
 	}
@@ -58,7 +83,7 @@ public class AnimalMovement : MonoBehaviour {
 		// Attacking animal
 		Collider2D overlapEnemy = Physics2D.OverlapCircle (transform.position, dangerRadius, enemyLayer);
 		Collider2D overlapNPC = Physics2D.OverlapCircle (transform.position, dangerRadius, npcLayer);
-		if (overlapEnemy != null || overlapNPC != null) {
+		if (overlapEnemy != null || overlapNPC != null && !dead) {
 			if (fleeFromEdge) {
 				fleeFromEdgeTime += Time.deltaTime;
 				if (fleeFromEdgeTime >= fleeFromEdgeTotalTime) {
@@ -145,9 +170,29 @@ public class AnimalMovement : MonoBehaviour {
 		dead = true;
 		direction = 0;
 		speed = stopSpeed;
-		sprite.flipY = true;
+//		sprite.flipY = true;
+//		transform.position = new Vector3(transform.position.x, transform.position.y + spriteBounds.extents.y, transform.position.z);
+
+		sprite.sprite = deadSprite;
+
+		// convert box collider to a trigger so that player can detect to pick it up
+		collider.isTrigger = true;
+
+		// TODO: use a layermask with this
 		// change the layer so that NPC don't keep hunting a dead animal
+		//gameObject.layer = LayerMask.NameToLayer("Item");
 		gameObject.layer = 10;
+
+		// drops a coin
+//		if (platformScript.coins.Count > 0) {
+//			Debug.Log("Animal drops a coin");
+//			Vector3 coinFallPosition = new Vector3(transform.position.x + spriteBounds.extents.x, transform.position.y, transform.position.z);
+//			platformScript.FindCoin (coinFallPosition);
+//		}s
+
+		itemScript.enabled = true;
+		pickupScript.enabled = true;
+
 	}
 
 

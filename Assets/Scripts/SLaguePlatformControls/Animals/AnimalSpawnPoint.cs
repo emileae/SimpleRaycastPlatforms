@@ -5,6 +5,8 @@ public class AnimalSpawnPoint : MonoBehaviour {
 
 	public bool active = true;
 
+	public Platform platformScript;
+
 	public int carryingCapacity = 3;
 	private int totalAnimals = 0;
 
@@ -41,6 +43,8 @@ public class AnimalSpawnPoint : MonoBehaviour {
 		yield return new WaitForSeconds (spawnTime);
 		if (smallAnimalSpawner) {
 			GameObject smallAnimal = Instantiate (smallAnimalPrefab, transform.position, Quaternion.identity) as GameObject;
+			AnimalMovement animalScript = smallAnimal.GetComponent<AnimalMovement>();
+			animalScript.platformScript = platformScript;
 		}
 		totalAnimals += 1;
 		if (totalAnimals < carryingCapacity) {

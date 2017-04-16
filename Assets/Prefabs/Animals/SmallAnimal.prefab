@@ -24,6 +24,8 @@ GameObject:
   - 50: {fileID: 50000012040927178}
   - 61: {fileID: 61000012269100838}
   - 114: {fileID: 114000012357576060}
+  - 114: {fileID: 114000014095106920}
+  - 114: {fileID: 114000010097169322}
   m_Layer: 14
   m_Name: SmallAnimal
   m_TagString: Untagged
@@ -75,6 +77,20 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: 4, y: 4}
+--- !u!114 &114000010097169322
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013391108714}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85c26d3a18f5c4c168ca3f9c865de07b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  generalType: 2
+  npcScript: {fileID: 0}
+  itemScript: {fileID: 0}
 --- !u!114 &114000012357576060
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -100,6 +116,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1ed741ab02e2475186c50233334836b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  aliveSprite: {fileID: 21300000, guid: 9763538f10c104695a46850144835810, type: 3}
+  deadSprite: {fileID: 21300000, guid: e17cd2b2346d94c5ead276ce3c8c48ed, type: 3}
+  platformScript: {fileID: 0}
   idleSpeed: 3
   stopSpeed: 0
   runSpeed: 10
@@ -123,6 +142,17 @@ MonoBehaviour:
   stopForPlayer: 0
   stopForNPC: 0
   direction: -1
+--- !u!114 &114000014095106920
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013391108714}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83828423fed0948e0abb4c1d5c2e2d21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212000012586831946
 SpriteRenderer:
   m_ObjectHideFlags: 1

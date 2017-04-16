@@ -14,12 +14,25 @@ public class Item : MonoBehaviour {
 	void OnTriggerEnter2D (Collider2D col)
 	{
 		if (col.CompareTag ("Player")) {
+
+			Debug.Log("Player entered trigger");
+
 			playerScript = col.gameObject.GetComponent<PlayerInteractions> ();
 			SetPickupable ();
 
 			// if its a coin... pick it up
-			if (pickUpScript.generalType == 1) {
-				playerScript.PickUpItem(gameObject);
+			switch (pickUpScript.generalType) {
+				case 0:
+					break;
+				case 1:
+					playerScript.PickUpItem(gameObject);
+					break;
+				case 2:
+//					playerScript.PickUpItem(gameObject);
+					break;
+				default:
+					Debug.Log("fall through Item.cs ontriggerenter2d");
+					break;
 			}
 		}
 

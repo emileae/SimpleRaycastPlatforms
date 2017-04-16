@@ -218,6 +218,7 @@ public class PlayerInteractions : MonoBehaviour {
 				}
 				break;
 			case 2:
+				Debug.Log("Pickup a dead animal...");
 				if (inventory.Count < inventorySize) {
 					pickupScript.PickUpItem (platformScript);
 					inventory.Add (pickupableItems[0]);

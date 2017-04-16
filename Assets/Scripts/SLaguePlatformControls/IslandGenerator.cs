@@ -329,9 +329,14 @@ public class IslandGenerator : MonoBehaviour {
 
 				int numSpawnPoints = Random.Range (1, 4);
 				for (int j = 0; j < numSpawnPoints; j++) {
-					GameObject structureObj = Instantiate (smallAnimalSpawnPoint, new Vector3 (platformBoundsList [i].center.x, platformBoundsList [smallAnimalPlatforms [i]].max.y + 20.0f, platform.transform.position.z), Quaternion.identity) as GameObject;
+					GameObject structureObj = Instantiate (smallAnimalSpawnPoint, new Vector3 (0, 0, 0), Quaternion.identity) as GameObject;// position is set after bounds etc. are ascertained
+
+					AnimalSpawnPoint spawnPointScript = structureObj.GetComponent<AnimalSpawnPoint>();
+					spawnPointScript.platformScript = platformScripts[smallAnimalPlatforms [i]];
+
 					PayController structurePayScript = structureObj.GetComponent<PayController> ();
 					structurePayScript.platformScript = platformScripts [smallAnimalPlatforms [i]];
+
 					Bounds spawnPointBounds = structureObj.GetComponent<BoxCollider2D> ().bounds;
 					// spawn points are positioned according to their j value and a random direction form the center
 					int spawnPointOffset = 0;

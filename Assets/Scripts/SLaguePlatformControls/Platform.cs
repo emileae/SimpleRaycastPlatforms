@@ -29,4 +29,13 @@ public class Platform : MonoBehaviour {
 		}
 	}
 
+	public void FindCoin (Vector3 position)
+	{
+		// TODO: be careful here, if 2 NPCs both try to activate the same coin at the same time then probably an error/bug here
+			GameObject foundCoin = coins [0];
+			foundCoin.SetActive (true);
+			foundCoin.transform.position = position;
+			coins.Remove (foundCoin);
+	}
+
 }

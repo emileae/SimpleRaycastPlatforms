@@ -6,7 +6,7 @@ public class PickUp : MonoBehaviour {
 	// general type
 	// 0 -> NPC
 	// 1 -> coin
-	// 2 -> gem
+	// 2 -> killed animal
 	public int generalType = 0;
 
 	public NPC npcScript;
@@ -34,6 +34,9 @@ public class PickUp : MonoBehaviour {
 			case 1:
 				Debug.Log("Deactivate item");
 				break;
+			case 2:
+				Debug.Log("Deactivate dead animal item... or something???");
+				break;
 			default:
 				Debug.Log("fell through switch statement in pickup - Pickup.cs");
 				break;
@@ -56,6 +59,9 @@ public class PickUp : MonoBehaviour {
 				npcScript.KeepMoving ();
 				break;
 			case 1:
+				Debug.Log("Do Something with item... drop on ground");
+				break;
+			case 2:
 				Debug.Log("Do Something with item... drop on ground");
 				break;
 			default:
