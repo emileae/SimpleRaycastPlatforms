@@ -1,20 +1,22 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/SLaguePlatformControls/Enemies/Enemy.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/SLaguePlatformControls/PickUp.cs">
     <Files>
-      <File FileName="Assets/Scripts/SLaguePlatformControls/IslandGenerator.cs" Line="34" Column="41" />
-      <File FileName="Assets/Scripts/SLaguePlatformControls/Animals/AnimalMovement.cs" Line="18" Column="42" />
-      <File FileName="Assets/Scripts/SLaguePlatformControls/Blackboard.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/SLaguePlatformControls/Enemies/EnemyController.cs" Line="15" Column="31" />
-      <File FileName="Assets/Scripts/SLaguePlatformControls/Enemies/Enemy.cs" Line="31" Column="33" />
+      <File FileName="Assets/Scripts/SLaguePlatformControls/Animals/AnimalMovement.cs" Line="186" Column="18" />
+      <File FileName="Assets/Scripts/SLaguePlatformControls/Combat/Attack.cs" Line="20" Column="23" />
+      <File FileName="Assets/Scripts/SLaguePlatformControls/Animals/AnimalSpawnPoint.cs" Line="47" Column="49" />
+      <File FileName="Assets/Scripts/SLaguePlatformControls/IslandGenerator.cs" Line="344" Column="29" />
+      <File FileName="Assets/Scripts/SLaguePlatformControls/Blackboard.cs" Line="35" Column="5" />
+      <File FileName="Assets/Scripts/SLaguePlatformControls/Enemies/EnemyController.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/SLaguePlatformControls/Enemies/Enemy.cs" Line="33" Column="1" />
       <File FileName="Assets/Scripts/SLaguePlatformControls/Enemies/FlyingEnemy.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/SLaguePlatformControls/Enemies/WaterEnemy.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/SLaguePlatformControls/Player.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/SLaguePlatformControls/Controllers/Controller2D.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/SLaguePlatformControls/PlayerInteractions.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/SLaguePlatformControls/PayableScripts/PayController.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/SLaguePlatformControls/NPC.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/SLaguePlatformControls/Animals/AnimalSpawnPoint.cs" Line="16" Column="28" />
+      <File FileName="Assets/Scripts/SLaguePlatformControls/NPC.cs" Line="252" Column="5" />
+      <File FileName="Assets/Scripts/SLaguePlatformControls/Controllers/NPCController.cs" Line="57" Column="31" />
+      <File FileName="Assets/Scripts/SLaguePlatformControls/Platform.cs" Line="32" Column="41" />
+      <File FileName="Assets/Scripts/SLaguePlatformControls/PickUp.cs" Line="37" Column="10" />
+      <File FileName="Assets/Scripts/SLaguePlatformControls/Item.cs" Line="31" Column="44" />
+      <File FileName="Assets/Scripts/SLaguePlatformControls/PlayerInteractions.cs" Line="165" Column="100" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

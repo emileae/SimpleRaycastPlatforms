@@ -60,8 +60,8 @@ public class Altar : MonoBehaviour {
 
 	void CallBuilder ()
 	{
-		Debug.Log ("Call a builder.....");
-		Debug.Log ("Builders on platform... " + platformScript.builders.Count);
+//		Debug.Log ("Call a builder.....");
+//		Debug.Log ("Builders on platform... " + platformScript.builders.Count);
 		if (platformScript.builders.Count > 0) {
 			platformScript.builders [0].GetComponent<NPC> ().GoToBuildSite (transform);
 		}
@@ -115,6 +115,7 @@ public class Altar : MonoBehaviour {
 	}
 	void FinishBuild ()
 	{
+		building = false;
 		needToBuild = false;
 		currentBuildProgress = 0;
 		currentBuilder.FinishBuild ();// tell NPC to move in opposite direction to the build direction
@@ -131,13 +132,13 @@ public class Altar : MonoBehaviour {
 			case 1:
 				Debug.Log("This is now a medical structure");
 				break;
+			case 2:
+				Debug.Log("This is now a house");
+				break;
 			default:
 				Debug.Log("Fall through switch statement altar.cs");
-				activeModel.SetActive(false);
-				blankModel.SetActive(true);
 				break;
 		}
-
 		currentBuilder = null;
 	}
 

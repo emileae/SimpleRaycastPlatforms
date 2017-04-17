@@ -74,41 +74,46 @@ public class AnimalMovement : MonoBehaviour {
 	void Update ()
 	{
 
-		velocity = new Vector3 (direction * speed, 0, 0);
+		if (!dead) {
 
-		if (!wandering && !dead) {
-			wandering = true;
-			StartCoroutine (Hesitate ());
-		}
-		// Attacking animal
-		Collider2D overlapEnemy = Physics2D.OverlapCircle (transform.position, dangerRadius, enemyLayer);
-		Collider2D overlapNPC = Physics2D.OverlapCircle (transform.position, dangerRadius, npcLayer);
-		if (overlapEnemy != null || overlapNPC != null && !dead) {
-			if (fleeFromEdge) {
-				fleeFromEdgeTime += Time.deltaTime;
-				if (fleeFromEdgeTime >= fleeFromEdgeTotalTime) {
-					fleeFromEdge = false;
-				}
+			velocity = new Vector3 (direction * speed, 0, 0);
+
+			if (!wandering) {
+				wandering = true;
+				StartCoroutine (Hesitate ());
 			}
-			if (!fleeing && !fleeFromEdge) {
-				Debug.Log ("FLEE!!!");
-				if (overlapEnemy != null) {
-					Flee (overlapEnemy.transform);
-				}else if (overlapNPC != null){
-					Flee (overlapNPC.transform);
+
+			// Attacking animal
+			Collider2D overlapEnemy = Physics2D.OverlapCircle (transform.position, dangerRadius, enemyLayer);
+			Collider2D overlapNPC = Physics2D.OverlapCircle (transform.position, dangerRadius, npcLayer);
+			if (overlapEnemy != null || overlapNPC != null) {
+				if (fleeFromEdge) {
+					fleeFromEdgeTime += Time.deltaTime;
+					if (fleeFromEdgeTime >= fleeFromEdgeTotalTime) {
+						fleeFromEdge = false;
+					}
 				}
+				if (!fleeing && !fleeFromEdge) {
+					Debug.Log ("FLEE!!!");
+					if (overlapEnemy != null) {
+						Flee (overlapEnemy.transform);
+					} else if (overlapNPC != null) {
+						Flee (overlapNPC.transform);
+					}
+				}
+			} else {
+				fleeing = false;
 			}
-		} else {
-			fleeing = false;
-		}
 
-		if (velocity.x > 0) {
-			sprite.flipX = true;
-		} else if (velocity.x < 0) {
-			sprite.flipX = false;
-		}
+			if (velocity.x > 0) {
+				sprite.flipX = true;
+			} else if (velocity.x < 0) {
+				sprite.flipX = false;
+			}
 
-		transform.Translate(velocity * Time.deltaTime);
+			transform.Translate (velocity * Time.deltaTime);
+
+		}
 
 	}
 
@@ -170,13 +175,11 @@ public class AnimalMovement : MonoBehaviour {
 		dead = true;
 		direction = 0;
 		speed = stopSpeed;
-//		sprite.flipY = true;
-//		transform.position = new Vector3(transform.position.x, transform.position.y + spriteBounds.extents.y, transform.position.z);
 
 		sprite.sprite = deadSprite;
 
 		// convert box collider to a trigger so that player can detect to pick it up
-		collider.isTrigger = true;
+//		collider.isTrigger = true;
 
 		// TODO: use a layermask with this
 		// change the layer so that NPC don't keep hunting a dead animal
@@ -184,11 +187,11 @@ public class AnimalMovement : MonoBehaviour {
 		gameObject.layer = 10;
 
 		// drops a coin
-//		if (platformScript.coins.Count > 0) {
-//			Debug.Log("Animal drops a coin");
-//			Vector3 coinFallPosition = new Vector3(transform.position.x + spriteBounds.extents.x, transform.position.y, transform.position.z);
-//			platformScript.FindCoin (coinFallPosition);
-//		}s
+		if (platformScript.coins.Count > 0) {
+			Debug.Log("Animal drops a coin");
+			Vector3 coinFallPosition = new Vector3(transform.position.x + spriteBounds.extents.x, transform.position.y, transform.position.z);
+			platformScript.FindCoin (coinFallPosition);
+		}
 
 		itemScript.enabled = true;
 		pickupScript.enabled = true;

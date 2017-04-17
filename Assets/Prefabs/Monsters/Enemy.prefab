@@ -216,9 +216,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 3.5
+  distracted: 0
   itemLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
   npcLayer:
     serializedVersion: 2
     m_Bits: 512

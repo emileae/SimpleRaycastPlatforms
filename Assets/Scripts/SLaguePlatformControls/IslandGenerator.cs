@@ -18,6 +18,10 @@ public class IslandGenerator : MonoBehaviour {
 	public GameObject defenseStructure;
 	private Bounds defenseStructureBounds;
 
+	public int numHouses = 20;
+	public GameObject houseStructure;
+	private Bounds houseStructureBounds;
+
 	// Platform prefabs
 	public GameObject[] platformPrefabs;
 	public GameObject ladderPrefab;
@@ -45,8 +49,8 @@ public class IslandGenerator : MonoBehaviour {
 	public int numEnemies = 15;
 
 	// NPCs
-	public int numAverageJoes = 3;
-	public int numBuilders = 1;
+	public int numAverageJoes = 5;
+	public int numBuilders = 2;
 	public int numFighters = 1;
 
 	// keep track of all the platforms
@@ -94,6 +98,12 @@ public class IslandGenerator : MonoBehaviour {
 				// save some getComponent calls
 				platformBoundsList.Add (platformBounds);
 
+				// TODO: remove this code... it places a tree on every platform
+				GameObject tree = (GameObject)Instantiate(houseStructure, platform.transform.position, Quaternion.identity);
+				tree.GetComponent<PayController>().platformScript = platformScript;
+				tree.GetComponent<Altar>().platformScript = platformScript;
+				// end tree code
+
 				// If its not the bottom platform then disable the edges... so no boats
 				if (islandHeightIndex != 0) {
 					platformScript.edgeLeft.GetComponent<PayController>().enabled = false;
@@ -133,9 +143,15 @@ public class IslandGenerator : MonoBehaviour {
 					// LAdder always goes downwards to the sea
 					// make sure ladder reaches into the sea, so stranded player can get back to platform...
 					float heightDifference = platformBounds.max.y - seaLevel;
+					Debug.Log("platformBounds.max.y: " + platformBounds.max.y);
+					Debug.Log("seaLevel: " + seaLevel);
+					Debug.Log("heightDifference: " + heightDifference);
+					Debug.Log("ladderBounds.size.y: " + ladderBounds.size.y);
 					ladder.transform.position = new Vector3 (ladder.transform.position.x - ladderBounds.extents.x, platformBounds.max.y - (heightDifference * 0.5f), ladder.transform.position.z);
-					float ladderScaleFactor = (heightDifference) / ladderBounds.size.y;
-					ladder.transform.localScale += new Vector3 (1, ladderScaleFactor, 1);
+//					float ladderScaleFactor = heightDifference / ladderBounds.size.y;
+					float ladderScaleFactor = heightDifference;
+					ladder.transform.localScale += new Vector3 (0, ladderScaleFactor, 0);
+					Debug.Log("ladderScaleFactor: " + ladderScaleFactor);
 				}
 
 				currentXPos += platformBounds.size.x;
@@ -182,9 +198,10 @@ public class IslandGenerator : MonoBehaviour {
 
 	void PlacePlayer(){
 		// place player on a platform not occupied by enemies at first, enemy platforms have been removed from temporaryPlatformIndices
-		int platformIndex = Random.Range (0, temporaryPlatformIndices.Count);
+		int platformIndex = 0;//Random.Range (0, temporaryPlatformIndices.Count);
 		Vector3 platformPosition = platforms[temporaryPlatformIndices[platformIndex]].transform.position;
-		player.transform.position = new Vector3(platformBoundsList[temporaryPlatformIndices[platformIndex]].center.x, platformBoundsList[temporaryPlatformIndices[platformIndex]].max.y + 20.0f, player.transform.position.z);
+//		player.transform.position = new Vector3(platformBoundsList[temporaryPlatformIndices[platformIndex]].center.x, platformBoundsList[temporaryPlatformIndices[platformIndex]].max.y + 20.0f, player.transform.position.z);
+		player.transform.position = new Vector3(platformBoundsList[temporaryPlatformIndices[platformIndex]].center.x, platformBoundsList[temporaryPlatformIndices[platformIndex]].max.y + 10.0f, player.transform.position.z);
 
 		// give player a single crew member on the same platform
 		// instantiate an NPC
@@ -202,16 +219,16 @@ public class IslandGenerator : MonoBehaviour {
 		npcScript.platformScript = platformScripts [temporaryPlatformIndices[platformIndex]];
 
 		// average Joe survives with Player
-		npcScript.npcType = 1;
-		platformScripts [temporaryPlatformIndices[platformIndex]].averageJoes.Add (npcObj);
-		numAverageJoes -= 1;// remove 1 from the list... maybe make this optional?
+		npcScript.npcType = 2;
+		platformScripts [temporaryPlatformIndices[platformIndex]].builders.Add (npcObj);
+		numBuilders -= 1;// remove 1 from the list... maybe make this optional?
 
 		npcScript.SetType ();
 
 	}
 
 	void PlaceGhostTower(){
-		GameObject ghostTowerObject = Instantiate (ghostTower, new Vector3 (platforms [0].transform.position.x - 250.0f, 0, platforms [0].transform.position.z), Quaternion.identity) as GameObject;
+		GameObject ghostTowerObject = Instantiate (ghostTower, new Vector3 (platforms [0].transform.position.x - platformBoundsList[0].extents.x - 250.0f, 0, platforms [0].transform.position.z), Quaternion.identity) as GameObject;
 		blackboard.ghostTower = ghostTowerObject;
 		Bounds ghostTowerBounds = ghostTowerObject.GetComponent<EdgeCollider2D> ().bounds;
 		blackboard.ghostTowerBounds = ghostTowerBounds;
@@ -350,8 +367,6 @@ public class IslandGenerator : MonoBehaviour {
 				}
 			}
 		}
-
-
 	}
 
 }

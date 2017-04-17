@@ -104,6 +104,7 @@ public class PayController : MonoBehaviour {
 
 	void DisplayCost ()
 	{
+		Debug.Log("Display cost...");
 		for (int i = 0; i < costIndicators.Count; i++) {
 			costIndicators[i].SetActive(true);
 		}

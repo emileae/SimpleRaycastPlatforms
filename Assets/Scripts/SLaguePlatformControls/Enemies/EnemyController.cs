@@ -10,6 +10,12 @@ public class EnemyController : MonoBehaviour {
 	private float gravity = -50;
 	private Vector3 velocity;
 
+	// being distracted
+	public bool distracted = false;
+	private GameObject distractionItem;
+	private float distractedTime = 0.0f;
+	private float totalDistractedTime = 3.0f;
+
 	public LayerMask itemLayer;
 	public LayerMask npcLayer;
 	public LayerMask playerLayer;
@@ -39,9 +45,35 @@ public class EnemyController : MonoBehaviour {
 
 
 		// ENEMY ATTACKS & UNIQUE BEHAVIOURS
+		Collider2D overlapItem = null;
+		Collider2D overlapNPC = null;
+		Collider2D overlapPlayer = null;
 
-		if (enemyScript.enemyType == 1) {
-			Collider2D overlapItem = Physics2D.OverlapCircle (transform.position, enemyScript.attackRadius, itemLayer);
+		if (!distracted) {
+			overlapItem = Physics2D.OverlapCircle (transform.position, enemyScript.attackRadius, itemLayer);
+			overlapNPC = Physics2D.OverlapCircle (transform.position, enemyScript.attackRadius, npcLayer);
+			overlapPlayer = Physics2D.OverlapCircle (transform.position, enemyScript.attackRadius, playerLayer);
+		} else {
+			velocity.x = 0;
+			distractedTime += Time.deltaTime;
+			if (distractedTime >= totalDistractedTime) {
+				Destroy(distractionItem);
+				distracted = false;
+				distractedTime = 0.0f;
+			}
+		}
+
+
+		if (enemyScript.enemyType == 0) {
+			if (overlapItem != null) {
+				Debug.Log("Enemy overlap with item.....");
+				if (overlapItem.CompareTag ("Animal")) {
+					Debug.Log("Stop to deal with dead animal.....");
+					distracted = true;
+					distractionItem = overlapItem.gameObject;
+				}
+			}
+		}else if (enemyScript.enemyType == 1) {
 			if (overlapItem != null) {
 				Debug.Log ("Eat a coin");
 				// Destroy coin object now, but can possibly bury it again or move it to the tower
@@ -49,8 +81,6 @@ public class EnemyController : MonoBehaviour {
 			}
 		}
 
-
-		Collider2D overlapNPC = Physics2D.OverlapCircle (transform.position, enemyScript.attackRadius, npcLayer);
 		if (overlapNPC != null) {
 			enemyScript.npcScript = overlapNPC.gameObject.GetComponent<NPC> ();
 			Debug.Log ("!!!!! Within attack radius (ENEMY)..........");
@@ -71,7 +101,6 @@ public class EnemyController : MonoBehaviour {
 		}
 
 		// Attacking player
-		Collider2D overlapPlayer = Physics2D.OverlapCircle (transform.position, enemyScript.attackRadius, playerLayer);
 		if (overlapPlayer != null) {
 			Debug.Log ("YOU'RE DEAD!!!");
 			Destroy (overlapPlayer.gameObject);

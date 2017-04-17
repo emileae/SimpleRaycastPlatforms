@@ -13,39 +13,42 @@ public class Item : MonoBehaviour {
 
 	void OnTriggerEnter2D (Collider2D col)
 	{
-		if (col.CompareTag ("Player")) {
+		if (enabled) {
+			if (col.CompareTag ("Player")) {
 
-			Debug.Log("Player entered trigger");
+				Debug.Log (".....Player entered trigger......");
 
-			playerScript = col.gameObject.GetComponent<PlayerInteractions> ();
-			SetPickupable ();
+				playerScript = col.gameObject.GetComponent<PlayerInteractions> ();
+				SetPickupable ();
 
-			// if its a coin... pick it up
-			switch (pickUpScript.generalType) {
+				// if its a coin... pick it up
+				switch (pickUpScript.generalType) {
 				case 0:
 					break;
 				case 1:
-					playerScript.PickUpItem(gameObject);
+					playerScript.PickUpItem (gameObject);
 					break;
 				case 2:
 //					playerScript.PickUpItem(gameObject);
 					break;
 				default:
-					Debug.Log("fall through Item.cs ontriggerenter2d");
+					Debug.Log ("fall through Item.cs ontriggerenter2d");
 					break;
+				}
 			}
 		}
-
 	}
 
 	void OnTriggerExit2D (Collider2D col)
 	{
-		if (col.CompareTag ("Player")) {
-			playerScript = col.gameObject.GetComponent<PlayerInteractions> ();
-			if (playerScript.pickupableItems.Contains(gameObject)) {
-				playerScript.pickupableItems.Remove(gameObject);
-			};
-			playerScript = null;
+		if (enabled) {
+			if (col.CompareTag ("Player")) {
+				playerScript = col.gameObject.GetComponent<PlayerInteractions> ();
+				if (playerScript.pickupableItems.Contains (gameObject)) {
+					playerScript.pickupableItems.Remove (gameObject);
+				};
+				playerScript = null;
+			}
 		}
 	}
 

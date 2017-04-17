@@ -320,6 +320,7 @@ public class NPC : MonoBehaviour {
 	// called from building sites, like edges (Edge.cs) and altars/ build points (Altar.cs)
 	public void GoToBuildSite (Transform buildingSite)
 	{
+		Debug.Log("Going to build site.....");
 		if (buildingSite.position.x > transform.position.x) {
 			npcController.direction = 1;
 		}else if (buildingSite.position.x < transform.position.x){
