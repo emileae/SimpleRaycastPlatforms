@@ -22,6 +22,8 @@ public class IslandGenerator : MonoBehaviour {
 	public GameObject houseStructure;
 	private Bounds houseStructureBounds;
 
+	public GameObject swarmNestPrefab;// 1 per island
+
 	// Platform prefabs
 	public GameObject[] platformPrefabs;
 	public GameObject ladderPrefab;
@@ -49,9 +51,9 @@ public class IslandGenerator : MonoBehaviour {
 	public int numEnemies = 15;
 
 	// NPCs
-	public int numAverageJoes = 5;
+	public int numAverageJoes = 10;
 	public int numBuilders = 2;
-	public int numFighters = 1;
+	public int numFighters = 3;
 
 	// keep track of all the platforms
 	public List<GameObject> platforms = new List<GameObject>();
@@ -82,32 +84,44 @@ public class IslandGenerator : MonoBehaviour {
 		// multiple platforms per island
 		for (int i = 0; i < numberOfIslands; i++) {
 			int numPlatforms = Random.Range (1, maxPlatformsPerIsland + 1);// integer Random.Range is exclusive of max value... so add 1
+
+			// choose a randomPlatform to place a swarm nest
+			int swarmNestIndex = Random.Range (0, numPlatforms);
+
 			for (int j = 0; j < numPlatforms; j++) {
 				// choose a random height within a range
 				int islandHeightIndex = Random.Range (0, islandHeights.Length);
 
 				// instantiate platform
 				GameObject platform = (GameObject)Instantiate (platformPrefabs [0], new Vector3 (currentXPos, islandHeights [islandHeightIndex], 0.1f * j), Quaternion.identity);
-				temporaryPlatformIndices.Add(currentPlatformIndex);// update the temporary platform indices... use this to track which platforms have items/enemies on them
+				temporaryPlatformIndices.Add (currentPlatformIndex);// update the temporary platform indices... use this to track which platforms have items/enemies on them
 				platforms.Add (platform);
-				Platform platformScript = platform.transform.GetChild(0).GetComponent<Platform>();// platform script is in the trigger component
-				platformScripts.Add(platformScript);
-				platformScript.maxCoins = Random.Range(1, 12);
-				platformScript.ListCoins();
+				Platform platformScript = platform.transform.GetChild (0).GetComponent<Platform> ();// platform script is in the trigger component
+				platformScripts.Add (platformScript);
+				platformScript.maxCoins = Random.Range (1, 12);
+				platformScript.ListCoins ();
 				Bounds platformBounds = platform.GetComponent<EdgeCollider2D> ().bounds;
 				// save some getComponent calls
 				platformBoundsList.Add (platformBounds);
 
 				// TODO: remove this code... it places a tree on every platform
-				GameObject tree = (GameObject)Instantiate(houseStructure, platform.transform.position, Quaternion.identity);
-				tree.GetComponent<PayController>().platformScript = platformScript;
-				tree.GetComponent<Altar>().platformScript = platformScript;
+				GameObject tree = (GameObject)Instantiate (houseStructure, platform.transform.position, Quaternion.identity);
+				tree.GetComponent<PayController> ().platformScript = platformScript;
+				tree.GetComponent<Altar> ().platformScript = platformScript;
 				// end tree code
 
 				// If its not the bottom platform then disable the edges... so no boats
 				if (islandHeightIndex != 0) {
-					platformScript.edgeLeft.GetComponent<PayController>().enabled = false;
-					platformScript.edgeRight.GetComponent<PayController>().enabled = false;
+					platformScript.edgeLeft.GetComponent<PayController> ().enabled = false;
+					platformScript.edgeRight.GetComponent<PayController> ().enabled = false;
+				}
+
+				// SWARM NEST
+				if (j == swarmNestIndex) {
+					GameObject swarmNest = (GameObject)Instantiate (swarmNestPrefab, platform.transform.position, Quaternion.identity);
+					Bounds swarmBounds = swarmNest.GetComponent<BoxCollider2D>().bounds;
+					int swarmsPerPlatform = Mathf.FloorToInt(platformBounds.size.x / swarmBounds.size.x);
+					swarmNest.transform.position = new Vector3(platformBounds.min.x + (Random.Range(2, swarmsPerPlatform))*swarmBounds.size.x, platform.transform.position.y, platform.transform.position.z);
 				}
 
 				// add a ladder to each platform
@@ -143,15 +157,10 @@ public class IslandGenerator : MonoBehaviour {
 					// LAdder always goes downwards to the sea
 					// make sure ladder reaches into the sea, so stranded player can get back to platform...
 					float heightDifference = platformBounds.max.y - seaLevel;
-					Debug.Log("platformBounds.max.y: " + platformBounds.max.y);
-					Debug.Log("seaLevel: " + seaLevel);
-					Debug.Log("heightDifference: " + heightDifference);
-					Debug.Log("ladderBounds.size.y: " + ladderBounds.size.y);
 					ladder.transform.position = new Vector3 (ladder.transform.position.x - ladderBounds.extents.x, platformBounds.max.y - (heightDifference * 0.5f), ladder.transform.position.z);
 //					float ladderScaleFactor = heightDifference / ladderBounds.size.y;
 					float ladderScaleFactor = heightDifference;
 					ladder.transform.localScale += new Vector3 (0, ladderScaleFactor, 0);
-					Debug.Log("ladderScaleFactor: " + ladderScaleFactor);
 				}
 
 				currentXPos += platformBounds.size.x;
@@ -214,7 +223,7 @@ public class IslandGenerator : MonoBehaviour {
 //		Debug.Log("Player's npc bounds extents: " + npcBounds.extents.y);
 
 		// place the NPC at a location on the platform
-		npcObj.transform.position = new Vector3 (platformBoundsList [temporaryPlatformIndices[platformIndex]].center.x, platformBoundsList [temporaryPlatformIndices[platformIndex]].max.y + npcBounds.extents.y, platforms[temporaryPlatformIndices[platformIndex]].transform.position.z);
+		npcObj.transform.position = new Vector3 (platformBoundsList [temporaryPlatformIndices[platformIndex]].center.x, platformBoundsList [temporaryPlatformIndices[platformIndex]].max.y, platforms[temporaryPlatformIndices[platformIndex]].transform.position.z);
 		NPC npcScript = npcObj.GetComponent<NPC> ();
 		npcScript.platformScript = platformScripts [temporaryPlatformIndices[platformIndex]];
 

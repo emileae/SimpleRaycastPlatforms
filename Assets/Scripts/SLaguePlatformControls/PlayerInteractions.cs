@@ -245,7 +245,7 @@ public class PlayerInteractions : MonoBehaviour {
 			GameObject item = inventory[inventory.Count-1];// last item in list
 			item.SetActive(true);
 			Bounds itemBounds = item.GetComponent<BoxCollider2D>().bounds;
-			float itemYPos = transform.position.y - (playerBounds.extents.y - itemBounds.extents.y);// add the difference in size to the current transform
+//			float itemYPos = transform.position.y - (playerBounds.extents.y - itemBounds.extents.y);// add the difference in size to the current transform
 			item.transform.position = transform.position;//new Vector3(transform.position.x, itemYPos, transform.position.z);
 			PickUp pickupScript = item.GetComponent<PickUp>();
 			inventory.Remove(item);

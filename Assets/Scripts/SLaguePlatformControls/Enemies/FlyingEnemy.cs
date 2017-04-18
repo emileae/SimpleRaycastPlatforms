@@ -12,7 +12,7 @@ public class FlyingEnemy : MonoBehaviour {
 
 	public Transform player;
 
-	public float attackRadius = 3.0f;
+	public float attackRadius = 2.0f;
 	public LayerMask playerLayer;
 
 	public float evadeDistance = 5;
@@ -29,17 +29,20 @@ public class FlyingEnemy : MonoBehaviour {
 	void Update ()
 	{
 
-		if (blackboard.playeronTopPlatform) {
+		if (blackboard.playerExposed) {
 			currentTarget = player;
 		} else {
 			currentTarget = target;
 		}
 
-		if (transform.position.y <= (blackboard.skyLevel + 1)) {
-			seekScript.TargetPoint = new Vector2 ((transform.position.x + evadeDistance), blackboard.skyLevel + evadeDistance);
-		} else {
-			seekScript.TargetPoint = new Vector2 (currentTarget.position.x, currentTarget.position.y);
-		}
+		// evading keeping above a certain height
+//		if (transform.position.y <= (blackboard.skyLevel + 1)) {
+//			seekScript.TargetPoint = new Vector2 ((transform.position.x + evadeDistance), blackboard.skyLevel + evadeDistance);
+//		} else {
+//			seekScript.TargetPoint = new Vector2 (currentTarget.position.x, currentTarget.position.y);
+//		}
+
+		seekScript.TargetPoint = new Vector2 (currentTarget.position.x, currentTarget.position.y);
 
 		// Attacking player
 		Collider2D overlapPlayer = Physics2D.OverlapCircle (transform.position, attackRadius, playerLayer);

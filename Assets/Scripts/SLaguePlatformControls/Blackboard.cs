@@ -13,7 +13,7 @@ public class Blackboard : MonoBehaviour {
 
 	// Sky parameters
 	public float skyLevel;// based on top platform's height in islandGenerator
-	public bool playeronTopPlatform = false;
+	public bool playerExposed = false;
 	public Transform skySeekPoint;// random flocking for birds
 
 	// Ghost tower parameters

@@ -63,6 +63,7 @@
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Controllers\MovingPlatform.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Controllers\NPCController.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Controllers\RaycastController.cs" />
+     <Compile Include="Assets\Scripts\SLaguePlatformControls\Controllers\SeekPoint.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Enemies\Enemy.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Enemies\EnemyController.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Enemies\FlyingEnemy.cs" />
@@ -70,15 +71,16 @@
      <Compile Include="Assets\Scripts\SLaguePlatformControls\IslandGenerator.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Item.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\NPC.cs" />
-     <Compile Include="Assets\Scripts\SLaguePlatformControls\PayableScripts\Altar.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\PayableScripts\CostIndicator.cs" />
-     <Compile Include="Assets\Scripts\SLaguePlatformControls\PayableScripts\Edge.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\PayableScripts\PayController.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\PickUp.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Platform.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\PlatformController.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Player.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\PlayerInteractions.cs" />
+     <Compile Include="Assets\Scripts\SLaguePlatformControls\Structures\Altar.cs" />
+     <Compile Include="Assets\Scripts\SLaguePlatformControls\Structures\Edge.cs" />
+     <Compile Include="Assets\Scripts\SLaguePlatformControls\Structures\SwarmNest.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Weather\Sun.cs" />
      <Compile Include="Assets\Steer2D\Examples\Assets\Target.cs" />
      <Compile Include="Assets\Steer2D\Scripts\Arrive.cs" />

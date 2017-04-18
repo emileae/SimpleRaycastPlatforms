@@ -29,7 +29,7 @@ public class Enemy : MonoBehaviour {
 	{
 
 		if (col.CompareTag ("Edge")) {
-			if (!changingDirection) {
+			if (!changingDirection && enemyController != null) {
 				enemyController.direction *= -1;
 				changingDirection = true;
 			}
