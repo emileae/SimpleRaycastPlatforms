@@ -1,10 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-//[RequireComponent (typeof(BoxCollider2D))]
+[RequireComponent (typeof(BoxCollider2D))]
 public class Controller2D : RaycastController {
 
 	public Blackboard blackboard;
+
+	// box interaction
+	public bool overPackage = false;
+	public PackageController2D packageScript;
 
 	// specific to the sea game
 	public bool inSea = false;
@@ -107,8 +111,12 @@ public class Controller2D : RaycastController {
 			}
 		}
 
+		transform.Translate (velocity);
 
-		transform.Translate(velocity);
+		if (overPackage && Input.GetButton ("Fire3")) {
+			packageScript.Move(new Vector2(velocity.x, 0));
+		}
+
 	}
 
 	void Flip ()
@@ -135,8 +143,6 @@ public class Controller2D : RaycastController {
 				if (hit.distance == 0) {
 					continue;
 				}
-
-				// adjust the ray distance
 				velocity.x = (hit.distance - skinWidth) * directionX;
 				rayLength = hit.distance;
 
@@ -212,11 +218,13 @@ public class Controller2D : RaycastController {
 	public struct CollisionInfo{
 		public bool above, below;
 		public bool left, right;
+//		public bool box;// emiles addition
 
 		public void Reset ()
 		{
 			above = below = false;
 			left = right = false;
+//			box = false;// emiles addition
 		}
 
 	}

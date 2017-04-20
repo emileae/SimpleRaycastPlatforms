@@ -10,7 +10,7 @@ public class FlyingEnemy : MonoBehaviour {
 	private Transform currentTarget;
 	private Seek seekScript;
 
-	public Transform player;
+//	public Transform player;
 
 	public float attackRadius = 2.0f;
 	public LayerMask playerLayer;
@@ -30,7 +30,7 @@ public class FlyingEnemy : MonoBehaviour {
 	{
 
 		if (blackboard.playerExposed) {
-			currentTarget = player;
+			currentTarget = blackboard.player;
 		} else {
 			currentTarget = target;
 		}

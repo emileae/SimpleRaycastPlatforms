@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class PlatformController : RaycastController {
 
+	private Blackboard blackboard;
+
 	public LayerMask passengerMask;
 
 	public Vector3[] localWaypoints;
@@ -19,14 +21,16 @@ public class PlatformController : RaycastController {
 	private float percentBetweenWaypoints;
 	private float nextMoveTime;
 
-	List<PassengerMovement> passengerMovement;
-	Dictionary<Transform, Controller2D> passengerDictionary = new Dictionary<Transform, Controller2D>();
+	private List<PassengerMovement> passengerMovement;
+	private Dictionary<Transform, Controller2D> passengerDictionary = new Dictionary<Transform, Controller2D>();
+	private PackageController2D boxPackageController;
 
 	// Use this for initialization
 	public override void Start ()
 	{
 		base.Start ();
 		SetGlobalWaypoints();
+		blackboard = GameObject.Find("Blackboard").GetComponent<Blackboard>();
 	}
 
 	public void SetGlobalWaypoints()
@@ -34,8 +38,8 @@ public class PlatformController : RaycastController {
 		globalWaypoints = new Vector3[localWaypoints.Length];
 		for (int i = 0; i < localWaypoints.Length; i++) {
 			// Sebastian's old code for manually setting the waypoints.. takes
-//			globalWaypoints[i] = localWaypoints[i] + transform.position;
-			globalWaypoints[i] = localWaypoints[i];
+			globalWaypoints[i] = localWaypoints[i] + transform.position;
+//			globalWaypoints[i] = localWaypoints[i];
 		}
 	}
 	
@@ -94,11 +98,18 @@ public class PlatformController : RaycastController {
 	{
 		foreach (PassengerMovement passenger in passengerMovement) {
 			if (passenger.moveBeforePlatform == beforeMovePlatform) {
-				if (!passengerDictionary.ContainsKey (passenger.transform)) {
-					passengerDictionary.Add(passenger.transform, passenger.transform.GetComponent<Controller2D>());
+				if (passenger.transform != blackboard.box) {
+					if (!passengerDictionary.ContainsKey (passenger.transform)) {
+						passengerDictionary.Add (passenger.transform, passenger.transform.GetComponent<Controller2D> ());
+					}
+
+					// goal is to use the controller2D to move passengers so that they detect collisions
+					passengerDictionary [passenger.transform].Move (passenger.velocity, passenger.standingOnPlatform);
+				} else if (passenger.transform == blackboard.box) {
+					PackageController2D boxPackageController = passenger.transform.GetComponent<PackageController2D>();
+					Debug.Log("Calling Moving vertically - B");
+					boxPackageController.Move(passenger.velocity, passenger.standingOnPlatform);
 				}
-				// goal is to use the controller2D to move passengers so that they detect collisions
-				passengerDictionary[passenger.transform].Move(passenger.velocity, passenger.standingOnPlatform);
 			}
 		}
 	}

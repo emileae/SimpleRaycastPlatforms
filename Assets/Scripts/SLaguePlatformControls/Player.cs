@@ -35,6 +35,8 @@ public class Player : MonoBehaviour {
 	void Update ()
 	{
 
+		
+
 //		if (controller.collisions.above || controller.collisions.below) {
 //			velocity.y = 0;
 //		}

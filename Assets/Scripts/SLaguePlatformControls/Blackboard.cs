@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 public class Blackboard : MonoBehaviour {
 
+	// Box / Package
+	public Transform box;
+
 	// Sea parameters
 	[HideInInspector]
 	public float seaLevel = 0.0f;

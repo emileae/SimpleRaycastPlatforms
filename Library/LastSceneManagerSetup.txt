@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/Prototype2.unity
+- path: Assets/Scenes/Cyberpunk.unity
   isLoaded: 1
   isActive: 1

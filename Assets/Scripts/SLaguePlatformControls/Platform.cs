@@ -5,6 +5,11 @@ using System.Collections.Generic;
 public class Platform : MonoBehaviour {
 
 	public bool active;
+
+	// platform types (simplified for now)
+	// 0 -> farming
+	// 1 -> manufacturing
+	// 2 -> upgrades
 	public int platformType = 1;
 
 	public int maxCoins = 10;

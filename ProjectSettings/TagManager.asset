@@ -8,13 +8,15 @@ TagManager:
   - NPC
   - Ground
   - Item
-  - Converter
+  - Resource
   - Platform
   - Ladder
   - Enemy
   - Structure
   - AirCapture
   - Animal
+  - Box
+  - DropOffPoint
   layers:
   - Default
   - TransparentFX
@@ -31,7 +33,7 @@ TagManager:
   - Ladder
   - Enemy
   - Animal
-  - 
+  - Box
   - 
   - 
   - 

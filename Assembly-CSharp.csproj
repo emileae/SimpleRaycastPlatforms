@@ -46,10 +46,8 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Camera\CameraFollow.cs" />
+     <Compile Include="Assets\Scripts\EditModeThings\SetupPlatform.cs" />
      <Compile Include="Assets\Scripts\General\Ladder.cs" />
-     <Compile Include="Assets\Scripts\NPC\Builder.cs" />
-     <Compile Include="Assets\Scripts\NPC\Defender.cs" />
-     <Compile Include="Assets\Scripts\NPC\Farmer.cs" />
      <Compile Include="Assets\Scripts\NPC\NPCMove.cs" />
      <Compile Include="Assets\Scripts\Payments\PayTarget.cs" />
      <Compile Include="Assets\Scripts\PixelScripts\PixelPlayer.cs" />
@@ -57,11 +55,12 @@
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Animals\AnimalMovement.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Animals\AnimalSpawnPoint.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Blackboard.cs" />
+     <Compile Include="Assets\Scripts\SLaguePlatformControls\BoxPackage.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Combat\Attack.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Controllers\CoinEaterController.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Controllers\Controller2D.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Controllers\MovingPlatform.cs" />
-     <Compile Include="Assets\Scripts\SLaguePlatformControls\Controllers\NPCController.cs" />
+     <Compile Include="Assets\Scripts\SLaguePlatformControls\Controllers\PackageController2D.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Controllers\RaycastController.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Controllers\SeekPoint.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Enemies\Enemy.cs" />
@@ -70,7 +69,11 @@
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Enemies\WaterEnemy.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\IslandGenerator.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Item.cs" />
-     <Compile Include="Assets\Scripts\SLaguePlatformControls\NPC.cs" />
+     <Compile Include="Assets\Scripts\SLaguePlatformControls\NPCs\Builder.cs" />
+     <Compile Include="Assets\Scripts\SLaguePlatformControls\NPCs\Defender.cs" />
+     <Compile Include="Assets\Scripts\SLaguePlatformControls\NPCs\Farmer.cs" />
+     <Compile Include="Assets\Scripts\SLaguePlatformControls\NPCs\NPC.cs" />
+     <Compile Include="Assets\Scripts\SLaguePlatformControls\NPCs\NPCController.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\PayableScripts\CostIndicator.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\PayableScripts\PayController.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\PickUp.cs" />
@@ -78,6 +81,8 @@
      <Compile Include="Assets\Scripts\SLaguePlatformControls\PlatformController.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Player.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\PlayerInteractions.cs" />
+     <Compile Include="Assets\Scripts\SLaguePlatformControls\Resources\Resource.cs" />
+     <Compile Include="Assets\Scripts\SLaguePlatformControls\SimplePlayerMovement.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Structures\Altar.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Structures\Edge.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Structures\SwarmNest.cs" />

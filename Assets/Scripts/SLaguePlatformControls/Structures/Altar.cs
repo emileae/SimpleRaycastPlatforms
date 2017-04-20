@@ -106,14 +106,16 @@ public class Altar : MonoBehaviour {
 		if (col.CompareTag ("Player")) {
 			switch (structureType) {
 				case 0:
-					Debug.Log("Defense structure???");
+					Debug.Log ("Defense structure???");
 					break;
 				case 1:
-					Debug.Log("Medical structure");
+					Debug.Log ("Medical structure");
 					break;
 				case 2:
-					Debug.Log("House structure");
-					blackboard.playerExposed = false;
+					Debug.Log ("House structure");
+					if (active) {
+						blackboard.playerExposed = false;
+					}
 					break;
 				default:
 					Debug.Log("fall through switch ALtar.cs ontriggerenter");

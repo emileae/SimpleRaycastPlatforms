@@ -108,6 +108,10 @@ public class PlayerInteractions : MonoBehaviour {
 		if (col.CompareTag ("Platform")) {
 			platformScript = col.gameObject.GetComponent<Platform>();
 		}
+		if (col.CompareTag ("Box")) {
+			controller.overPackage = true;
+			controller.packageScript = col.transform.GetComponent<PackageController2D>();
+		}
 	}
 	void OnTriggerExit2D (Collider2D col)
 	{
@@ -115,6 +119,10 @@ public class PlayerInteractions : MonoBehaviour {
 			playerMovement.overLadder = false;
 			playerMovement.mountedLadder = false;
 			playerMovement.ladderTransform = null;
+		}
+		if (col.CompareTag ("Box")) {
+			controller.overPackage = false;
+			controller.packageScript = null;
 		}
 	}
 
