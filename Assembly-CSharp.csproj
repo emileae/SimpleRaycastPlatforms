@@ -82,6 +82,7 @@
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Resources\Resource.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\SimplePlayerMovement.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Structures\Altar.cs" />
+     <Compile Include="Assets\Scripts\SLaguePlatformControls\Structures\Bridge.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Structures\Edge.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Structures\ItemCarry.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Structures\MovingPlatform.cs" />

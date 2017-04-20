@@ -74,7 +74,7 @@ public class NPC : MonoBehaviour {
 	// TODO: moved this initialisation to Awake because errors were being thrown during island generation, where triggers were fired before NPC scripts were loaded
 	void Awake () {
 		npcController = GetComponent<NPCController>();
-		payScript = GetComponent<PayController> ();
+//		payScript = GetComponent<PayController> ();
 	}
 
 	void Start ()
@@ -98,15 +98,18 @@ public class NPC : MonoBehaviour {
 //			Debug.Log ("Collided with player!!!@");
 //			playerScript = col.gameObject.GetComponent<PlayerController> ();
 			playerScript = col.gameObject.GetComponent<PlayerInteractions> ();
-			if (!payScript.purchased) {
-				payScript.purchased = true;
-				attackable = true;// this must be removed if reverting to paying for NPCs
-				Work ();// this must be removed if reverting to paying for NPCs
-				SetPickupable ();
-			} else {
-				// allow NPC to be picked up by player
-				SetPickupable ();
-			}
+
+			SetPickupable ();
+
+//			if (!payScript.purchased) {
+//				payScript.purchased = true;
+//				attackable = true;// this must be removed if reverting to paying for NPCs
+//				Work ();// this must be removed if reverting to paying for NPCs
+//				SetPickupable ();
+//			} else {
+//				// allow NPC to be picked up by player
+//				SetPickupable ();
+//			}
 		} 
 
 		// Structure interaction
@@ -143,23 +146,23 @@ public class NPC : MonoBehaviour {
 	{
 		if (col.CompareTag ("Player")) {
 			playerScript = col.gameObject.GetComponent<PlayerInteractions> ();
-			if (payScript == playerScript.payScript) {
-				if (payScript.amountPaid < payScript.cost) {
-					payScript.ReturnFunds (playerScript);
-					KeepMoving ();
-				}
-				playerScript.payScript = null;
-			};
+//			if (payScript == playerScript.payScript) {
+//				if (payScript.amountPaid < payScript.cost) {
+//					payScript.ReturnFunds (playerScript);
+//					KeepMoving ();
+//				}
+//				playerScript.payScript = null;
+//			};
 			// remove NPC from being able to be picked up by player
 			if (playerScript.pickupableItems.Contains (gameObject)) {
 				playerScript.pickupableItems.Remove(gameObject);
 			}
-			if (!payScript.purchased) {
-				KeepMoving ();
-			}
-			playerScript = null;
-			timeHovered = 0;
-			beingPaid = false;
+//			if (!payScript.purchased) {
+//				KeepMoving ();
+//			}
+//			playerScript = null;
+//			timeHovered = 0;
+//			beingPaid = false;
 		}
 
 		// Structure interaction
@@ -199,7 +202,7 @@ public class NPC : MonoBehaviour {
 			maxHP = hp;
 			ap = 1;
 			maxAP = ap;
-			payScript.cost = 3;
+//			payScript.cost = 3;
 			workTime = 10;
 		}else if (npcType == 2){
 			averageJoeSkin.SetActive(false);
@@ -209,7 +212,7 @@ public class NPC : MonoBehaviour {
 			maxHP = hp;
 			ap = 2;
 			maxAP = ap;
-			payScript.cost = 5;
+//			payScript.cost = 5;
 			workTime = 30;
 		}else if (npcType == 3){
 			averageJoeSkin.SetActive(false);
@@ -219,7 +222,7 @@ public class NPC : MonoBehaviour {
 			maxHP = hp;
 			ap = 3;
 			maxAP = ap;
-			payScript.cost = 4;
+//			payScript.cost = 4;
 			workTime = 60;
 		}
 	}
@@ -281,9 +284,9 @@ public class NPC : MonoBehaviour {
 				npcController.direction = -1;
 			}
 		}
-		if (payScript.purchased && !working) {
-			Work();
-		}
+//		if (payScript.purchased && !working) {
+//			Work();
+//		}
 		npcController.stopForPlayer = false;
 	}
 

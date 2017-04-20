@@ -805,10 +805,10 @@ MonoBehaviour:
     m_Bits: 1024
   structureLayer:
     serializedVersion: 2
-    m_Bits: 0
-  itemDetectRadius: 10
+    m_Bits: 65536
+  itemDetectRadius: 1
   structureDetectRadius: 1
-  carriedItems: []
+  carriedResource: []
   structures: []
 --- !u!1001 &1055909156
 Prefab:
@@ -1142,6 +1142,7 @@ GameObject:
   - 61: {fileID: 1377203553}
   - 50: {fileID: 1377203554}
   - 114: {fileID: 1377203551}
+  - 114: {fileID: 1377203555}
   m_Layer: 16
   m_Name: Bridge
   m_TagString: Untagged
@@ -1174,6 +1175,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   platformScript: {fileID: 1599397697}
+  structureType: 0
   cost: 3
   workTime: 2
   degradeTime: 50
@@ -1242,6 +1244,85 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1377203555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1377203549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82bd4c39b8d094accbd9a1893f35171b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  edge: {fileID: 1978506051}
+  edgeScript: {fileID: 1978506052}
+  bridgeSectionPrefab: {fileID: 1000011391448818, guid: 70e6bd272193547a0b76feed451a3492,
+    type: 2}
+  bridgePillarPrefab: {fileID: 0}
+  bridgeEndPrefab: {fileID: 0}
+--- !u!1 &1397554281
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1397554283}
+  - 212: {fileID: 1397554282}
+  m_Layer: 0
+  m_Name: BadGuy_A
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!212 &1397554282
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1397554281}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_SelectedWireframeHidden: 1
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 26305a39b304d46649f834e254d8d80b, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+--- !u!4 &1397554283
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1397554281}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 23.2, y: 65.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
 --- !u!114 &1599397697 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114000013786220522, guid: 68f53fde13bba472aa1aa716194e6c24,
@@ -1467,3 +1548,14 @@ Transform:
   m_PrefabParentObject: {fileID: 4000012788262136, guid: 68f53fde13bba472aa1aa716194e6c24,
     type: 2}
   m_PrefabInternal: {fileID: 230590642}
+--- !u!1 &1978506051 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1000012019007058, guid: 68f53fde13bba472aa1aa716194e6c24,
+    type: 2}
+  m_PrefabInternal: {fileID: 230590642}
+--- !u!114 &1978506052 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114000011911430684, guid: 68f53fde13bba472aa1aa716194e6c24,
+    type: 2}
+  m_PrefabInternal: {fileID: 230590642}
+  m_Script: {fileID: 11500000, guid: b8b76242175d9463cb380496cb92ac3a, type: 3}

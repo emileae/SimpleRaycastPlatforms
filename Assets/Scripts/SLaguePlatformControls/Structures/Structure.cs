@@ -5,6 +5,8 @@ public class Structure : MonoBehaviour {
 
 	public Platform platformScript;
 
+	public int structureType;
+
 	// structure specific parameters
 	public int cost = 3;
 	public float workTime = 2.0f;
@@ -56,6 +58,7 @@ public class Structure : MonoBehaviour {
 		cost--;
 		if (cost <= 0) {
 			Debug.Log("Paid for structure... now activate");
+			ActivateStructure();
 		}
 	}
 
@@ -75,6 +78,28 @@ public class Structure : MonoBehaviour {
 				Builder builderScript = platformScript.builders[i].GetComponent<Builder>();
 				builderScript.structures.Remove(this);
 			}
+		}
+	}
+
+	void ActivateStructure(){
+		switch(structureType){
+			case 0:
+				Debug.Log("structure type Bridge");
+				Bridge structureScript = GetComponent<Bridge>();
+				structureScript.ActivateStructure(platformScript);
+				break;
+			case 1:
+				Debug.Log("structure type 0");
+				break;
+			case 2:
+				Debug.Log("structure type 0");
+				break;
+			case 3:
+				Debug.Log("structure type 0");
+				break;
+			default:
+				Debug.Log("Fall through Structure.cs finding out which structure to build");
+				break;
 		}
 	}
 
