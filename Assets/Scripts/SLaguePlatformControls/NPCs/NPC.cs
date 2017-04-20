@@ -114,22 +114,27 @@ public class NPC : MonoBehaviour {
 			Altar structureScript = col.gameObject.GetComponent<Altar> ();
 			if (structureScript.active) {
 				switch (structureScript.structureType) {
-					case 0:
-						Debug.Log ("Defense structure... do nothing");
-						break;
-					case 1:
-						Debug.Log ("Medical structure, heal here");
-						if (hp < maxHP) {
-							healTime = structureScript.healTime;
-							stopToHeal = true;
-							Heal ();
-						}
-						break;
-					default:
-						Debug.Log ("Fell through structure trigger NPC.cs");
-						break;
+				case 0:
+					Debug.Log ("Defense structure... do nothing");
+					break;
+				case 1:
+					Debug.Log ("Medical structure, heal here");
+					if (hp < maxHP) {
+						healTime = structureScript.healTime;
+						stopToHeal = true;
+						Heal ();
+					}
+					break;
+				default:
+					Debug.Log ("Fell through structure trigger NPC.cs");
+					break;
 				}
 			}
+		}
+
+		// Add NPC to blackboard dictionary of  NPC-Platform
+		if (col.CompareTag ("Platform")) {
+			RegisterNPCWithPlatform(col.gameObject);
 		}
 
 	}
@@ -174,6 +179,10 @@ public class NPC : MonoBehaviour {
 			}
 		}
 
+		if (col.CompareTag ("Platform")) {
+			DeregisterNPCWithPlatform(col.gameObject);
+		}
+
 	}
 
 	public void ChangeDirection ()
@@ -212,6 +221,48 @@ public class NPC : MonoBehaviour {
 			maxAP = ap;
 			payScript.cost = 4;
 			workTime = 60;
+		}
+	}
+
+	void RegisterNPCWithPlatform (GameObject platformGameObject)
+	{
+		Platform platformScript = platformGameObject.GetComponent<Platform> ();
+		switch (npcType) {
+			case 1:
+				if (!platformScript.averageJoes.Contains (gameObject)) {
+					platformScript.averageJoes.Add (gameObject);
+				}
+				break;
+			case 2:
+				if (!platformScript.builders.Contains (gameObject)) {
+					platformScript.builders.Add (gameObject);
+				}
+				break;
+			case 3:
+				if (!platformScript.fighters.Contains (gameObject)) {
+					platformScript.fighters.Add (gameObject);
+				}
+				break;
+			default:
+				Debug.Log("Fall through NPC.cs trying to add NPC to platform npc list");
+				break;
+		}
+	}
+	void DeregisterNPCWithPlatform(GameObject platformGameObject){
+		Platform platformScript = platformGameObject.GetComponent<Platform> ();
+		switch (npcType) {
+			case 1:
+				platformScript.averageJoes.Remove(gameObject);
+				break;
+			case 2:
+				platformScript.builders.Remove(gameObject);
+				break;
+			case 3:
+				platformScript.fighters.Remove(gameObject);
+				break;
+			default:
+				Debug.Log("Fall through NPC.cs trying to remove NPC to platform npc list");
+				break;
 		}
 	}
 

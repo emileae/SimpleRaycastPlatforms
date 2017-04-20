@@ -37,6 +37,9 @@ public class PlayerInteractions : MonoBehaviour {
 	public Sprite uiEmptySprite;
 	public Sprite uiCoinSprite;
 
+	// Structure (General)
+	public Structure structureScript;
+
 	// Paying
 	public GameObject coinPrefab;
 	private bool passingCurrency = false;
@@ -74,19 +77,17 @@ public class PlayerInteractions : MonoBehaviour {
 	void Update ()
 	{
 
-		float inputV = Input.GetAxisRaw ("Vertical");
-
-		if (payScript != null && controller.collisions.below) {
-			if (inputV < 0) {
-//			if (Input.GetKeyDown(KeyCode.DownArrow)){
-//				npcPayScript.StopForPlayer();
-				Pay ();
-			}
-		}
-
 		// call NPCs
 		bool action = Input.GetButton ("Fire3");
 		bool actionButtonDown = Input.GetButtonDown ("Fire3");
+
+		float inputV = Input.GetAxisRaw ("Vertical");
+
+//		if (payScript != null && controller.collisions.below) {
+//			if (inputV < 0) {
+//				Pay ();
+//			}
+//		}
 
 		// can only pick up and drop off if grounded
 		if (pickupableItems.Count > 0 && actionButtonDown && controller.collisions.below) {
@@ -95,6 +96,11 @@ public class PlayerInteractions : MonoBehaviour {
 		}else if (inventory.Count > 0 && actionButtonDown && controller.collisions.below) {
 			Debug.Log("DROP OFF");
 			DropOffItem();
+		}else if (structureScript != null) {
+			if (actionButtonDown) {
+				Debug.Log("Toggle switch on structure");
+				structureScript.ToggleActivation();
+			}
 		}
 
 	}

@@ -4,6 +4,10 @@ using System.Collections.Generic;
 
 public class Blackboard : MonoBehaviour {
 
+	// Keep track of which NPC is on which platform
+//	public Dictionary<NPC, Transform> npcPlatform = new Dictionary<NPC, Transform>();
+//	public Dictionary<Transform, NPC> platformNPC = new Dictionary<Transform, NPC>();
+
 	// Box / Package
 	public Transform box;
 

@@ -36,7 +36,6 @@ public class Farmer : MonoBehaviour {
 	{
 		if (col.CompareTag ("Resource")) {
 			if (resource == null) {
-				Debug.Log ("Stop and harvest");
 				harvesting = true;
 				resourceScript = col.GetComponent<Resource> ();
 			}

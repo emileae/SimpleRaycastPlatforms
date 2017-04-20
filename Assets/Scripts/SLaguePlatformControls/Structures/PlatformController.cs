@@ -11,6 +11,9 @@ public class PlatformController : RaycastController {
 	public Vector3[] localWaypoints;
 	private Vector3[] globalWaypoints;
 
+	public bool atEndPoint = false;
+	public bool atStartPoint = false;
+
 	public float speed;
 	public bool cyclic;
 	public float waitTime;
@@ -74,12 +77,29 @@ public class PlatformController : RaycastController {
 		int toWaypointIndex = (fromWaypointIndex + 1) % globalWaypoints.Length;
 		float distanceBetweenWaypoints = Vector3.Distance (globalWaypoints [fromWaypointIndex], globalWaypoints [toWaypointIndex]);
 		percentBetweenWaypoints += Time.deltaTime * speed / distanceBetweenWaypoints;
-		percentBetweenWaypoints = Mathf.Clamp01(percentBetweenWaypoints);
-		float easedPercentBetweenWaypoints = Ease(percentBetweenWaypoints);
+		percentBetweenWaypoints = Mathf.Clamp01 (percentBetweenWaypoints);
+		float easedPercentBetweenWaypoints = Ease (percentBetweenWaypoints);
 
 		Vector3 newPos = Vector3.Lerp (globalWaypoints [fromWaypointIndex], globalWaypoints [toWaypointIndex], easedPercentBetweenWaypoints);
 
+
+		// indicate start/end points
+		if (percentBetweenWaypoints < 1) {
+			atEndPoint = false;// reset this so that its not registered as being at the end pointall the way
+		}
+		if (percentBetweenWaypoints > 0) {
+			atStartPoint = false;
+		}
+
 		if (percentBetweenWaypoints >= 1) {
+			if (fromWaypointIndex == 0) {
+				Debug.Log("Hit end point");
+				atEndPoint = true;
+			}else if (fromWaypointIndex == (globalWaypoints.Length-1)){
+				Debug.Log("Hit start point");
+				atStartPoint = true;
+			}
+
 			percentBetweenWaypoints = 0;
 			fromWaypointIndex++;
 			if (!cyclic) {

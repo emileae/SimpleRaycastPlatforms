@@ -30,12 +30,10 @@ public class Resource : MonoBehaviour {
 	}
 
 	public void Harvest(){
-		Debug.Log("....... produce resource");
 		harvestCompleted = true;
 	}
 
 	public GameObject FetchResource(){
-		Debug.Log("....... fetch resource");
 		harvestCompleted = false;
 		harvesting = false;
 		value --;
