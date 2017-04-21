@@ -29,7 +29,7 @@ public class Blackboard : MonoBehaviour {
 
 	void Start ()
 	{
-		InvokeRepeating("MoveSeekPoints", 1.0f, 3.0f);
+//		InvokeRepeating("MoveSeekPoints", 1.0f, 3.0f);
 	}
 
 	public void AddToWorkList ()

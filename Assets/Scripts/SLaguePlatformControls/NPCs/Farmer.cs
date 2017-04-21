@@ -24,12 +24,13 @@ public class Farmer : MonoBehaviour {
 			controller.direction = 0;
 			resourceScript.StartHarvest ();
 			if (resourceScript.harvestCompleted) {
-				harvesting = false;
+				if (resourceScript.value > 0) {
+					harvesting = false;
+					resource = resourceScript.FetchResource ();
+				}
 				controller.direction = 1;// can make this more intelligent ... so find the drop off point and head in that direction
-				resource = resourceScript.FetchResource();
 			}
 		}
-
 	}
 
 	void OnTriggerEnter2D (Collider2D col)
@@ -45,6 +46,11 @@ public class Farmer : MonoBehaviour {
 				resource = null;
 			}
 		}
+
+//		if (col.CompareTag ("Platform")) {
+//			Platform platformScript = col.gameObject.GetComponent<Platform>();
+//			platformScript.averageJoes.Add(gameObject);
+//		}
 	}
 
 }

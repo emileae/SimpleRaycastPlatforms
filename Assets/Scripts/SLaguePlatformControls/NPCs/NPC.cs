@@ -84,15 +84,11 @@ public class NPC : MonoBehaviour {
 		}
 		SetType();
 	}
-	
-	// Update is called once per frame
-	void Update ()
-	{
-
-	}
 
 	void OnTriggerEnter2D (Collider2D col)
 	{
+
+		Debug.Log("NPC TRIGGER ENTER@D ././././././");
 
 		if (col.CompareTag ("Player")) {
 //			Debug.Log ("Collided with player!!!@");
@@ -135,10 +131,12 @@ public class NPC : MonoBehaviour {
 			}
 		}
 
-		// Add NPC to blackboard dictionary of  NPC-Platform
-		if (col.CompareTag ("Platform")) {
-			RegisterNPCWithPlatform(col.gameObject);
-		}
+		// Add NPC to list of NPCs per platform
+//		if (col.CompareTag ("Platform")) {
+//			Debug.Log("Registering NPC with Platform..." + npcType);
+//			platformScript = col.gameObject.GetComponent<Platform> ();
+//			RegisterNPCWithPlatform();
+//		}
 
 	}
 
@@ -182,9 +180,9 @@ public class NPC : MonoBehaviour {
 			}
 		}
 
-		if (col.CompareTag ("Platform")) {
-			DeregisterNPCWithPlatform(col.gameObject);
-		}
+//		if (col.CompareTag ("Platform")) {
+//			DeregisterNPCWithPlatform(col.gameObject);
+//		}
 
 	}
 
@@ -227,9 +225,14 @@ public class NPC : MonoBehaviour {
 		}
 	}
 
-	void RegisterNPCWithPlatform (GameObject platformGameObject)
+	public void RegisterNPCWithPlatform ()
 	{
-		Platform platformScript = platformGameObject.GetComponent<Platform> ();
+		Debug.Log ("Registered NPC with Platform: " + gameObject.name);
+
+		if (platformScript == null) {
+			Debug.Log("Platform script is null?!?!?!?!");
+		}
+
 		switch (npcType) {
 			case 1:
 				if (!platformScript.averageJoes.Contains (gameObject)) {
@@ -237,6 +240,8 @@ public class NPC : MonoBehaviour {
 				}
 				break;
 			case 2:
+				Debug.Log("NPC 238a: " + platformScript);
+				Debug.Log("NPC 238b: " + platformScript.builders.Count);
 				if (!platformScript.builders.Contains (gameObject)) {
 					platformScript.builders.Add (gameObject);
 				}
@@ -251,8 +256,8 @@ public class NPC : MonoBehaviour {
 				break;
 		}
 	}
-	void DeregisterNPCWithPlatform(GameObject platformGameObject){
-		Platform platformScript = platformGameObject.GetComponent<Platform> ();
+	public void DeregisterNPCWithPlatform(){
+//		Platform platformScript = platformGameObject.GetComponent<Platform> ();
 		switch (npcType) {
 			case 1:
 				platformScript.averageJoes.Remove(gameObject);
@@ -410,7 +415,7 @@ public class NPC : MonoBehaviour {
 		}
 		if (Vector3.Distance (transform.position, shootTarget.position) <= shootRange) {
 			Debug.Log("Shot hit target.............");
-			shootTarget.GetComponent<Attack>().GetHit();
+			shootTarget.GetComponent<Attack>().Hit();
 		}
 	}
 }

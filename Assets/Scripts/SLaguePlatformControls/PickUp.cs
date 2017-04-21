@@ -17,11 +17,12 @@ public class PickUp : MonoBehaviour {
 		itemScript = GetComponent<Item>();
 	}
 
-	public void PickUpItem (Platform platformScript = null)
+	public void PickUpItem (Platform platformScript)
 	{
 		switch (generalType) {
 			case 0:
 				// remove NPC from platform list
+				npcScript.platformScript = platformScript;
 				npcScript.working = false;
 				if (npcScript.npcType == 1) {
 					platformScript.averageJoes.Remove(gameObject);
@@ -30,9 +31,13 @@ public class PickUp : MonoBehaviour {
 				}else if (npcScript.npcType == 3){
 					platformScript.fighters.Remove(gameObject);
 				}
+				npcScript.platformScript = platformScript;
+				npcScript.DeregisterNPCWithPlatform();
+				gameObject.SetActive(false);
 				break;
 			case 1:
 				Debug.Log("Deactivate item");
+				gameObject.SetActive(false);
 				break;
 			case 2:
 				Debug.Log("Deactivate dead animal item... or something???");
@@ -41,13 +46,11 @@ public class PickUp : MonoBehaviour {
 				Debug.Log("fell through switch statement in pickup - Pickup.cs");
 				break;
 		}
-		gameObject.SetActive(false);
 	}
-	public void DroppOffItem (Platform platformScript = null)
+	public void DroppOffItem (Platform platformScript)
 	{
 		switch (generalType) {
 			case 0:
-			Debug.Log("__________'Dropped NPC on GROUND'________ " + npcScript.npcType);
 				npcScript.platformScript = platformScript;
 				if (npcScript.npcType == 1) {
 					platformScript.averageJoes.Add(gameObject);
@@ -56,10 +59,12 @@ public class PickUp : MonoBehaviour {
 				}else if (npcScript.npcType == 3){
 					platformScript.fighters.Add(gameObject);
 				}
-				npcScript.KeepMoving ();
+				npcScript.RegisterNPCWithPlatform();
+//				npcScript.KeepMoving ();
 				break;
 			case 1:
 				Debug.Log("Do Something with item... drop on ground");
+				gameObject.SetActive(true);
 				break;
 			case 2:
 				Debug.Log("Do Something with item... drop on ground");

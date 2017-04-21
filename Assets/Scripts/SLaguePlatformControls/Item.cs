@@ -26,7 +26,7 @@ public class Item : MonoBehaviour {
 				case 0:
 					break;
 				case 1:
-					playerScript.PickUpItem (gameObject);
+//					playerScript.PickUpItem (gameObject);
 					break;
 				case 2:
 //					playerScript.PickUpItem(gameObject);

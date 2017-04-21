@@ -82,10 +82,6 @@ public class NPCController : MonoBehaviour {
 			velocity.x = 0;
 		}
 
-//		if (velocity.y != 0) {
-//			controller.Move (velocity * Time.deltaTime);
-//		} else {
 			transform.Translate (velocity * Time.deltaTime);	
-//		}
 	}
 }

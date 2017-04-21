@@ -51,7 +51,6 @@
      <Compile Include="Assets\Scripts\NPC\NPCMove.cs" />
      <Compile Include="Assets\Scripts\Payments\PayTarget.cs" />
      <Compile Include="Assets\Scripts\PixelScripts\PixelPlayer.cs" />
-     <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Animals\AnimalMovement.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Animals\AnimalSpawnPoint.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Blackboard.cs" />
@@ -69,8 +68,8 @@
      <Compile Include="Assets\Scripts\SLaguePlatformControls\IslandGenerator.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Item.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\NPCs\Builder.cs" />
-     <Compile Include="Assets\Scripts\SLaguePlatformControls\NPCs\Defender.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\NPCs\Farmer.cs" />
+     <Compile Include="Assets\Scripts\SLaguePlatformControls\NPCs\Fighter.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\NPCs\NPC.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\NPCs\NPCController.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\PayableScripts\CostIndicator.cs" />
@@ -84,11 +83,13 @@
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Structures\Altar.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Structures\Bridge.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Structures\Edge.cs" />
+     <Compile Include="Assets\Scripts\SLaguePlatformControls\Structures\Elevator.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Structures\ItemCarry.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Structures\MovingPlatform.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Structures\PlatformController.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Structures\Structure.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Structures\SwarmNest.cs" />
+     <Compile Include="Assets\Scripts\SLaguePlatformControls\Structures\Turret.cs" />
      <Compile Include="Assets\Scripts\SLaguePlatformControls\Weather\Sun.cs" />
      <Compile Include="Assets\Steer2D\Examples\Assets\Target.cs" />
      <Compile Include="Assets\Steer2D\Scripts\Arrive.cs" />

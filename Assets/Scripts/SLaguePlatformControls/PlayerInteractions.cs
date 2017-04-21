@@ -67,7 +67,7 @@ public class PlayerInteractions : MonoBehaviour {
 
 		playerBounds = GetComponent<BoxCollider2D>().bounds;
 
-		InitializeCoinInventory();
+//		InitializeCoinInventory();
 
 
 	}
@@ -91,12 +91,17 @@ public class PlayerInteractions : MonoBehaviour {
 
 		// can only pick up and drop off if grounded
 		if (pickupableItems.Count > 0 && actionButtonDown && controller.collisions.below) {
-			Debug.Log("PICK UP");
+			Debug.Log ("PICK UP");
 			PickUpItem ();
-		}else if (inventory.Count > 0 && actionButtonDown && controller.collisions.below) {
-			Debug.Log("DROP OFF");
-			DropOffItem();
-		}else if (structureScript != null) {
+		} else if (inventory.Count > 0 && actionButtonDown && controller.collisions.below) {
+			Debug.Log ("DROP OFF");
+			// try to prevent dropping things off outside of platforms
+			if (platformScript != null) {
+				DropOffItem ();
+			}
+		}
+
+		if (structureScript != null) {
 			if (actionButtonDown) {
 				Debug.Log("Toggle switch on structure");
 				structureScript.ToggleActivation();
@@ -192,65 +197,85 @@ public class PlayerInteractions : MonoBehaviour {
 		} else { 
 			pickupScript = pickupableItems [0].GetComponent<PickUp> ();
 		}
-		 switch(pickupScript.generalType) {
-		 	case 0:
-		 		// picking up NPCs
-				if (inventory.Count < inventorySize) {
-					pickupScript.PickUpItem (platformScript);
+
+		// Picking up stuff
+		if (inventory.Count < inventorySize) {
+			pickupScript.PickUpItem (platformScript);
 //					inventory.Add (pickupableItem);
-					inventory.Add (pickupableItems[0]);
-					Image uiImage = inventoryUI [inventory.Count - 1].GetComponent<Image> ();
-					uiImage.sprite = uiCoinSprite;
+			inventory.Add (pickupableItems[0]);
+			Image uiImage = inventoryUI [inventory.Count - 1].GetComponent<Image> ();
+			uiImage.sprite = uiCoinSprite;
 //					pickupableItem = null;
-					if (itemToBePickedUp != null){
-						pickupableItems.Remove(itemToBePickedUp);
-					}else{
-						pickupableItems.Remove(pickupableItems[0]);
-					}
-				} else {
-					Debug.Log ("Inventory Full!!!!");
-				}
-				break;
-			case 1:
-				if (coinInventory.Count < coinInventorySize) {
-					pickupScript.PickUpItem ();
-					coinInventory.Add (pickupableItems[0]);
-					Image uiImage = coinInventoryUI [coinInventory.Count - 1].GetComponent<Image> ();
-					uiImage.sprite = uiCoinSprite;
-					if (itemToBePickedUp != null){
-						pickupableItems.Remove(itemToBePickedUp);
-					}else{
-						pickupableItems.Remove(pickupableItems[0]);
-					}
-				} else {
-					Debug.Log ("Inventory - money Full!!!!");
-					if (itemToBePickedUp != null){
-						pickupableItems.Remove(itemToBePickedUp);
-					}else{
-						pickupableItems.Remove(pickupableItems[0]);
-					}
-				}
-				break;
-			case 2:
-				Debug.Log("Pickup a dead animal...");
-				if (inventory.Count < inventorySize) {
-					pickupScript.PickUpItem (platformScript);
-					inventory.Add (pickupableItems[0]);
-					Image uiImage = inventoryUI [inventory.Count - 1].GetComponent<Image> ();
-					uiImage.sprite = uiCoinSprite;
-					if (itemToBePickedUp != null){
-						pickupableItems.Remove(itemToBePickedUp);
-					}else{
-						pickupableItems.Remove(pickupableItems[0]);
-					}
-				} else {
-					Debug.Log ("Inventory Full!!!!");
-				}
-				break;
-			default:
-				Debug.Log("Switch fall through PickUpItem PlayerController.cs");
-				break;
+			if (itemToBePickedUp != null){
+				pickupableItems.Remove(itemToBePickedUp);
+			}else{
+				pickupableItems.Remove(pickupableItems[0]);
+			}
+		} else {
+			Debug.Log ("Inventory Full!!!!");
 		}
+
+
+		// Pick up specific things in different ways
+//		 switch(pickupScript.generalType) {
+//		 	case 0:
+//		 		// picking up NPCs
+//				if (inventory.Count < inventorySize) {
+//					pickupScript.PickUpItem (platformScript);
+////					inventory.Add (pickupableItem);
+//					inventory.Add (pickupableItems[0]);
+//					Image uiImage = inventoryUI [inventory.Count - 1].GetComponent<Image> ();
+//					uiImage.sprite = uiCoinSprite;
+////					pickupableItem = null;
+//					if (itemToBePickedUp != null){
+//						pickupableItems.Remove(itemToBePickedUp);
+//					}else{
+//						pickupableItems.Remove(pickupableItems[0]);
+//					}
+//				} else {
+//					Debug.Log ("Inventory Full!!!!");
+//				}
+//				break;
+//			case 1:
+//				if (coinInventory.Count < coinInventorySize) {
+//					pickupScript.PickUpItem ();
+//					coinInventory.Add (pickupableItems[0]);
+//					Image uiImage = coinInventoryUI [coinInventory.Count - 1].GetComponent<Image> ();
+//					uiImage.sprite = uiCoinSprite;
+//					if (itemToBePickedUp != null){
+//						pickupableItems.Remove(itemToBePickedUp);
+//					}else{
+//						pickupableItems.Remove(pickupableItems[0]);
+//					}
+//				} else {
+//					Debug.Log ("Inventory - money Full!!!!");
+//					if (itemToBePickedUp != null){
+//						pickupableItems.Remove(itemToBePickedUp);
+//					}else{
+//						pickupableItems.Remove(pickupableItems[0]);
+//					}
+//				}
+//				break;
+//			case 2:
+//				Debug.Log("Pickup a dead animal...");
+//				if (inventory.Count < inventorySize) {
+//					pickupScript.PickUpItem (platformScript);
+//					inventory.Add (pickupableItems[0]);
+//					Image uiImage = inventoryUI [inventory.Count - 1].GetComponent<Image> ();
+//					uiImage.sprite = uiCoinSprite;
+//					if (itemToBePickedUp != null){
+//						pickupableItems.Remove(itemToBePickedUp);
+//					}else{
+//						pickupableItems.Remove(pickupableItems[0]);
+//					}
+//				} else {
+//					Debug.Log ("Inventory Full!!!!");
+//				}
+//				break;
+//			default:
+//				Debug.Log("Switch fall through PickUpItem PlayerController.cs");
+//				break;
+//		}
 	}
 	void DropOffItem ()
 	{
@@ -260,7 +285,7 @@ public class PlayerInteractions : MonoBehaviour {
 			item.SetActive(true);
 			Bounds itemBounds = item.GetComponent<BoxCollider2D>().bounds;
 //			float itemYPos = transform.position.y - (playerBounds.extents.y - itemBounds.extents.y);// add the difference in size to the current transform
-			item.transform.position = transform.position;//new Vector3(transform.position.x, itemYPos, transform.position.z);
+			item.transform.position = new Vector3(transform.position.x, transform.position.y - 0.1f, transform.position.z);//new Vector3(transform.position.x, itemYPos, transform.position.z);
 			PickUp pickupScript = item.GetComponent<PickUp>();
 			inventory.Remove(item);
 			Image uiImage = inventoryUI[inventory.Count].GetComponent<Image>();
@@ -271,17 +296,17 @@ public class PlayerInteractions : MonoBehaviour {
 		}
 	}
 
-	void InitializeCoinInventory ()
-	{
-		for (int i = 0; i < initialCurrency; i++) {
-			currency += 1;
-			GameObject coin = Instantiate(coinPrefab, transform.position, Quaternion.identity) as GameObject;
-			coinInventory.Add (coin);
-			coin.SetActive(false);
-			Image uiImage = coinInventoryUI[coinInventory.Count-1].GetComponent<Image>();
-			uiImage.sprite = uiCoinSprite;
-		}
-	}
+//	void InitializeCoinInventory ()
+//	{
+//		for (int i = 0; i < initialCurrency; i++) {
+//			currency += 1;
+//			GameObject coin = Instantiate(coinPrefab, transform.position, Quaternion.identity) as GameObject;
+//			coinInventory.Add (coin);
+//			coin.SetActive(false);
+//			Image uiImage = coinInventoryUI[coinInventory.Count-1].GetComponent<Image>();
+//			uiImage.sprite = uiCoinSprite;
+//		}
+//	}
 
 
 }

@@ -44,6 +44,7 @@ GameObject:
   - 58: {fileID: 58000013671869906}
   - 50: {fileID: 50000011349901184}
   - 58: {fileID: 58000011666682548}
+  - 114: {fileID: 114000010652512108}
   m_Layer: 13
   m_Name: flyingEnemy
   m_TagString: Enemy
@@ -189,12 +190,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blackboard: {fileID: 0}
   target: {fileID: 0}
-  player: {fileID: 0}
   attackRadius: 3
   playerLayer:
     serializedVersion: 2
     m_Bits: 256
   evadeDistance: 5
+--- !u!114 &114000010652512108
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012944318368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49eb927353e7d4752bd6536cfc68eb5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 10
+  npcScript: {fileID: 0}
+  enemyScript: {fileID: 0}
+  animalScript: {fileID: 0}
 --- !u!114 &114000011665095606
 MonoBehaviour:
   m_ObjectHideFlags: 1

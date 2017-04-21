@@ -43,9 +43,9 @@ public class Edge : MonoBehaviour {
 
 	void CallBuilder ()
 	{
-		Debug.Log ("Call a builder.....");
-		Debug.Log ("Builders on platform... " + platformScript.builders.Count);
-		Debug.Log ("AverageJoes on platform... " + platformScript.averageJoes.Count);
+//		Debug.Log ("Call a builder.....");
+//		Debug.Log ("Builders on platform... " + platformScript.builders.Count);
+//		Debug.Log ("AverageJoes on platform... " + platformScript.averageJoes.Count);
 		if (platformScript.builders.Count > 0) {
 			platformScript.builders [0].GetComponent<NPC> ().GoToBuildSite (transform);
 		} else if (platformScript.averageJoes.Count > 0) {
@@ -61,7 +61,7 @@ public class Edge : MonoBehaviour {
 	IEnumerator RepeatCallBuilder()
 	{
 		yield return new WaitForSeconds(callWaitTime);
-		Debug.Log("Call builder again.....");
+//		Debug.Log("Call builder again.....");
 		CallBuilder();
 	}
 
@@ -89,7 +89,7 @@ public class Edge : MonoBehaviour {
 					npcScript.ChangeDirection();
 				}
 			} else {
-				Debug.Log("tell NPC to change direction");
+//				Debug.Log("tell NPC to change direction");
 				npcScript.ChangeDirection();
 			}
 		}
