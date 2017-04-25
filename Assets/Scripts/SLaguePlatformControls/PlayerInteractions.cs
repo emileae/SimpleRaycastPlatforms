@@ -91,7 +91,7 @@ public class PlayerInteractions : MonoBehaviour {
 
 		// can only pick up and drop off if grounded
 		if (pickupableItems.Count > 0 && actionButtonDown && controller.collisions.below) {
-			Debug.Log ("PICK UP");
+			Debug.Log ("PICK UP: " + pickupableItems.Count);
 			PickUpItem ();
 		} else if (inventory.Count > 0 && actionButtonDown && controller.collisions.below) {
 			Debug.Log ("DROP OFF");
@@ -190,6 +190,7 @@ public class PlayerInteractions : MonoBehaviour {
 
 	public void PickUpItem (GameObject itemToBePickedUp = null)
 	{
+
 //		PickUp pickupScript = pickupableItem.GetComponent<PickUp> ();
 		PickUp pickupScript;
 		if (itemToBePickedUp != null) {
@@ -201,11 +202,9 @@ public class PlayerInteractions : MonoBehaviour {
 		// Picking up stuff
 		if (inventory.Count < inventorySize) {
 			pickupScript.PickUpItem (platformScript);
-//					inventory.Add (pickupableItem);
 			inventory.Add (pickupableItems[0]);
 			Image uiImage = inventoryUI [inventory.Count - 1].GetComponent<Image> ();
 			uiImage.sprite = uiCoinSprite;
-//					pickupableItem = null;
 			if (itemToBePickedUp != null){
 				pickupableItems.Remove(itemToBePickedUp);
 			}else{

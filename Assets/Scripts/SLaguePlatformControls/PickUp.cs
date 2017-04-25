@@ -9,12 +9,15 @@ public class PickUp : MonoBehaviour {
 	// 2 -> killed animal
 	public int generalType = 0;
 
+	private PlayerInteractions playerScript;
 	public NPC npcScript;
 	public Item itemScript;
 
 	void Start () {
 		npcScript = GetComponent<NPC>();
 		itemScript = GetComponent<Item>();
+		playerScript = GameObject.Find("Player").GetComponent<PlayerInteractions> ();
+
 	}
 
 	public void PickUpItem (Platform platformScript)
@@ -74,4 +77,19 @@ public class PickUp : MonoBehaviour {
 				break;
 		}
 	}
+
+
+	/// TRIGGERS
+	void OnTriggerExit2D (Collider2D col)
+	{
+		if (enabled) {
+			if (col.CompareTag ("Player")) {
+				if (playerScript.pickupableItems.Contains (gameObject)) {
+					playerScript.pickupableItems.Remove (gameObject);
+				};
+				playerScript = null;
+			}
+		}
+	}
+
 }

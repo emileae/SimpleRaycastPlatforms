@@ -1,4 +1,6 @@
-﻿/*
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+/*
 	Basic Sprite Shader for aligning pixel art to the same grid, based on the Unity Sprite Shader.
 	Create one Material where you assign the same Pixels Per Unit value you use on your imported Sprites,
 	then reuse this Material on all appropriate Sprite Renderers.
@@ -74,7 +76,7 @@ Shader "Sprites/TaleCrafter/PixelArt"
 				float4 alignedPos = AlignToPixelGrid(IN.vertex);
 
 				v2f OUT;
-				OUT.vertex = mul(UNITY_MATRIX_MVP, alignedPos);
+				OUT.vertex = UnityObjectToClipPos(alignedPos);
 				OUT.texcoord = IN.texcoord;
 				OUT.color = IN.color * _Color;
 

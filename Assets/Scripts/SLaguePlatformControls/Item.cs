@@ -9,6 +9,7 @@ public class Item : MonoBehaviour {
 
 	void Start () {
 		pickUpScript = GetComponent<PickUp>();
+		playerScript = GameObject.Find("Player").GetComponent<PlayerInteractions> ();
 	}
 
 	void OnTriggerEnter2D (Collider2D col)
@@ -43,7 +44,6 @@ public class Item : MonoBehaviour {
 	{
 		if (enabled) {
 			if (col.CompareTag ("Player")) {
-				playerScript = col.gameObject.GetComponent<PlayerInteractions> ();
 				if (playerScript.pickupableItems.Contains (gameObject)) {
 					playerScript.pickupableItems.Remove (gameObject);
 				};

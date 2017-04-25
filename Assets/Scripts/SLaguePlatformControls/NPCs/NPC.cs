@@ -152,9 +152,13 @@ public class NPC : MonoBehaviour {
 //				playerScript.payScript = null;
 //			};
 			// remove NPC from being able to be picked up by player
-			if (playerScript.pickupableItems.Contains (gameObject)) {
-				playerScript.pickupableItems.Remove(gameObject);
-			}
+
+
+//			if (playerScript.pickupableItems.Contains (gameObject)) {
+//				playerScript.pickupableItems.Remove(gameObject);
+//			}
+
+
 //			if (!payScript.purchased) {
 //				KeepMoving ();
 //			}
@@ -258,9 +262,12 @@ public class NPC : MonoBehaviour {
 	}
 	public void DeregisterNPCWithPlatform(){
 //		Platform platformScript = platformGameObject.GetComponent<Platform> ();
+		Debug.Log ("PICK UPfa: " + playerScript.pickupableItems.Count);
 		switch (npcType) {
 			case 1:
+				Debug.Log ("PICK UPfb: " + playerScript.pickupableItems.Count);
 				platformScript.averageJoes.Remove(gameObject);
+				Debug.Log ("PICK UPfc: " + playerScript.pickupableItems.Count);
 				break;
 			case 2:
 				platformScript.builders.Remove(gameObject);
